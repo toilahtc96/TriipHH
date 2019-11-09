@@ -1,0 +1,17 @@
+{
+  "name": "TriipHH",
+  "description": "",
+  "main": "",
+  "authors": [
+    "toilahtc96 <toilahtc@gmail.com>"
+  ],
+  "license": "MIT",
+  "homepage": "",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ]
+}
