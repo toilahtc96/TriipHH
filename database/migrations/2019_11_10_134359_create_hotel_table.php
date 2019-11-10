@@ -19,7 +19,6 @@ class CreateHotelTable extends Migration
             $table->string('hotel_name');
             $table->string('service_included');
             $table->bigInteger('level');
-            
             $table->string('info');
             $table->string('main_image');
             $table->string('list_image');
