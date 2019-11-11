@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateComboTypeTable extends Migration
+class CreateRoomHotelsTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,11 +13,15 @@ class CreateComboTypeTable extends Migration
      */
     public function up()
     {
-        Schema::create('combo_type', function (Blueprint $table) {
+        Schema::create('room_hotels', function (Blueprint $table) {
             $table->bigIncrements('id');
-            $table->timestamps();
-            $table->string('type_name');
+            $table->bigInteger('level');
+            $table->decimal('price');
             $table->bigInteger('status');
+            $table->string('service_included',1000);
+            $table->bigInteger('hotel_id')->unsigned();
+            $table->foreign('hotel_id')->references('id')->on('hotels');
+            $table->timestamps();
         });
     }
 
@@ -28,6 +32,6 @@ class CreateComboTypeTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('combo_type');
+        Schema::dropIfExists('room_hotels');
     }
 }

@@ -1,8 +1,8 @@
 <?php
 
 use Illuminate\Database\Seeder;
-use App\Hotel;
-class HotelTableSeeder extends Seeder
+use App\Car;
+class CarsTableSeeder extends Seeder
 {
     /**
      * Run the database seeds.
@@ -12,6 +12,6 @@ class HotelTableSeeder extends Seeder
     public function run()
     {
         //
-        factory(Hotel::class, 2)->create();
+        factory(Car::class, 2)->create();
     }
 }
