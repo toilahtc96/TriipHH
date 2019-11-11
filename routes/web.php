@@ -15,7 +15,7 @@ Route::get('/', function () {
     return view('welcome');
 });
 Route::get('admin', function () {
-    return view('admin/admin_template');
+    return view('admin/admin_template_layout');
 });
 
 Route::get('newHotel',function(){
