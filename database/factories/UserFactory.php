@@ -6,6 +6,13 @@ use App\User;
 use App\Hotel;
 use App\Car;
 use App\Location;
+use App\ComboType;
+use App\RoomHotel;
+use App\ComboTrip;
+use App\BookCar;
+use App\BookRoom;
+use App\BookCombo;
+use App\BookCustomTrip;
 use Faker\Generator as Faker;
 use Illuminate\Support\Str;
 
@@ -64,9 +71,9 @@ $factory->define(Hotel::class, function (Faker $faker) {
 $factory->define(Car::class, function (Faker $faker) {
     return [
         'own_car' => $faker->name,
-        'msisdn' => $faker->phoneNumber ,
+        'msisdn' => $faker->phoneNumber,
         'price' => $faker->randomDigit,
-        'time_pickup' => $faker->date('H:i:s', rand(1,54000)),
+        'time_pickup' => $faker->date('H:i:s', rand(1, 54000)),
         'starting_location_id' => $faker->numberBetween($min = 0, $max = 5),
         'destination_id' => $faker->numberBetween($min = 0, $max = 5),
         'status' => $faker->numberBetween($min = 0, $max = 5),
@@ -81,3 +88,92 @@ $factory->define(Location::class, function (Faker $faker) {
         'status' => $faker->numberBetween($min = 0, $max = 5),
     ];
 });
+
+$factory->define(ComboType::class, function (Faker $faker) {
+    return [
+        'combo_type_name' => $faker->numberBetween($min = 0, $max = 5) . 'N' . $faker->numberBetween($min = 0, $max = 5) . 'Đ',
+        'detail' => $faker->numberBetween($min = 0, $max = 5) . ' Ngày ' . $faker->numberBetween($min = 0, $max = 5) . ' Đêm',
+        'status' => $faker->numberBetween($min = 0, $max = 5),
+    ];
+});
+
+$factory->define(RoomHotel::class, function (Faker $faker) {
+    return [
+        'level' => $faker->numberBetween($min = 0, $max = 5),
+        'price' => $faker->randomDigit,
+        'status' => $faker->numberBetween($min = 0, $max = 5),
+        'service_included' => $faker->text(40) . ';' . $faker->text(40) . ';' . $faker->text(40) . ';' . $faker->text(40) . ';' . $faker->text(40) . ';' . $faker->text(40) . ';' . $faker->text(40),
+        'hotel_id' => $faker->numberBetween($min = 1, $max = 2),
+    ];
+});
+
+$factory->define(ComboTrip::class, function (Faker $faker) {
+    return [
+        'start_time' => $faker->date('H:i:s', rand(1, 54000)),
+        'arrival_time' => $faker->date('H:i:s', rand(1, 54000)),
+        'price' => $faker->randomDigit,
+        'service_included' =>  $faker->text(40) . ';' . $faker->text(40) . ';' . $faker->text(40) . ';' . $faker->text(40) . ';' . $faker->text(40) . ';' . $faker->text(40) . ';' . $faker->text(40),
+        'status' => $faker->numberBetween($min = 0, $max = 5),
+        'hotel_id' => $faker->numberBetween($min = 1, $max = 2),
+        'room_id' => $faker->numberBetween($min = 1, $max = 2),
+        'car_id' => $faker->numberBetween($min = 1, $max = 2),
+        'combo_type_id' => $faker->numberBetween($min = 1, $max = 2),
+
+    ];
+});
+
+
+
+$factory->define(BookCar::class, function (Faker $faker) {
+    return [
+        'fullname'=>$faker->name,
+        'msisdn'=> $faker->phoneNumber,
+        'start_date'=> $faker->date(),
+        'arrival_time'=> $faker->date('H:i:s', rand(1, 54000)),
+        'pickup_place_id' => $faker->numberBetween($min = 1, $max = 2),
+        'status' => $faker->numberBetween($min = 0, $max = 5),
+        'car_id' => $faker->numberBetween($min = 1, $max = 2),
+    ];
+});
+
+$factory->define(BookRoom::class, function (Faker $faker) {
+    return [
+        'fullname'=>$faker->name,
+        'msisdn'=> $faker->phoneNumber,
+        'start_date'=> $faker->date(),
+        'room_id'=> $faker->numberBetween($min = 1, $max = 2),
+        'combo_type_id' => $faker->numberBetween($min = 1, $max = 2),
+        'status' => $faker->numberBetween($min = 0, $max = 5),
+        				
+    ];
+});
+
+$factory->define(BookCombo::class, function (Faker $faker) {
+    return [
+        'fullname'=>$faker->name,
+        'msisdn'=> $faker->phoneNumber,
+        'start_date'=> $faker->date(),
+        'pickup_place_id'=> $faker->numberBetween($min = 1, $max = 2),
+        'combo_id' => $faker->numberBetween($min = 1, $max = 2),
+        'combo_type_id'=> $faker->numberBetween($min = 1, $max = 2),
+        'status' => $faker->numberBetween($min = 0, $max = 5),
+        				
+    ];
+});
+
+$factory->define(BookCustomTrip::class, function (Faker $faker) {
+    return [
+        'fullname'=>$faker->name,
+        'msisdn'=> $faker->phoneNumber,
+        'start_date'=> $faker->date(),
+        'arrival_time'=> $faker->date('H:i:s', rand(1, 54000)),
+        'pickup_place_id'=> $faker->numberBetween($min = 1, $max = 2),
+        'checkin_date'=> $faker->date(),
+        'room_id'=> $faker->numberBetween($min = 1, $max = 2),
+        'combo_type_id'=> $faker->numberBetween($min = 1, $max = 2),
+        'car_id' => $faker->numberBetween($min = 1, $max = 2),
+        'status' => $faker->numberBetween($min = 0, $max = 5),
+        				
+    ];
+});
+
