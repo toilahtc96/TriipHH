@@ -21,3 +21,10 @@ Route::get('admin', function () {
 Route::get('newHotel',function(){
     return view('admin/hotel/newHotel');
 })->name('newHotel');
+Auth::routes();
+
+Route::get('/home', 'HomeController@index')->name('home');
+
+Auth::routes();
+
+Route::get('/home', 'HomeController@index')->name('home');
