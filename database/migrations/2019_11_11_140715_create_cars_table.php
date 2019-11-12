@@ -15,13 +15,13 @@ class CreateCarsTable extends Migration
     {
         Schema::create('cars', function (Blueprint $table) {
             $table->bigIncrements('id');
-            $table->string('own_car',500);
-            $table->string('msisdn',50);
-            $table->decimal('price');
-            $table->time('time_pickup');
-            $table->bigInteger('starting_location_id')->unsigned();
-            $table->bigInteger('destination_id')->unsigned();
-            $table->bigInteger('status');
+            $table->string('own_car',500)->nullable();
+            $table->string('msisdn',50)->nullable();
+            $table->decimal('price')->nullable();
+            $table->time('time_pickup')->nullable();
+            $table->bigInteger('starting_location_id')->unsigned()->nullable();
+            $table->bigInteger('destination_id')->unsigned()->nullable();
+            $table->bigInteger('status')->nullable();
             $table->timestamps();
         });
     }

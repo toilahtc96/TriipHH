@@ -65,13 +65,7 @@
             <!-- ./col -->
           </div>
           <!-- /.row -->
-          <!-- Main row -->
-          <div class="row">
-            <!-- Left col -->
-            <div class="container col-lg-12 connectedSortable">
-              @yield('content')
-            </div>
-          </div>
+          
         </div>
         <!-- /.contacts-list-info -->
         </a>

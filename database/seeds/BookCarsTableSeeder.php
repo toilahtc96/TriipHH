@@ -1,7 +1,7 @@
 <?php
 
 use Illuminate\Database\Seeder;
-use App\BookCar;
+use App\Models\BookCar;
 class BookCarsTableSeeder extends Seeder
 {
     /**

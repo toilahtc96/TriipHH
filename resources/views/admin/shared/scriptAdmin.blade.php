@@ -36,3 +36,5 @@
 <script src="{!! asset('bower_components/adminlte/dist/js/pages/dashboard.js') !!}"></script>
 <!-- AdminLTE for demo purposes -->
 <script src="{!! asset('bower_components/adminlte/dist/js/demo.js') !!}"></script>
+
+<script src="{!! asset('bower_components/ckeditor/ckeditor.js') !!}"></script>

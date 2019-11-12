@@ -1,7 +1,7 @@
 <?php
 
 use Illuminate\Database\Seeder;
-use App\BookCustomTrip;
+use App\Models\BookCustomTrip;
 
 class BookCustomTripsTableSeeder extends Seeder
 {

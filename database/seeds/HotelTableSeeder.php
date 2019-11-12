@@ -1,7 +1,7 @@
 <?php
 
 use Illuminate\Database\Seeder;
-use App\Hotel;
+use App\Models\Hotel;
 class HotelTableSeeder extends Seeder
 {
     /**

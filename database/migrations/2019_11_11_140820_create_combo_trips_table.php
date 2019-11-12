@@ -15,7 +15,7 @@ class CreateComboTripsTable extends Migration
     {
         Schema::create('combo_trips', function (Blueprint $table) {
             $table->bigIncrements('id');
-            $table->time('start_time');
+            $table->time('start_time')->nullable();
             $table->time('arrival_time');
             $table->decimal('price');
             $table->string('service_included',1000);

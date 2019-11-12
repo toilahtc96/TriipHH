@@ -18,7 +18,14 @@
       @include('admin.shared.admin-url')
       <!-- /.content-header -->
       @include('admin.shared.four-tip')
-
+      <!-- @yield('content-admin') -->
+      <!-- Main row -->
+      <div class="row">
+            <!-- Left col -->
+            <div class="container col-lg-12 connectedSortable">
+              @yield('content')
+            </div>
+          </div>
     </div>
 
     <!-- /.card-footer-->

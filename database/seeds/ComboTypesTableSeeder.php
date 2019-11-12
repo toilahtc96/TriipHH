@@ -1,7 +1,7 @@
 <?php
 
 use Illuminate\Database\Seeder;
-use App\ComboType;
+use App\Models\ComboType;
 
 class ComboTypesTableSeeder extends Seeder
 {

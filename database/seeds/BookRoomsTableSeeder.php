@@ -1,7 +1,7 @@
 <?php
 
 use Illuminate\Database\Seeder;
-use App\BookRoom;
+use App\Models\BookRoom;
 
 class BookRoomsTableSeeder extends Seeder
 {

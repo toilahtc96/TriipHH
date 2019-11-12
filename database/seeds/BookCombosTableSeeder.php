@@ -1,7 +1,7 @@
 <?php
 
 use Illuminate\Database\Seeder;
-use App\BookCombo;
+use App\Models\BookCombo;
 class BookCombosTableSeeder extends Seeder
 {
     /**

@@ -2,17 +2,17 @@
 
 /** @var \Illuminate\Database\Eloquent\Factory $factory */
 
-use App\User;
-use App\Hotel;
-use App\Car;
-use App\Location;
-use App\ComboType;
-use App\RoomHotel;
-use App\ComboTrip;
-use App\BookCar;
-use App\BookRoom;
-use App\BookCombo;
-use App\BookCustomTrip;
+use App\Models\User;
+use App\Models\Hotel;
+use App\Models\Car;
+use App\Models\Location;
+use App\Models\ComboType;
+use App\Models\RoomHotel;
+use App\Models\ComboTrip;
+use App\Models\BookCar;
+use App\Models\BookRoom;
+use App\Models\BookCombo;
+use App\Models\BookCustomTrip;
 use Faker\Generator as Faker;
 use Illuminate\Support\Str;
 

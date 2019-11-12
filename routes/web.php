@@ -14,9 +14,7 @@
 Route::get('/', function () {
     return view('welcome');
 });
-Route::get('admin', function () {
-    return view('admin/admin_template_layout');
-});
+
 
 Route::get('newHotel',function(){
     return view('admin/hotel/newHotel');
@@ -25,6 +23,7 @@ Auth::routes();
 
 Route::get('/home', 'HomeController@index')->name('home');
 
-Auth::routes();
-
-Route::get('/home', 'HomeController@index')->name('home');
+Route::prefix('admin')->middleware('auth')->group(function () {
+    Route::get('/', 'AdminController@index')->name('admin');
+    Route::resource('/hotels', 'HotelController');
+});

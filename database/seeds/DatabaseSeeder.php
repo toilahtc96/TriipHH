@@ -21,6 +21,6 @@ class DatabaseSeeder extends Seeder
         // $this->call(BookCarsTableSeeder::class);
         // $this->call(BookRoomsTableSeeder::class);
         // $this->call(BookCombosTableSeeder::class);
-        $this->call(BookCustomTripsTableSeeder::class);
+        // $this->call(BookCustomTripsTableSeeder::class);
     }
 }

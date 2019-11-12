@@ -1,7 +1,7 @@
 <?php
 
 use Illuminate\Database\Seeder;
-use App\ComboTrip;
+use App\Models\ComboTrip;
 class ComboTripsTableSeeder extends Seeder
 {
     /**
