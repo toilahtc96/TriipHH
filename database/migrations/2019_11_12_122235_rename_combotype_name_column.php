@@ -1,10 +1,10 @@
 <?php
 
-use Illuminate\Database\Migrations\Migration;
-use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
+use Illuminate\Database\Schema\Blueprint;
+use Illuminate\Database\Migrations\Migration;
 
-class RenameLocationNameInComboTypesTable extends Migration
+class RenameCombotypeNameColumn extends Migration
 {
     /**
      * Run the migrations.
@@ -14,7 +14,9 @@ class RenameLocationNameInComboTypesTable extends Migration
     public function up()
     {
         Schema::table('combo_types', function (Blueprint $table) {
-            $table->renameColumn('location_name', 'combo_type_name');
+            //
+        $table->renameColumn('combotype_name', 'combo_type_name');
+   
         });
     }
 
@@ -27,7 +29,7 @@ class RenameLocationNameInComboTypesTable extends Migration
     {
         Schema::table('combo_types', function (Blueprint $table) {
             //
-            $table->renameColumn('combo_type_name', 'location_name');
+            $table->renameColumn('combo_type_name', 'combotype_name');
         });
     }
 }

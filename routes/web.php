@@ -16,7 +16,7 @@ Route::get('/', function () {
 });
 
 
-Route::get('newHotel',function(){
+Route::get('newHotel', function () {
     return view('admin/hotel/newHotel');
 })->name('newHotel');
 Auth::routes();
@@ -25,5 +25,9 @@ Route::get('/home', 'HomeController@index')->name('home');
 
 Route::prefix('admin')->middleware('auth')->group(function () {
     Route::get('/', 'AdminController@index')->name('admin');
-    Route::resource('/hotels', 'HotelController');
+    Route::resource('/hotels', 'HotelController')->names([
+        'create' => 'hotels.build',
+        'edit' => 'hotels.edit',
+        'update'=>'hotels.update'
+    ]);
 });

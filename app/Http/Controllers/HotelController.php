@@ -15,7 +15,11 @@ class HotelController extends Controller
     public function index()
     {
         //
-        return view('admin/hotel/new-hotel');
+        $hotels =  Hotel::where('status', 1)
+            ->orderBy('hotel_name', 'desc')
+            ->take(10)
+            ->get();
+        return view('admin/hotel/list-hotel')->with('hotels', $hotels);
     }
 
     /**
@@ -26,6 +30,8 @@ class HotelController extends Controller
     public function create()
     {
         //
+
+        return view('admin/hotel/new-hotel');
     }
 
     /**
@@ -74,7 +80,9 @@ class HotelController extends Controller
      */
     public function show($id)
     {
-        //
+        //+
+
+
     }
 
     /**
@@ -85,7 +93,9 @@ class HotelController extends Controller
      */
     public function edit($id)
     {
-        //
+        //\
+        $hotel =  Hotel::where('status', 1)->where('id', $id)->findOrFail($id);
+        return view('admin/hotel/edit-hotel')->with('hotel', $hotel);
     }
 
     /**
@@ -98,6 +108,22 @@ class HotelController extends Controller
     public function update(Request $request, $id)
     {
         //
+
+        // $validator = Validator::make($request->all(), [
+        //     'name' => 'required|max:255',
+        // ]);
+
+        // // process the login
+        // if ($validator->fails()) {
+        //     return Redirect::back()->withErrors($validator)
+        //         ->withInput();
+        // }
+        // $sport = Sport::find($id);
+        // $sport->name = Input::get('name');
+        // $sport->save();
+
+        // Session::flash('message', 'Félicitation, vous avez mis à jour un sport !');
+        // return redirect('/admin/sports');
     }
 
     /**

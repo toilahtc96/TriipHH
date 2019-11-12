@@ -3,11 +3,11 @@
 <div class="container body">
     <div class="main_container">
 
-        <h2>Add New Hotel</h2>
+        <h2>Edit Hotel</h2>
 
         <div class="panel panel-primary ">
 
-            <div class="panel-heading">add Hotel For Website</div>
+            <div class="panel-heading">Edit Hotel {{($hotel->hotel_name)}}</div>
 
             <div class="panel-body">
                 <div class="row">
@@ -19,50 +19,54 @@
 
                     </div>
                     <div class="col-sm-6">
-                        {!! Form::open(['method' => 'post', 'action' => 'HotelController@index', 'files' => true,
-                        'class' => 'form-horizontal']) !!}
+
+                        {{ Form::model($hotel, array('route' => array('hotels.update', $hotel->id), 'method' => 'PUT')) }}
 
                         {!! Form::label('hotel_name', 'Hotel Name', ['class' => 'control-label']) !!}
-                        {!! Form::text('hotel_name', $value = "", ['class' => 'form-control', 'rows' => 3]) !!}
+                        {!! Form::text('hotel_name', $value = $hotel->hotel_name, ['class' => 'form-control', 'rows' =>
+                        3]) !!}
 
                         {!! Form::label('service_included', 'service', ['class' => 'control-label']) !!}
-                        {!! Form::textarea('service_included', $value = "", ['class' =>
+                        {!! Form::textarea('service_included', $value = $hotel->service_included, ['class' =>
                         'form-control','placeholder'=>'Service Include', 'rows' => 5]) !!}
                         <div class="row">
                             <div class="col-sm-4 ">
                                 {!! Form::label('level', 'level', ['class' => 'control-label']) !!}
-                                {!! Form::selectRange('level', 1, 5, null, ['class'=> 'form-control']) !!}
+                                {!! Form::selectRange('level', 1, 5, $hotel->level, ['class'=> 'form-control']) !!}
                             </div>
                             <div class="col-sm-4 ">
                                 {!! Form::label('address_id', 'Address', ['class' => 'control-label']) !!}
-                                {!!Form::select('size', ['L' => 'Núi BV', 'S' => 'Đảo XC'], null, ['class'=>
+                                {!!Form::select('size', ['L' => 'Núi BV', 'S' => 'Đảo XC'], $hotel->address_id,
+                                ['class'=>
                                 'form-control'])!!}
                             </div>
                         </div>
                         {!! Form::label('info', 'info', ['class' => 'control-label']) !!}
-                        {!! Form::textarea('info', $value = "", ['class' => 'form-control','placeholder'
-                        =>'info Hotel',
-                        'rows' => 5]) !!}
+                        {!! Form::textarea('info', $value = $hotel->info, ['class' => 'form-control','placeholder'
+                        =>'info Hotel','rows' => 5]) !!}
                         {!! Form::label('main_info', 'Main Info', ['class' => 'control-label']) !!}
-                        {!! Form::textarea('main_info', $value = "", ['class' => 'form-control','placeholder'
+                        {!! Form::textarea('main_info', $value = $hotel->main_info, ['class' =>
+                        'form-control','placeholder'
                         =>'MainInfo Hotel', 'rows' => 5]) !!}
                         {!! Form::label('general_rule', 'General Rule', ['class' => 'control-label']) !!}
-                        {!! Form::textarea('general_rule', $value = "", ['class' =>
+                        {!! Form::textarea('general_rule', $value = $hotel->general_rule, ['class' =>
                         'form-control','placeholder'=>'General Rule Hotel', 'rows' => 5]) !!}
                         <div class="row">
                             <div class="col-sm-4 ">
                                 {!! Form::label('place_around', 'Place Around', ['class' => 'control-label']) !!}
-                                {!!Form::select('size', ['L' => 'Núi BV', 'S' => 'Đảo XC'], null,
+                                {!!Form::select('size', ['L' => 'Núi BV', 'S' => 'Đảo XC'], $value =
+                                $hotel->place_around,
                                 ['multiple'=>true,'class'=> 'form-control'])!!}
                             </div>
 
                             <div class="col-sm-4 ">
                                 {!! Form::label('rate', 'rate', ['class' => 'control-label']) !!}
-                                {!! Form::selectRange('rate', 1, 5, null, ['class'=> 'form-control']) !!}
+                                {!! Form::selectRange('rate', 1, 5, $value=$hotel->rate, ['class'=> 'form-control']) !!}
                             </div>
                             <div class="col-sm-4 ">
                                 {!! Form::label('status', 'status', ['class' => 'control-label']) !!}
-                                {!!Form::select('size', ['0' => 'Hoạt động', '1' => 'Không hoạt động'], null,
+                                {!!Form::select('size', ['0' => 'Hoạt động', '1' => 'Không hoạt động'],
+                                $value=$hotel->status,
                                 ['class'=>
                                 'form-control'])!!}
                             </div>
