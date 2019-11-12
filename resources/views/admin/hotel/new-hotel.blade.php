@@ -13,7 +13,7 @@
                 <div class="row">
                     <div class="col-sm-4">
                         <figure style="margin: 0 4px 0;text-align: center;">
-                            <img src="https://ssl.gstatic.com/accounts/signup/glif/account.svg" alt="" width="244"
+                            <img src="{!! asset('bower_components/images/kissclipart-hotel-clipart-hotel-clip-art-243e5c97e85fab97.jpg') !!}" alt="" width="244"
                                 height="244" class="j9NuTc TrZEUc">
                         </figure>
 
