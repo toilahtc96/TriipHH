@@ -52,7 +52,7 @@
                         <!-- Default checked -->
                         <div class="custom-control custom-switch">
                             <input type="checkbox" class="custom-control-input" id="customSwitch1">
-                            <label class="custom-control-label" for="customSwitch1">Hoạt động</label>
+                            <label class="custom-control-label" for="customSwitch1">Không hoạt động</label>
                         </div>
                         @endif
                     </td>

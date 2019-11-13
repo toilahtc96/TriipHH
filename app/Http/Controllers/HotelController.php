@@ -19,8 +19,7 @@ class HotelController extends Controller
 
 
         // $pagination = new Paginator($hotels, 2);
-        $hotels = Hotel::where('status', 1)
-            ->orderBy('hotel_name', 'desc')->paginate(5);
+        $hotels = Hotel::orderBy('hotel_name', 'desc')->paginate(5);
         // $hotels->setBaseUrl('custom/url');
         foreach ($hotels as $key => $val) {
             $val->service_included = str_replace(";", `<br/>`, $val->service_included);
@@ -106,7 +105,7 @@ class HotelController extends Controller
     public function edit($id)
     {
         //\
-        $hotel =  Hotel::where('status', 1)->where('id', $id)->findOrFail($id);
+        $hotel =  Hotel::where('id', $id)->findOrFail($id);
         return view('admin/hotel/edit-hotel')->with('hotel', $hotel)->with('error_code', 5);
     }
 
