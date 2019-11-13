@@ -30,4 +30,13 @@ Route::prefix('admin')->middleware('auth')->group(function () {
         'edit' => 'hotels.edit',
         'update'=>'hotels.update'
     ]);
+    Route::resource('/cars', 'CarController')->names([
+        'create' => 'cars.build',
+        'edit' => 'cars.edit',
+        'update'=>'cars.update'
+    ]);
 });
+
+Auth::routes();
+
+Route::get('/home', 'HomeController@index')->name('home');
