@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Hotel;
+use Illuminate\Support\Facades\Input;
 
 class HotelController extends Controller
 {
@@ -15,10 +16,18 @@ class HotelController extends Controller
     public function index()
     {
         //
-        $hotels =  Hotel::where('status', 1)
-            ->orderBy('hotel_name', 'desc')
-            ->take(10)
-            ->get();
+
+
+        // $pagination = new Paginator($hotels, 2);
+        $hotels = Hotel::where('status', 1)
+            ->orderBy('hotel_name', 'desc')->paginate(5);
+        // $hotels->setBaseUrl('custom/url');
+        foreach ($hotels as $key => $val) {
+            $val->service_included = str_replace(";", `<br/>`, $val->service_included);
+            $val->service_included = str_replace(".", ". ", $val->service_included);
+            $val->place_around = str_replace(";",  `<br/>`, $val->place_around);
+            $val->place_around = str_replace(".", ". ", $val->place_around);
+        }
         return view('admin/hotel/list-hotel')->with('hotels', $hotels);
     }
 
@@ -64,9 +73,12 @@ class HotelController extends Controller
         $hotel->rate = $request->rate;
         $hotel->status = $request->status == null ? 1 : $request->status;
         $hotel->address_id = $request->address_id == null ? 1 : $request->status;
+        $uploadImage = $this->fileUpload($request);
+        if ($uploadImage->getSession()->get('imageName') !== null) {
+            $hotel->main_image = $uploadImage->getSession()->get('imageName');
+        }
 
-
-        // dd($hotel);
+      
         $hotel->save();
         // Session::flash('success', 'The hotel post was successfully saved!');
         return redirect()->route('admin');
@@ -95,7 +107,7 @@ class HotelController extends Controller
     {
         //\
         $hotel =  Hotel::where('status', 1)->where('id', $id)->findOrFail($id);
-        return view('admin/hotel/edit-hotel')->with('hotel', $hotel);
+        return view('admin/hotel/edit-hotel')->with('hotel', $hotel)->with('error_code', 5);
     }
 
     /**
@@ -109,21 +121,22 @@ class HotelController extends Controller
     {
         //
 
-        // $validator = Validator::make($request->all(), [
-        //     'name' => 'required|max:255',
-        // ]);
+        $this->validate($request, array(
+            'hotel_name' => 'required|max:255',
+            'service_included'  => 'required'
+        ));
 
         // // process the login
         // if ($validator->fails()) {
         //     return Redirect::back()->withErrors($validator)
         //         ->withInput();
         // }
-        // $sport = Sport::find($id);
-        // $sport->name = Input::get('name');
-        // $sport->save();
+        $hotel = Hotel::find($id);
+        $hotel->hotel_name = Input::get('hotel_name');
+        $hotel->save();
 
-        // Session::flash('message', 'Félicitation, vous avez mis à jour un sport !');
-        // return redirect('/admin/sports');
+        $request->session()->flash('status', 'Update Hotel ' . $hotel->hotel_name . ' Successful!');
+        return redirect('/admin/hotels');
     }
 
     /**
@@ -136,4 +149,5 @@ class HotelController extends Controller
     {
         //
     }
+    
 }

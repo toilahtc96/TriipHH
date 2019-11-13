@@ -21,11 +21,18 @@
       <!-- @yield('content-admin') -->
       <!-- Main row -->
       <div class="row">
-            <!-- Left col -->
-            <div class="container col-lg-12 connectedSortable">
-              @yield('content')
-            </div>
+        <!-- Left col -->
+        <div class="container col-lg-12 connectedSortable">
+          <div class="col-lg-12">
+            @include('admin/common/error-validate')
+            @include('admin/common/flash-message')
+           
           </div>
+          @yield('content')
+
+
+        </div>
+      </div>
     </div>
 
     <!-- /.card-footer-->

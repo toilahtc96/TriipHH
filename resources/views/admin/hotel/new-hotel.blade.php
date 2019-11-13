@@ -3,18 +3,17 @@
 <div class="container body">
     <div class="main_container">
 
-        <h2>Add New Hotel</h2>
+        <h2>{{__('Add New Hotel')}}</h2>
 
         <div class="panel panel-primary ">
 
-            <div class="panel-heading">add Hotel For Website</div>
-
+            <div class="panel-heading">{{__('add Hotel For Website')}}</div>
+            
             <div class="panel-body">
                 <div class="row">
                     <div class="col-sm-4">
                         <figure style="margin: 0 4px 0;text-align: center;">
-                            <img src="{!! asset('bower_components/images/kissclipart-hotel-clipart-hotel-clip-art-243e5c97e85fab97.jpg') !!}" alt="" width="244"
-                                height="244" class="j9NuTc TrZEUc">
+                            <img src="{!! asset('bower_components/images/kissclipart-hotel-clipart-hotel-clip-art-243e5c97e85fab97.jpg') !!}" alt="" width="244" height="244" class="j9NuTc TrZEUc">
                         </figure>
 
                     </div>

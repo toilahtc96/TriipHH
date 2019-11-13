@@ -8,13 +8,11 @@
         <div class="panel panel-primary ">
 
             <div class="panel-heading">Edit Hotel {{($hotel->hotel_name)}}</div>
-
             <div class="panel-body">
                 <div class="row">
                     <div class="col-sm-4">
                         <figure style="margin: 0 4px 0;text-align: center;">
-                            <img src="https://ssl.gstatic.com/accounts/signup/glif/account.svg" alt="" width="244"
-                                height="244" class="j9NuTc TrZEUc">
+                            <img src="https://ssl.gstatic.com/accounts/signup/glif/account.svg" alt="" width="244" height="244" class="j9NuTc TrZEUc">
                         </figure>
 
                     </div>
