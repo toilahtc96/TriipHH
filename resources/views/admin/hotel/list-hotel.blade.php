@@ -27,7 +27,7 @@
                 <tr>
                     <td>{{$data->hotel_name}}</td>
                     <td>
-                        <div>{{$data->service_included}}</div>
+                        <div style="word-break: normal">{{$data->service_included}}</div>
                     </td>
                     <td>{{$data->level}}</td>
                     <td>{{$data->info}}</td>
@@ -44,19 +44,19 @@
                         @if($data->status == 1)
                         <!-- Default checked -->
                         <div class="custom-control custom-switch">
-                            <input type="checkbox" class="custom-control-input" id="customSwitch1" checked>
-                            <label class="custom-control-label" for="customSwitch1">Hoạt động</label>
+                            <input type="checkbox" class="custom-control-input" id='customSwitch{{$data->id}}'  checked>
+                            <label class="custom-control-label" for='customSwitch{{$data->id}}'>Hoạt động</label>
                         </div>
                         @endif
                         @if($data->status == 0)
                         <!-- Default checked -->
                         <div class="custom-control custom-switch">
-                            <input type="checkbox" class="custom-control-input" id="customSwitch1">
-                            <label class="custom-control-label" for="customSwitch1">Hoạt động</label>
+                            <input type="checkbox" class="custom-control-input" id='customSwitch{{$data->id}}'>
+                            <label class="custom-control-label" for='customSwitch{{$data->id}}'>Không hoạt động</label>
                         </div>
                         @endif
                     </td>
-                    <td>{{$data->address_id}}</td>
+                    <td>{{$data->location_name}}</td>
                     <td>
                         <a href="{{ url('/admin/hotels/' . $data->id . '/edit') }}" class="btn btn-default"><i class="far fa-edit"></i></a>
                     </td>

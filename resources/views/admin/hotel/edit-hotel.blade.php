@@ -63,7 +63,7 @@
                             </div>
                             <div class="col-sm-4 ">
                                 {!! Form::label('status', 'status', ['class' => 'control-label']) !!}
-                                {!!Form::select('size', ['0' => 'Hoạt động', '1' => 'Không hoạt động'],
+                                {!!Form::select('size', ['1' => 'Hoạt động', '0' => 'Không hoạt động'],
                                 $value=$hotel->status,
                                 ['class'=>
                                 'form-control'])!!}
