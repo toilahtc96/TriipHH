@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Hotel;
+use App\Models\Location;
 use Illuminate\Support\Facades\Input;
 
 class HotelController extends Controller
@@ -19,9 +20,15 @@ class HotelController extends Controller
 
 
         // $pagination = new Paginator($hotels, 2);
-        $hotels = Hotel::orderBy('hotel_name', 'desc')->paginate(5);
-        // $hotels->setBaseUrl('custom/url');
-        foreach ($hotels as $key => $val) {
+        // $hotels = Hotel::orderBy('hotel_name', 'desc')->paginate(5);
+      
+
+        $hotels = Hotel::select('hotels.*','location_name')
+            ->leftJoin('locations', 'locations.id', '=', 'hotels.address_id')
+            ->orderBy('hotel_name', 'desc')->paginate(5);
+        // dd($hotels);
+          // $hotels->setBaseUrl('custom/url');
+          foreach ($hotels as $key => $val) {
             $val->service_included = str_replace(";", `<br/>`, $val->service_included);
             $val->service_included = str_replace(".", ". ", $val->service_included);
             $val->place_around = str_replace(";",  `<br/>`, $val->place_around);
@@ -38,8 +45,8 @@ class HotelController extends Controller
     public function create()
     {
         //
-
-        return view('admin/hotel/new-hotel');
+        $locations = Location::get();
+        return view('admin/hotel/new-hotel')->with('hotels', $hotels);
     }
 
     /**
@@ -77,7 +84,7 @@ class HotelController extends Controller
             $hotel->main_image = $uploadImage->getSession()->get('imageName');
         }
 
-      
+
         $hotel->save();
         // Session::flash('success', 'The hotel post was successfully saved!');
         return redirect()->route('admin');
@@ -135,6 +142,8 @@ class HotelController extends Controller
         $hotel->save();
 
         $request->session()->flash('status', 'Update Hotel ' . $hotel->hotel_name . ' Successful!');
+        $request->session()->flash('modal_title', 'Successful!');
+        $request->session()->flash('modal_content', 'Update Hotel Successful!');
         return redirect('/admin/hotels');
     }
 
@@ -148,5 +157,4 @@ class HotelController extends Controller
     {
         //
     }
-    
 }
