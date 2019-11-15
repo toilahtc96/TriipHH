@@ -68,6 +68,17 @@
                             </div>
                         </div>
                         <div>
+                            {!! Form::label('main_image', 'Main Image', ['class' => 'control-label']) !!}
+                            <div id="myfileupload">
+                                <div>
+
+                                    {!!
+                                    Form::file('main_image',['onchange'=>"readURL(this);",'class'=>'form-control','id'=>'uploadfile'])
+                                    !!}
+                                </div>
+                                <!--      Name  mà server request về sẽ là ImageUpload-->
+
+                            </div>
                             @include('admin.common.image-upload')
                         </div>
                         <div class="mt-3 mb-3">

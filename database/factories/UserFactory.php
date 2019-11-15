@@ -73,10 +73,14 @@ $factory->define(Car::class, function (Faker $faker) {
         'own_car' => $faker->name,
         'msisdn' => $faker->phoneNumber,
         'price' => $faker->randomDigit,
-        'time_pickup' => $faker->date('H:i:s', rand(1, 54000)),
         'starting_location_id' => $faker->numberBetween($min = 0, $max = 5),
         'destination_id' => $faker->numberBetween($min = 0, $max = 5),
         'status' => $faker->numberBetween($min = 0, $max = 5),
+        'license_plates' => $faker->randomDigit,
+        'start_pickup_location'=> $faker->numberBetween($min = 0, $max = 5),
+        'destination_pickup_location'=> $faker->numberBetween($min = 0, $max = 5),
+        'count_seat'=>  $faker->randomDigit,
+        'direction'=> $faker->numberBetween($min = 0, $max = 1),
     ];
 });
 
@@ -176,4 +180,3 @@ $factory->define(BookCustomTrip::class, function (Faker $faker) {
         				
     ];
 });
-

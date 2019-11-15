@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\Models\Car;
 use App\Models\Hotel;
 use App\Models\Location;
 use Illuminate\Support\Facades\Input;
@@ -16,11 +17,37 @@ class HotelController extends Controller
      */
     public function index()
     {
-        //
+
+        $cars = Car::paginate(5);
+        $locationMapping = [];
+        foreach ($cars as $key => $val) {
+            // dd($val->id);
+            $starting_location_id = Location::select('id', 'location_name')->where('id', $val->starting_location_id)->first();
+            $locationMapping[$val->id]['starting_location_id'] = $starting_location_id;
+
+            $destination_id = Location::select('id', 'location_name')->where('id', $val->destination_id)->first();
+            $locationMapping[$val->id]['destination_id'] = $destination_id;
+
+            if ($val->start_pickup_location != null) {
+                $locationMapping =  $this->createLocationList($locationMapping, $val->id, "start_pickup_location", $val->start_pickup_location);
+            }
+
+            if ($val->destination_pickup_location != null) {
+
+                $locationMapping =  $this->createLocationList($locationMapping, $val->id, "destination_pickup", $val->destination_pickup_location);
+            }
+
+            if ($val->places_passing != null) {
+                $locationMapping =  $this->createLocationList($locationMapping, $val->id, "places_passing", $val->places_passing);
+            }
+        }
+        dd($locationMapping);
 
 
-        // $pagination = new Paginator($hotels, 2);
-        $hotels = Hotel::orderBy('hotel_name', 'desc')->paginate(5);
+        $hotels = Hotel::select('hotels.*', 'location_name')
+            ->leftJoin('locations', 'locations.id', '=', 'hotels.address_id')
+            ->orderBy('hotel_name', 'desc')->paginate(5);
+        // dd($hotels);
         // $hotels->setBaseUrl('custom/url');
         foreach ($hotels as $key => $val) {
             $val->service_included = str_replace(";", `<br/>`, $val->service_included);
@@ -31,6 +58,7 @@ class HotelController extends Controller
         return view('admin/hotel/list-hotel')->with('hotels', $hotels);
     }
 
+   
     /**
      * Show the form for creating a new resource.
      *
@@ -44,7 +72,7 @@ class HotelController extends Controller
         foreach ($locationdb as $key => $val) {
             $locations[$val->id] = $val->location_name;
         }
-        
+
         // ['L' => 'Núi BV', 'S' => 'Đảo XC']
         return view('admin/hotel/new-hotel')->with('locations', $locations);
     }
@@ -142,6 +170,8 @@ class HotelController extends Controller
         $hotel->save();
 
         $request->session()->flash('status', 'Update Hotel ' . $hotel->hotel_name . ' Successful!');
+        $request->session()->flash('modal_title', 'Successful!');
+        $request->session()->flash('modal_content', 'Update Hotel Successful!');
         return redirect('/admin/hotels');
     }
 

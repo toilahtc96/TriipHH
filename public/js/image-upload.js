@@ -25,8 +25,10 @@ $(document).ready(function () {
 
     });
     $(".removeimg").click(function () {//Xóa hình  ảnh đang xem
+        debugger;
         $("#thumbimage").attr('src', '').hide();
-        $("#myfileupload").html('<input type="file" id="uploadfile"  onchange="readURL(this);" />');
+        var nameOneImage = $('#uploadfile').attr('name');
+        $("#myfileupload").html('<input type="file" id="uploadfile" name=' + nameOneImage +  ' onchange="readURL(this);" />');
         $(".removeimg").hide();
         $(".Choicefile").bind('click', function () {//Tạo lại sự kiện click để chọn file
             $("#uploadfile").click();

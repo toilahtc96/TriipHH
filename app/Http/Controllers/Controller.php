@@ -7,6 +7,7 @@ use Illuminate\Foundation\Bus\DispatchesJobs;
 use Illuminate\Foundation\Validation\ValidatesRequests;
 use Illuminate\Routing\Controller as BaseController;
 use Illuminate\Http\Request;
+use App\Models\Location;
 
 class Controller extends BaseController
 {
@@ -29,4 +30,19 @@ class Controller extends BaseController
             return back()->with('status', 'Image Upload successfully')->with('imageName', $name);
         }
     }
+
+
+    public function createLocationList($list, $id, $name, $value)
+    {
+        $places_passing_arr = explode(";", $value);
+
+        foreach ($places_passing_arr as $k => $value) {
+            $eachStart = Location::select('id', 'location_name')->where('id', $value)->first();
+            if (isset($eachStart)) {
+                $list[$id][$name][$k] = $eachStart;
+            }
+        }
+        return $list;
+    }
+
 }
