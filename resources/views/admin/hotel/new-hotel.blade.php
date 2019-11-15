@@ -8,12 +8,13 @@
         <div class="panel panel-primary ">
 
             <div class="panel-heading">{{__('add Hotel For Website')}}</div>
-            
+
             <div class="panel-body">
                 <div class="row">
                     <div class="col-sm-4">
                         <figure style="margin: 0 4px 0;text-align: center;">
-                            <img src="{!! asset('bower_components/images/kissclipart-hotel-clipart-hotel-clip-art-243e5c97e85fab97.jpg') !!}" alt="" width="244" height="244" class="j9NuTc TrZEUc">
+                            <img src="{!! asset('bower_components/images/kissclipart-hotel-clipart-hotel-clip-art-243e5c97e85fab97.jpg') !!}"
+                                alt="" width="244" height="244" class="j9NuTc TrZEUc">
                         </figure>
 
                     </div>
@@ -34,7 +35,7 @@
                             </div>
                             <div class="col-sm-4 ">
                                 {!! Form::label('address_id', 'Address', ['class' => 'control-label']) !!}
-                                {!!Form::select('size', ['L' => 'Núi BV', 'S' => 'Đảo XC'], null, ['class'=>
+                                {!!Form::select('size', $locations, null, ['class'=>
                                 'form-control'])!!}
                             </div>
                         </div>
@@ -51,7 +52,7 @@
                         <div class="row">
                             <div class="col-sm-4 ">
                                 {!! Form::label('place_around', 'Place Around', ['class' => 'control-label']) !!}
-                                {!!Form::select('size', ['L' => 'Núi BV', 'S' => 'Đảo XC'], null,
+                                {!!Form::select('size',$locations, null,
                                 ['multiple'=>true,'class'=> 'form-control'])!!}
                             </div>
 
@@ -67,8 +68,7 @@
                             </div>
                         </div>
                         <div>
-                            {!! Form::label('main_image', 'Main Image', ['class' => 'control-label']) !!}
-                            {!! Form::file('main_image',['class'=>'form-control']) !!}
+                            @include('admin.common.image-upload')
                         </div>
                         <div class="mt-3 mb-3">
                             {!!Form::submit('Submit', ['class' => 'btn btn-large btn-primary openbutton

@@ -38,4 +38,5 @@
 <script src="{!! asset('bower_components/adminlte/dist/js/demo.js') !!}"></script>
 
 <script src="{!! asset('bower_components/ckeditor/ckeditor.js') !!}"></script>
+<script src="{!! asset('js/image-upload.js') !!}"></script>
 @include('admin/common/modal-error')

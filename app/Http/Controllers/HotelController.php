@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Hotel;
+use App\Models\Location;
 use Illuminate\Support\Facades\Input;
 
 class HotelController extends Controller
@@ -38,8 +39,14 @@ class HotelController extends Controller
     public function create()
     {
         //
-
-        return view('admin/hotel/new-hotel');
+        $locationdb = Location::get();
+        $locations  = [];
+        foreach ($locationdb as $key => $val) {
+            $locations[$val->id] = $val->location_name;
+        }
+        
+        // ['L' => 'Núi BV', 'S' => 'Đảo XC']
+        return view('admin/hotel/new-hotel')->with('locations', $locations);
     }
 
     /**
@@ -77,7 +84,7 @@ class HotelController extends Controller
             $hotel->main_image = $uploadImage->getSession()->get('imageName');
         }
 
-      
+
         $hotel->save();
         // Session::flash('success', 'The hotel post was successfully saved!');
         return redirect()->route('admin');
@@ -148,5 +155,4 @@ class HotelController extends Controller
     {
         //
     }
-    
 }
