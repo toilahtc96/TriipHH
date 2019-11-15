@@ -18,31 +18,6 @@ class HotelController extends Controller
     public function index()
     {
 
-        $cars = Car::paginate(5);
-        $locationMapping = [];
-        foreach ($cars as $key => $val) {
-            // dd($val->id);
-            $starting_location_id = Location::select('id', 'location_name')->where('id', $val->starting_location_id)->first();
-            $locationMapping[$val->id]['starting_location_id'] = $starting_location_id;
-
-            $destination_id = Location::select('id', 'location_name')->where('id', $val->destination_id)->first();
-            $locationMapping[$val->id]['destination_id'] = $destination_id;
-
-            if ($val->start_pickup_location != null) {
-                $locationMapping =  $this->createLocationList($locationMapping, $val->id, "start_pickup_location", $val->start_pickup_location);
-            }
-
-            if ($val->destination_pickup_location != null) {
-
-                $locationMapping =  $this->createLocationList($locationMapping, $val->id, "destination_pickup", $val->destination_pickup_location);
-            }
-
-            if ($val->places_passing != null) {
-                $locationMapping =  $this->createLocationList($locationMapping, $val->id, "places_passing", $val->places_passing);
-            }
-        }
-        dd($locationMapping);
-
 
         $hotels = Hotel::select('hotels.*', 'location_name')
             ->leftJoin('locations', 'locations.id', '=', 'hotels.address_id')
