@@ -81,9 +81,25 @@
                             </div>
                             @include('admin.common.image-upload')
                         </div>
+
+                        <div class="div-multi-image">
+                            {!! Form::label('list_image', 'List Image', ['class' => 'control-label']) !!}
+                            <div id="myfileupload">
+                                <div>
+
+                                    {!!
+                                    Form::file('list_image',['onchange'=>"readMultiURL(this,event);",'class'=>'form-control','id'=>'uploadMultifile','multiple'])
+                                    !!}
+                                </div>
+                                <!--      Name  mà server request về sẽ là ImageUpload-->
+
+                            </div>
+                            @include('admin.common.multi-image-upload')
+                        </div>
+
                         <div class="mt-3 mb-3">
                             {!!Form::submit('Submit', ['class' => 'btn btn-large btn-primary openbutton
-                            form-control'])!!}
+                            form-control','onClick'=>'getValue()'])!!}
                             {!! Form::close() !!}
                         </div>
                     </div>

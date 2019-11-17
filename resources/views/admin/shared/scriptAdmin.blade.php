@@ -1,4 +1,3 @@
-
 <!-- jQuery -->
 <script src="{!! asset('bower_components/adminlte/plugins/jquery/jquery.min.js') !!}"></script>
 <!-- jQuery UI 1.11.4 -->
@@ -37,6 +36,8 @@
 <!-- AdminLTE for demo purposes -->
 <script src="{!! asset('bower_components/adminlte/dist/js/demo.js') !!}"></script>
 
-<script src="{!! asset('bower_components/ckeditor/ckeditor.js') !!}"></script>
+{{-- <script src="{!! asset('bower_components/ckeditor/ckeditor.js') !!}"></script> --}}
 <script src="{!! asset('js/image-upload.js') !!}"></script>
+<script src="{!! asset('js/multi-image-upload.js') !!}"></script>
+
 @include('admin/common/modal-error')

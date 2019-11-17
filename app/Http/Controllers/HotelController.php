@@ -67,6 +67,8 @@ class HotelController extends Controller
             'hotel_name' => 'required|max:255',
             'service_included'  => 'required'
         ));
+        dd($request->file('file_list'));
+        dd($request->list_image);
         // store in the database
         $hotel = new Hotel;
         $hotel->hotel_name = $request->hotel_name;
@@ -82,7 +84,7 @@ class HotelController extends Controller
         $hotel->rate = $request->rate;
         $hotel->status = $request->status == null ? 1 : $request->status;
         $hotel->address_id = $request->address_id == null ? 1 : $request->status;
-        $uploadImage = $this->fileUpload($request);
+        $uploadImage = $this->fileUpload($request,"hotels");
         if ($uploadImage->getSession()->get('imageName') !== null) {
             $hotel->main_image = $uploadImage->getSession()->get('imageName');
         }

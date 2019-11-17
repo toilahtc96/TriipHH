@@ -12,7 +12,8 @@
                 <div class="row">
                     <div class="col-sm-4">
                         <figure style="margin: 0 4px 0;text-align: center;">
-                            <img src="https://ssl.gstatic.com/accounts/signup/glif/account.svg" alt="" width="244" height="244" class="j9NuTc TrZEUc">
+                            <img src="https://ssl.gstatic.com/accounts/signup/glif/account.svg" alt="" width="244"
+                                height="244" class="j9NuTc TrZEUc">
                         </figure>
 
                     </div>
@@ -49,6 +50,7 @@
                         {!! Form::label('general_rule', 'General Rule', ['class' => 'control-label']) !!}
                         {!! Form::textarea('general_rule', $value = $hotel->general_rule, ['class' =>
                         'form-control','placeholder'=>'General Rule Hotel', 'rows' => 5]) !!}
+
                         <div class="row">
                             <div class="col-sm-4 ">
                                 {!! Form::label('place_around', 'Place Around', ['class' => 'control-label']) !!}
@@ -70,8 +72,29 @@
                             </div>
                         </div>
                         <div>
+                            {{-- @if(!isset($hotel->main_image)) --}}
                             {!! Form::label('main_image', 'Main Image', ['class' => 'control-label']) !!}
-                            {!! Form::file('main_image',['class'=>'form-control']) !!}
+                            <div id="myfileupload">
+                                <div>
+
+                                    {!!
+                                    Form::file('main_image',['onchange'=>"readURL(this);",'class'=>'form-control','id'=>'uploadfile'])
+                                    !!}
+                                    {!!
+                                    Form::hidden('main_image',$value =
+                                    $hotel->main_image,['class'=>'form-control','id'=>'main_image_hidden'])
+                                    !!}
+                                </div>
+                                <!--      Name  mà server request về sẽ là ImageUpload-->
+
+                            </div>
+                            @include('admin.common.image-upload')
+                            {{-- @else --}}
+
+                            {{-- @endif --}}
+                        </div>
+                        <div class="mt-3 mb-3">
+                           
                         </div>
                         <div class="mt-3 mb-3">
                             {!!Form::submit('Submit', ['class' => 'btn btn-large btn-primary openbutton
@@ -89,4 +112,14 @@
 
     </div>
 </div>
+<script>
+    document.addEventListener("DOMContentLoaded", function(event) { 
+  //do work
+  var main_image = $('#main_image_hidden').val();
+  if(main_image!= undefined && main_image!=""){
+      $('#thumbimage').attr('src',"/images/hotels/"+main_image);
+        readURL("/images/hotels/"+main_image);
+    }
+});
+</script>
 @endsection

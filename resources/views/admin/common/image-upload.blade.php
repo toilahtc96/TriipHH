@@ -5,4 +5,5 @@
     <a href="javascript:" class="Choicefile">Chọn file</a>
     <p style="clear:both"></p>
 </div>
+<div id="filelist"></div>
 <label class="filename"></label>

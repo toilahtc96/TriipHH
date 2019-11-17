@@ -13,7 +13,7 @@ class Controller extends BaseController
 {
     use AuthorizesRequests, DispatchesJobs, ValidatesRequests;
 
-    public function fileUpload(Request $request)
+    public function fileUpload(Request $request,$folderName)
     {
 
         $this->validate($request, [
@@ -24,7 +24,7 @@ class Controller extends BaseController
 
             $image = $request->file('main_image');
             $name = time() . '.' . $image->getClientOriginalExtension();
-            $destinationPath = public_path('/images');
+            $destinationPath = public_path('/images/'.$folderName);
             $image->move($destinationPath, $name);
 
             return back()->with('status', 'Image Upload successfully')->with('imageName', $name);

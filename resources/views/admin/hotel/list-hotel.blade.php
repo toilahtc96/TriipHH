@@ -12,6 +12,7 @@
                 <tr>
                     <th>Hotel Name</th>
                     <th>Service Included</th>
+                    <th>Image</th>
                     <th>Level</th>
                     <th>Info</th>
                     <th>Place Around</th>
@@ -28,6 +29,11 @@
                     <td>{{$data->hotel_name}}</td>
                     <td>
                         <div style="word-break: normal">{{$data->service_included}}</div>
+                    </td>
+                    <td>
+                        <div>
+                                <img height="100" width="100" alt="Thumb image" id="thumbimage" src= "/images/hotels/{{$data->main_image}}" />
+                        </div>
                     </td>
                     <td>{{$data->level}}</td>
                     <td>{{$data->info}}</td>
