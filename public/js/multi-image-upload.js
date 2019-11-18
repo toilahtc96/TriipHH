@@ -1,34 +1,42 @@
 function readMultiURL(input, e) {
-    // console.log(input.prop("files"))
     if (!e.target.files) return;
-    console.log($('#uploadMultifile').prop("files"));
+
     var files = e.target.files;
     var filesArr = Array.prototype.slice.call(files);
 
     //print if any file is selected previosly 
 
-    filesArr.forEach(function(f) {
+    filesArr.forEach(function (f) {
         storedFiles.push(f);
     });
-    console.log(storedFiles);
 
     if (storedFiles) { //Sử dụng  cho Firefox - chrome
 
         var files = storedFiles; //FileList object
         var output = document.getElementById("lstImage");
         output.innerHTML = "";
-        $('#uploadMultifile').attr('files', storedFiles);
+        // $('#uploadMultifile').attr('files', storedFiles);
+
+        const dt = new DataTransfer();
+        for (let file of storedFiles) {
+            dt.items.add(file)
+        }
+        if (dt.files.length) {
+            input.files = dt.files;
+        }
+
+
         for (var i = 0; i < files.length; i++) {
             var file = files[i];
 
             //Only pics
             if (!file.type.match('image')) continue;
             var picReader = new FileReader();
-            picReader.addEventListener("load", function(event) {
+            picReader.addEventListener("load", function (event) {
                 var picFile = event.target;
                 var div = document.createElement("div");
                 div.setAttribute('class', ' child div-child-image')
-                div.innerHTML = "<img height='100' src='" + picFile.result + "'" + "width='100' alt='Thumb image' id='list-image-" + i++ + "'" + " style='' " + "'/>";
+                div.innerHTML = "<img height='100' src='" + picFile.result + "'" + "width='100' alt='Child image' id='list-image-" + i++ + "'" + " style='' " + "'/>";
                 var aRemove = document.createElement("a");
                 // aRemove.setAttribute('type', 'button');
                 aRemove.setAttribute('class', 'removeOneimg');
@@ -43,10 +51,9 @@ function readMultiURL(input, e) {
         }
     }
     $("#lstImage").show();
-
 }
 
-$(document).on('click', "a.removeOneimg", function() {
+$(document).on('click', "a.removeOneimg", function () {
     $uploadMultifile = $('#uploadMultifile');
     $div_child_image = $(this).parent(); //lay ra div chua img va aRemove
     $div_parent = $(this).parent().parent(); //lay ra div chua img va aRemove
@@ -56,24 +63,21 @@ $(document).on('click', "a.removeOneimg", function() {
         storedFiles.splice(storedFiles[$index], 1);
     }
     $div_child_image.remove(); // xoa di
+
+    const dt = new DataTransfer();
+    for (let file of storedFiles) {
+        dt.items.add(file)
+    }
+    if (dt.files.length) {
+        $uploadMultifile.files = dt.files;
+    }
 });
+
 var storedFiles;
-$(document).ready(function() {
+$(document).ready(function () {
     storedFiles = [];
-    $(".ChoiceMultifile").bind('click', function() { //Chọn file khi .ChoiceMultifile Click
+    $(".ChoiceMultifile").bind('click', function () { //Chọn file khi .ChoiceMultifile Click
         $("#uploadMultifile").click();
 
-    });
-    getValue = function() {
-        console.log(storedFiles);
-        var form_data = new FormData();
-        form_data.append('file_list', storedFiles);
-
-
-    }
-
-    $('#lstImage .child').click(function() {
-        var index = $(this).index();
-        console.log(index)
     });
 })

@@ -52,7 +52,7 @@
                         <div class="row">
                             <div class="col-sm-4 ">
                                 {!! Form::label('place_around', 'Place Around', ['class' => 'control-label']) !!}
-                                {!!Form::select('size',$locations, null,
+                                {!!Form::select('place_around[]',$locations, null,
                                 ['multiple'=>true,'class'=> 'form-control'])!!}
                             </div>
 
@@ -62,7 +62,7 @@
                             </div>
                             <div class="col-sm-4 ">
                                 {!! Form::label('status', 'status', ['class' => 'control-label']) !!}
-                                {!!Form::select('size', ['0' => 'Hoạt động', '1' => 'Không hoạt động'], null,
+                                {!!Form::select('status', ['0' => 'Hoạt động', '1' => 'Không hoạt động'], null,
                                 ['class'=>
                                 'form-control'])!!}
                             </div>
@@ -88,7 +88,7 @@
                                 <div>
 
                                     {!!
-                                    Form::file('list_image',['onchange'=>"readMultiURL(this,event);",'class'=>'form-control','id'=>'uploadMultifile','multiple'])
+                                    Form::file('list_image[]',['onchange'=>"readMultiURL(this,event);",'class'=>'form-control','id'=>'uploadMultifile','multiple'])
                                     !!}
                                 </div>
                                 <!--      Name  mà server request về sẽ là ImageUpload-->

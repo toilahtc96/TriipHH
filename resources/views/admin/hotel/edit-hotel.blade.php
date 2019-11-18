@@ -12,8 +12,7 @@
                 <div class="row">
                     <div class="col-sm-4">
                         <figure style="margin: 0 4px 0;text-align: center;">
-                            <img src="https://ssl.gstatic.com/accounts/signup/glif/account.svg" alt="" width="244"
-                                height="244" class="j9NuTc TrZEUc">
+                            <img src="https://ssl.gstatic.com/accounts/signup/glif/account.svg" alt="" width="244" height="244" class="j9NuTc TrZEUc">
                         </figure>
 
                     </div>
@@ -33,10 +32,10 @@
                                 {!! Form::label('level', 'level', ['class' => 'control-label']) !!}
                                 {!! Form::selectRange('level', 1, 5, $hotel->level, ['class'=> 'form-control']) !!}
                             </div>
+
                             <div class="col-sm-4 ">
                                 {!! Form::label('address_id', 'Address', ['class' => 'control-label']) !!}
-                                {!!Form::select('size', ['L' => 'Núi BV', 'S' => 'Đảo XC'], $hotel->address_id,
-                                ['class'=>
+                                {!!Form::select('size', $locations, $hotel->address_id, ['class'=>
                                 'form-control'])!!}
                             </div>
                         </div>
@@ -54,8 +53,7 @@
                         <div class="row">
                             <div class="col-sm-4 ">
                                 {!! Form::label('place_around', 'Place Around', ['class' => 'control-label']) !!}
-                                {!!Form::select('size', ['L' => 'Núi BV', 'S' => 'Đảo XC'], $value =
-                                $hotel->place_around,
+                                {!!Form::select('place_around[]',$locations, [1,2,7],
                                 ['multiple'=>true,'class'=> 'form-control'])!!}
                             </div>
 
@@ -81,7 +79,7 @@
                                     Form::file('main_image',['onchange'=>"readURL(this);",'class'=>'form-control','id'=>'uploadfile'])
                                     !!}
                                     {!!
-                                    Form::hidden('main_image',$value =
+                                    Form::hidden('main_image_hidden',$value =
                                     $hotel->main_image,['class'=>'form-control','id'=>'main_image_hidden'])
                                     !!}
                                 </div>
@@ -94,7 +92,7 @@
                             {{-- @endif --}}
                         </div>
                         <div class="mt-3 mb-3">
-                           
+
                         </div>
                         <div class="mt-3 mb-3">
                             {!!Form::submit('Submit', ['class' => 'btn btn-large btn-primary openbutton
@@ -113,13 +111,16 @@
     </div>
 </div>
 <script>
-    document.addEventListener("DOMContentLoaded", function(event) { 
-  //do work
-  var main_image = $('#main_image_hidden').val();
-  if(main_image!= undefined && main_image!=""){
-      $('#thumbimage').attr('src',"/images/hotels/"+main_image);
-        readURL("/images/hotels/"+main_image);
-    }
-});
+    document.addEventListener("DOMContentLoaded", function(event) {
+        //do work
+        var main_image = $('#main_image_hidden').val();
+        if (main_image != undefined && main_image != "") {
+            $('#thumbimage').attr('src', "/images/hotels/" + main_image);
+            readURL("/images/hotels/" + main_image);
+
+        }
+    });
 </script>
+<script src="{!! asset('bower_components/adminlte/plugins/jquery/jquery.min.js') !!}"></script>
+<script src="{!! asset('js/hotels/edit-hotels.js') !!}"></script>
 @endsection

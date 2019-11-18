@@ -13,7 +13,8 @@ class Controller extends BaseController
 {
     use AuthorizesRequests, DispatchesJobs, ValidatesRequests;
 
-    public function fileUpload(Request $request,$folderName)
+
+    public function fileUpload(Request $request, $folderName)
     {
 
         $this->validate($request, [
@@ -24,10 +25,45 @@ class Controller extends BaseController
 
             $image = $request->file('main_image');
             $name = time() . '.' . $image->getClientOriginalExtension();
-            $destinationPath = public_path('/images/'.$folderName);
+            $destinationPath = public_path('/images/' . $folderName);
             $image->move($destinationPath, $name);
 
             return back()->with('status', 'Image Upload successfully')->with('imageName', $name);
+        }
+    }
+
+    public function fileMultiUpload(Request $request, $folderName)
+    {
+        $imageMimeTypes = array(
+            'image/png',
+            'image/gif',
+            'image/jpeg'
+        );
+
+        $this->validate($request, [
+            'list_image' => 'required',
+        ]);
+
+        if ($request->hasFile('list_image')) {
+
+            $images = $request->file('list_image');
+            $listImageName = "";
+            foreach ($images as $image) {
+                // dd($image->path());
+                $fileMimeType = mime_content_type($image->path());
+                if (in_array($fileMimeType, $imageMimeTypes)) {
+                    $name = time() . '.' . $image->getClientOriginalExtension();
+                    $destinationPath = public_path('/images/' . $folderName);
+                    $image->move($destinationPath, $name);
+                    $listImageName .= $name . ";";
+                } else {
+                    echo ('file '.$image->getClientOriginalName().' is not image');
+                    continue;
+                 }
+            }
+            $list_image = substr($listImageName, 0, strlen($listImageName) - 1);
+
+            return back()->with('status', 'Image Upload successfully')->with('listImageName', $list_image);
         }
     }
 
@@ -44,5 +80,4 @@ class Controller extends BaseController
         }
         return $list;
     }
-
 }

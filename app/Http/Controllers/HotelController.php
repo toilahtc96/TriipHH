@@ -33,7 +33,7 @@ class HotelController extends Controller
         return view('admin/hotel/list-hotel')->with('hotels', $hotels);
     }
 
-   
+
     /**
      * Show the form for creating a new resource.
      *
@@ -67,27 +67,42 @@ class HotelController extends Controller
             'hotel_name' => 'required|max:255',
             'service_included'  => 'required'
         ));
-        dd($request->file('file_list'));
-        dd($request->list_image);
+
         // store in the database
-        $hotel = new Hotel;
+        $hotel =  new Hotel;
         $hotel->hotel_name = $request->hotel_name;
         $hotel->service_included = $request->service_included;
         $hotel->level = $request->level;
         $hotel->info = $request->info;
         $hotel->main_image = $request->main_image;
-        $hotel->list_image = $request->list_image == null ? "" : $request->list_image;
-        $hotel->main_info = $request->main_info;
-        $hotel->full_info = $request->full_info == null ? "" : $request->full_info;
-        $hotel->place_around = $request->place_around == null ? 1 : $request->full_info;
         $hotel->general_rule = $request->general_rule;
         $hotel->rate = $request->rate;
+        $hotel->main_info = $request->main_info;
+
+        $hotel->list_image = $request->list_image == null ? "" : $request->list_image;
+        $hotel->full_info = $request->full_info == null ? "" : $request->full_info;
+        $hotel->place_around = $request->place_around == null ? 1 : $request->full_info;
+        if ($request->place_around) {
+            foreach ($request->place_around as $place) {
+                $hotel->place_around .= $place . ";";
+            }
+            $hotel->place_around = substr($hotel->place_around, 0, strlen($hotel->place_around) - 1);
+        }
+
         $hotel->status = $request->status == null ? 1 : $request->status;
         $hotel->address_id = $request->address_id == null ? 1 : $request->status;
-        $uploadImage = $this->fileUpload($request,"hotels");
+        $uploadImage = $this->fileUpload($request, "hotels");
         if ($uploadImage->getSession()->get('imageName') !== null) {
             $hotel->main_image = $uploadImage->getSession()->get('imageName');
         }
+
+        $uploadMultiImage = $this->fileMultiUpload($request, "hotels");
+        if ($uploadImage->getSession()->get('listImageName') !== null) {
+            $hotel->list_image = $uploadMultiImage->getSession()->get('listImageName');
+        }
+
+
+
 
 
         $hotel->save();
@@ -118,7 +133,13 @@ class HotelController extends Controller
     {
         //\
         $hotel =  Hotel::where('id', $id)->findOrFail($id);
-        return view('admin/hotel/edit-hotel')->with('hotel', $hotel)->with('error_code', 5);
+        $locationdb = Location::get();
+        $locations  = [];
+        foreach ($locationdb as $key => $val) {
+            $locations[$val->id] = $val->location_name;
+        }
+        return view('admin/hotel/edit-hotel')->with('hotel', $hotel)
+            ->with('locations', $locations)->with('error_code', 5);
     }
 
     /**
@@ -143,7 +164,37 @@ class HotelController extends Controller
         //         ->withInput();
         // }
         $hotel = Hotel::find($id);
-        $hotel->hotel_name = Input::get('hotel_name');
+
+        $hotel->hotel_name = $request->hotel_name;
+        $hotel->service_included = $request->service_included;
+        $hotel->level = $request->level;
+        $hotel->info = $request->info;
+        $hotel->main_image = $request->main_image;
+        $hotel->general_rule = $request->general_rule;
+        $hotel->rate = $request->rate;
+        $hotel->main_info = $request->main_info;
+
+        $hotel->list_image = $request->list_image == null ? "" : $request->list_image;
+        $hotel->full_info = $request->full_info == null ? "" : $request->full_info;
+        $hotel->place_around = $request->place_around == null ? 1 : $request->full_info;
+        $hotel->status = $request->status == null ? 1 : $request->status;
+        $hotel->address_id = $request->address_id == null ? 1 : $request->status;
+        // dd($request);
+        if (!isset($request->main_image_hidden)) {
+            $uploadImage = $this->fileUpload($request, "hotels");
+            if ($uploadImage->getSession()->get('imageName') !== null) {
+                $hotel->main_image = $uploadImage->getSession()->get('imageName');
+            }
+        }
+        if (!isset($request->list_image)) {
+            $uploadMultiImage = $this->fileMultiUpload($request, "hotels");
+            if ($uploadImage->getSession()->get('listImageName') !== null) {
+                $hotel->list_image = $uploadMultiImage->getSession()->get('listImageName');
+            }
+        }
+
+
+
         $hotel->save();
 
         $request->session()->flash('status', 'Update Hotel ' . $hotel->hotel_name . ' Successful!');
