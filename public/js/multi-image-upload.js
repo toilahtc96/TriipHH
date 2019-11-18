@@ -15,6 +15,10 @@ function readMultiURL(input, e) {
         var files = storedFiles; //FileList object
         var output = document.getElementById("lstImage");
         output.innerHTML = ""; /// doan nay conflict khi edit
+
+        // them 1 div cho new khi onchange
+        //khi xoa nay thi chi xoa new
+
         // $('#uploadMultifile').attr('files', storedFiles);
 
         const dt = new DataTransfer();
