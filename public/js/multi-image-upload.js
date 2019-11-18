@@ -6,7 +6,7 @@ function readMultiURL(input, e) {
 
     //print if any file is selected previosly 
 
-    filesArr.forEach(function (f) {
+    filesArr.forEach(function(f) {
         storedFiles.push(f);
     });
 
@@ -14,7 +14,7 @@ function readMultiURL(input, e) {
 
         var files = storedFiles; //FileList object
         var output = document.getElementById("lstImage");
-        output.innerHTML = "";
+        output.innerHTML = ""; /// doan nay conflict khi edit
         // $('#uploadMultifile').attr('files', storedFiles);
 
         const dt = new DataTransfer();
@@ -32,7 +32,7 @@ function readMultiURL(input, e) {
             //Only pics
             if (!file.type.match('image')) continue;
             var picReader = new FileReader();
-            picReader.addEventListener("load", function (event) {
+            picReader.addEventListener("load", function(event) {
                 var picFile = event.target;
                 var div = document.createElement("div");
                 div.setAttribute('class', ' child div-child-image')
@@ -53,30 +53,52 @@ function readMultiURL(input, e) {
     $("#lstImage").show();
 }
 
-$(document).on('click', "a.removeOneimg", function () {
+$(document).on('click', "a.removeOneimg", function() {
+
+    //get parrent => get input hidden => if have => get value => get index of old_iamge => if  != -1 => cat khoi chuoi => return
+
+    $list_image_old = $('#list_image_old').val().split(",");
     $uploadMultifile = $('#uploadMultifile');
     $div_child_image = $(this).parent(); //lay ra div chua img va aRemove
+    $ip_old = $div_child_image.find("input");
     $div_parent = $(this).parent().parent(); //lay ra div chua img va aRemove
-    // console.log($div_parent);
-    $index = $div_child_image.index();
-    if (storedFiles[$index]) {
-        storedFiles.splice(storedFiles[$index], 1);
-    }
-    $div_child_image.remove(); // xoa di
+    if ($ip_old.length == 0) {
 
-    const dt = new DataTransfer();
-    for (let file of storedFiles) {
-        dt.items.add(file)
+        // console.log($div_parent);
+        $index = $div_child_image.index();
+        if (storedFiles[$index]) {
+            storedFiles.splice(storedFiles[$index], 1);
+        }
+
+
+        const dt = new DataTransfer();
+        for (let file of storedFiles) {
+            dt.items.add(file)
+        }
+        if (dt.files.length) {
+            $uploadMultifile.files = dt.files;
+        }
+    } else {
+        //TH nay la lay image old
+
+        $imageOldVal = $ip_old.val();
+        $indexImage = $list_image_old.indexOf($imageOldVal);
+        if ($indexImage != -1) {
+
+            // delete here index
+            $list_image_old.splice($indexImage, 1);
+
+            $('#list_image_old').val($list_image_old);
+        }
     }
-    if (dt.files.length) {
-        $uploadMultifile.files = dt.files;
-    }
+    console.log($('#list_image_old').val());
+    $div_child_image.remove(); // xoa di
 });
 
 var storedFiles;
-$(document).ready(function () {
+$(document).ready(function() {
     storedFiles = [];
-    $(".ChoiceMultifile").bind('click', function () { //Chọn file khi .ChoiceMultifile Click
+    $(".ChoiceMultifile").bind('click', function() { //Chọn file khi .ChoiceMultifile Click
         $("#uploadMultifile").click();
 
     });

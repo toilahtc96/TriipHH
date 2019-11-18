@@ -12,7 +12,8 @@
                 <div class="row">
                     <div class="col-sm-4">
                         <figure style="margin: 0 4px 0;text-align: center;">
-                            <img src="https://ssl.gstatic.com/accounts/signup/glif/account.svg" alt="" width="244" height="244" class="j9NuTc TrZEUc">
+                            <img src="https://ssl.gstatic.com/accounts/signup/glif/account.svg" alt="" width="244"
+                                height="244" class="j9NuTc TrZEUc">
                         </figure>
 
                     </div>
@@ -93,6 +94,25 @@
                         </div>
                         <div class="mt-3 mb-3">
 
+                            <div class="div-multi-image">
+                                {!! Form::label('list_image', 'List Image', ['class' => 'control-label']) !!}
+                                <div id="myfileupload">
+                                    <div>
+
+                                        {!!
+                                        Form::file('list_image[]',['onchange'=>"readMultiURL(this,event);",'class'=>'form-control','id'=>'uploadMultifile','multiple'])
+                                        !!}
+
+                                        {{-- $value = $hotel->list_image --}}
+                                        {!!
+                                        Form::hidden('list_image_old',$value = $hotel->list_image,['id'=>'list_image_old']);
+                                        !!}
+                                    </div>
+                                    <!--      Name  mà server request về sẽ là ImageUpload-->
+
+                                </div>
+                                @include('admin.common.multi-image-upload')
+                            </div>
                         </div>
                         <div class="mt-3 mb-3">
                             {!!Form::submit('Submit', ['class' => 'btn btn-large btn-primary openbutton

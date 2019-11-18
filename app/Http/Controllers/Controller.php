@@ -47,12 +47,12 @@ class Controller extends BaseController
         if ($request->hasFile('list_image')) {
 
             $images = $request->file('list_image');
+            
             $listImageName = "";
-            foreach ($images as $image) {
-                // dd($image->path());
+            foreach ($images as $key => $image) {
                 $fileMimeType = mime_content_type($image->path());
                 if (in_array($fileMimeType, $imageMimeTypes)) {
-                    $name = time() . '.' . $image->getClientOriginalExtension();
+                    $name = time() .$key. '.' . $image->getClientOriginalExtension();
                     $destinationPath = public_path('/images/' . $folderName);
                     $image->move($destinationPath, $name);
                     $listImageName .= $name . ";";
