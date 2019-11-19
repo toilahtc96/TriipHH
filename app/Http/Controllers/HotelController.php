@@ -24,7 +24,7 @@ class HotelController extends Controller
             ->orderBy('hotel_name', 'desc')->paginate(5);
         // $hotels->setBaseUrl('custom/url');
         foreach ($hotels as $key => $val) {
-            $val->service_included = str_replace(";", `<br/>`, $val->service_included);
+            $val->service_included = str_replace(";", "\n", $val->service_included);
             $val->service_included = str_replace(".", ". ", $val->service_included);
             $val->place_around = $this->getListLocationName($val->place_around);
         }
