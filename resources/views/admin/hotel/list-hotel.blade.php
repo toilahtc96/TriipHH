@@ -32,7 +32,8 @@
                     </td>
                     <td>
                         <div>
-                                <img height="100" width="100" alt="Thumb image" id="thumbimage" src= "/images/hotels/{{$data->main_image}}" />
+                            <img height="100" width="100" alt="Thumb image" 
+                             src='/images/hotels/{{$data->main_image}}'  />
                         </div>
                     </td>
                     <td>{{$data->level}}</td>
@@ -50,15 +51,15 @@
                         @if($data->status == 1)
                         <!-- Default checked -->
                         <div class="custom-control custom-switch">
-                            <input type="checkbox" class="custom-control-input" id='customSwitch{{$data->id}}'  checked>
-                            <label class="custom-control-label" for='customSwitch{{$data->id}}'>Hoạt động</label>
+                            <input type="checkbox" class="custom-control-input statusHotelSwitch" id='hotelSwitch{{$data->id}}' onchange='testSwitch(this,event)' checked>
+                            <label class="custom-control-label" for='hotelSwitch{{$data->id}}'>Hoạt động</label>
                         </div>
                         @endif
                         @if($data->status == 0)
                         <!-- Default checked -->
                         <div class="custom-control custom-switch">
-                            <input type="checkbox" class="custom-control-input" id='customSwitch{{$data->id}}'>
-                            <label class="custom-control-label" for='customSwitch{{$data->id}}'>Không hoạt động</label>
+                            <input type="checkbox" class="custom-control-input statusHotelSwitch" id='hotelSwitch{{$data->id}}' onchange='testSwitch(this,event)' >
+                            <label class="custom-control-label" for='hotelSwitch{{$data->id}}'>Không hoạt động</label>
                         </div>
                         @endif
                     </td>

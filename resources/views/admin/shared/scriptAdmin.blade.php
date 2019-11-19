@@ -40,4 +40,6 @@
 <script src="{!! asset('js/image-upload.js') !!}"></script>
 <script src="{!! asset('js/multi-image-upload.js') !!}"></script>
 
+<script src="{!! asset('js/hotels/list-hotels.js') !!}"></script>
+
 @include('admin/common/modal-error')

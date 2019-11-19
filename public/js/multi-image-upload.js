@@ -6,15 +6,16 @@ function readMultiURL(input, e) {
 
     //print if any file is selected previosly 
 
-    filesArr.forEach(function(f) {
+    filesArr.forEach(function (f) {
         storedFiles.push(f);
     });
 
     if (storedFiles) { //Sử dụng  cho Firefox - chrome
 
         var files = storedFiles; //FileList object
-        var output = document.getElementById("lstImage");
-        output.innerHTML = ""; /// doan nay conflict khi edit
+        $output = $('#lstImage');
+        $newList = $output.find('#lstImageNew');
+        $newList.html(""); /// doan nay conflict khi edit
 
         // them 1 div cho new khi onchange
         //khi xoa nay thi chi xoa new
@@ -36,20 +37,14 @@ function readMultiURL(input, e) {
             //Only pics
             if (!file.type.match('image')) continue;
             var picReader = new FileReader();
-            picReader.addEventListener("load", function(event) {
+            picReader.addEventListener("load", function (event) {
                 var picFile = event.target;
-                var div = document.createElement("div");
-                div.setAttribute('class', ' child div-child-image')
-                div.innerHTML = "<img height='100' src='" + picFile.result + "'" + "width='100' alt='Child image' id='list-image-" + i++ + "'" + " style='' " + "'/>";
-                var aRemove = document.createElement("a");
-                // aRemove.setAttribute('type', 'button');
-                aRemove.setAttribute('class', 'removeOneimg');
-                aRemove.setAttribute('href', 'javascript:');
-                // aRemove.setAttribute('onclick', "removeThisImage(" + this + ")");
-                aRemove.setAttribute('style', "display: inline")
-                div.appendChild(aRemove);
-
-                output.insertBefore(div, null);
+                $div = $('<div></div>').attr('class', 'child div-child-image');
+                $img = $('<img></img>').attr('height', '100').attr('width', '100').attr('alt', 'Child image').attr('src', picFile.result);
+                $a = $('<a></a>').attr('class', 'removeOneimg').attr('href', 'javascript:').attr('style', 'display: inline');
+                $div.append($img);
+                $div.append($a);
+                $newList.append($div);
             });
             picReader.readAsDataURL(file);
         }
@@ -57,11 +52,12 @@ function readMultiURL(input, e) {
     $("#lstImage").show();
 }
 
-$(document).on('click', "a.removeOneimg", function() {
+$(document).on('click', "a.removeOneimg", function () {
 
     //get parrent => get input hidden => if have => get value => get index of old_iamge => if  != -1 => cat khoi chuoi => return
-
-    $list_image_old = $('#list_image_old').val().split(",");
+    if ($('#list_image_old').length > 0) {
+        $list_image_old = $('#list_image_old').val().split(",");
+    }
     $uploadMultifile = $('#uploadMultifile');
     $div_child_image = $(this).parent(); //lay ra div chua img va aRemove
     $ip_old = $div_child_image.find("input");
@@ -95,14 +91,13 @@ $(document).on('click', "a.removeOneimg", function() {
             $('#list_image_old').val($list_image_old);
         }
     }
-    console.log($('#list_image_old').val());
     $div_child_image.remove(); // xoa di
 });
 
 var storedFiles;
-$(document).ready(function() {
+$(document).ready(function () {
     storedFiles = [];
-    $(".ChoiceMultifile").bind('click', function() { //Chọn file khi .ChoiceMultifile Click
+    $(".ChoiceMultifile").bind('click', function () { //Chọn file khi .ChoiceMultifile Click
         $("#uploadMultifile").click();
 
     });

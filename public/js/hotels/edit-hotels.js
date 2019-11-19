@@ -8,6 +8,7 @@ $(document).ready(function() {
     var list_image_old = $('#list_image_old').val().split(",");
 
     $lstImageDiv = $('#lstImage');
+    $listOld = $lstImageDiv.find('#lstImageOld');
     for (i = 0; i < list_image_old.length; i++) {
 
         $div = $('<div></div>').attr('class', 'child div-child-image');
@@ -17,6 +18,6 @@ $(document).ready(function() {
         $div.append($img);
         $div.append($a);
         $div.append($inputHiden);
-        $lstImageDiv.append($div);
+        $listOld.append($div);
     }
 });

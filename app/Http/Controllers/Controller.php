@@ -8,6 +8,7 @@ use Illuminate\Foundation\Validation\ValidatesRequests;
 use Illuminate\Routing\Controller as BaseController;
 use Illuminate\Http\Request;
 use App\Models\Location;
+use App\Models\Hotel;
 
 class Controller extends BaseController
 {
@@ -39,7 +40,6 @@ class Controller extends BaseController
             'image/gif',
             'image/jpeg'
         );
-
         $this->validate($request, [
             'list_image' => 'required',
         ]);
@@ -47,19 +47,19 @@ class Controller extends BaseController
         if ($request->hasFile('list_image')) {
 
             $images = $request->file('list_image');
-            
+
             $listImageName = "";
             foreach ($images as $key => $image) {
                 $fileMimeType = mime_content_type($image->path());
                 if (in_array($fileMimeType, $imageMimeTypes)) {
-                    $name = time() .$key. '.' . $image->getClientOriginalExtension();
+                    $name = time() . $key . '.' . $image->getClientOriginalExtension();
                     $destinationPath = public_path('/images/' . $folderName);
                     $image->move($destinationPath, $name);
-                    $listImageName .= $name . ";";
+                    $listImageName .= $name . ",";
                 } else {
-                    echo ('file '.$image->getClientOriginalName().' is not image');
+                    echo ('file ' . $image->getClientOriginalName() . ' is not image');
                     continue;
-                 }
+                }
             }
             $list_image = substr($listImageName, 0, strlen($listImageName) - 1);
 
@@ -79,5 +79,53 @@ class Controller extends BaseController
             }
         }
         return $list;
+    }
+
+    public function changeStatus()
+    {
+        if (isset($_POST["table"]) && isset($_POST["id"]) && isset($_POST["status"])) {
+            $table = $_POST["table"];
+            $id = $_POST["id"];
+            $status = $_POST["status"];
+            switch ($table) {
+                case "hotel":
+                    $hotel = Hotel::findOrFail($id);
+                    if ($hotel) {
+                        $hotel->status = $status;
+                        $hotel->save();
+
+                        return response()->json([
+                            'result' => "Cập nhật thành công cho Khách sạn : " . $hotel->hotel_name,
+                        ]);
+                    }
+                    break;
+                default:
+                    return response()->json([
+                        'result' => "Đối tượng cập nhật không đúng!"
+                    ]);
+            }
+            return  response()->json([
+                'result' => "ok"
+            ]);
+        } else {
+            return response()->json([
+                'result' => "Có lỗi khi cập nhật trạng thái, Vui lòng báo đội phát triển!"
+            ]);
+        }
+    }
+
+    public function getListLocationName($listId)
+    {
+        //phai cat
+        $placeAround = '';
+        $arrName = explode(",", $listId);
+        foreach ($arrName as $key => $val) {
+            $locationName = Location::select('location_name')->findOrFail($val)->location_name;
+            if ($key > 0) {
+                $placeAround .= "\n" . $locationName;
+            } else { }
+            $placeAround .= $locationName;
+        }
+        return $placeAround;
     }
 }

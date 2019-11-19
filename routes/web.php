@@ -30,4 +30,6 @@ Route::prefix('admin')->middleware('auth')->group(function () {
         'edit' => 'hotels.edit',
         'update'=>'hotels.update'
     ]);
+    
+    Route::post('/changeStatus', 'Controller@changeStatus')->name('changeStatus');
 });

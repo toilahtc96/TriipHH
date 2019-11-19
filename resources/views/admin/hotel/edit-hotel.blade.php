@@ -12,14 +12,13 @@
                 <div class="row">
                     <div class="col-sm-4">
                         <figure style="margin: 0 4px 0;text-align: center;">
-                            <img src="https://ssl.gstatic.com/accounts/signup/glif/account.svg" alt="" width="244"
-                                height="244" class="j9NuTc TrZEUc">
+                            <img src="https://ssl.gstatic.com/accounts/signup/glif/account.svg" alt="" width="244" height="244" class="j9NuTc TrZEUc">
                         </figure>
 
                     </div>
                     <div class="col-sm-6">
 
-                        {{ Form::model($hotel, array('route' => array('hotels.update', $hotel->id), 'method' => 'PUT')) }}
+                        {{ Form::model($hotel, array('route' => array('hotels.update', $hotel->id), 'method' => 'PUT','files' => true)) }}
 
                         {!! Form::label('hotel_name', 'Hotel Name', ['class' => 'control-label']) !!}
                         {!! Form::text('hotel_name', $value = $hotel->hotel_name, ['class' => 'form-control', 'rows' =>
@@ -54,7 +53,7 @@
                         <div class="row">
                             <div class="col-sm-4 ">
                                 {!! Form::label('place_around', 'Place Around', ['class' => 'control-label']) !!}
-                                {!!Form::select('place_around[]',$locations, [1,2,7],
+                                {!!Form::select('place_around[]',$locations, $hotel->place_around,
                                 ['multiple'=>true,'class'=> 'form-control'])!!}
                             </div>
 
@@ -77,7 +76,8 @@
                                 <div>
 
                                     {!!
-                                    Form::file('main_image',['onchange'=>"readURL(this);",'class'=>'form-control','id'=>'uploadfile'])
+                                    Form::file('main_image',['onchange'=>"readURL(this);",
+                                    'class'=>'form-control','id'=>'uploadfile'])
                                     !!}
                                     {!!
                                     Form::hidden('main_image_hidden',$value =
