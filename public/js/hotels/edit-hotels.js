@@ -21,3 +21,13 @@ $(document).ready(function() {
         $listOld.append($div);
     }
 });
+
+document.addEventListener("DOMContentLoaded", function(event) {
+    //do work
+    var main_image = $('#main_image_hidden').val();
+    if (main_image != undefined && main_image != "") {
+        $('#thumbimage').attr('src', "/images/hotels/" + main_image);
+        readURL("/images/hotels/" + main_image);
+
+    }
+});

@@ -37,9 +37,9 @@
 <script src="{!! asset('bower_components/adminlte/dist/js/demo.js') !!}"></script>
 
 {{-- <script src="{!! asset('bower_components/ckeditor/ckeditor.js') !!}"></script> --}}
-<script src="{!! asset('js/image-upload.js') !!}"></script>
-<script src="{!! asset('js/multi-image-upload.js') !!}"></script>
+<script src="{!! asset('js/common/image-upload.js') !!}"></script>
+<script src="{!! asset('js/common/multi-image-upload.js') !!}"></script>
 
-<script src="{!! asset('js/hotels/list-hotels.js') !!}"></script>
-
+<script src="{!! asset('js/common/call-ajax.js') !!}"></script>
+<script src="{!! asset('js/hotels/edit-hotels.js') !!}"></script>
 @include('admin/common/modal-error')

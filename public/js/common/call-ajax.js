@@ -37,8 +37,6 @@ $.ajaxSetup({
 });
 
 callAjax = function (e,table, id, status) {
-    console.log(table + " - " + id + " - " + status);
-
     e.preventDefault();
 
 

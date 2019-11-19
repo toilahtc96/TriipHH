@@ -130,17 +130,5 @@
 
     </div>
 </div>
-<script>
-    document.addEventListener("DOMContentLoaded", function(event) {
-        //do work
-        var main_image = $('#main_image_hidden').val();
-        if (main_image != undefined && main_image != "") {
-            $('#thumbimage').attr('src', "/images/hotels/" + main_image);
-            readURL("/images/hotels/" + main_image);
 
-        }
-    });
-</script>
-<script src="{!! asset('bower_components/adminlte/plugins/jquery/jquery.min.js') !!}"></script>
-<script src="{!! asset('js/hotels/edit-hotels.js') !!}"></script>
 @endsection
