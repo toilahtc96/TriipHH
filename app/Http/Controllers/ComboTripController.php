@@ -6,9 +6,12 @@ use Illuminate\Http\Request;
 use App\Models\Car;
 use App\Models\Hotel;
 use App\Models\Location;
+use App\Models\ComboType;
+use App\Models\ComboTrip;
+use App\Models\RoomHotel;
 use Illuminate\Support\Facades\Input;
 
-class HotelController extends Controller
+class ComboTripController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -19,17 +22,24 @@ class HotelController extends Controller
     {
 
 
-        $hotels = Hotel::select('hotels.*', 'location_name')
-            ->leftJoin('locations', 'locations.id', '=', 'hotels.address_id')
+        $combotrips = ComboTrip::select(
+            'combo_trips.*',
+            'own_car',
+            'hotel_name',
+            'room_hotels.level',
+            'combo_types.combo_type_name'
+        )
+            ->leftJoin('cars', 'cars.id', '=', 'combo_trips.car_id')
+            ->leftJoin('hotels', 'hotels.id', '=', 'combo_trips.hotel_id')
+            ->leftJoin('room_hotels', 'room_hotels.id', '=', 'combo_trips.room_id')
+            ->leftJoin('combo_types', 'combo_types.id', '=', 'combo_trips.combo_type_id')
             ->orderBy('updated_at', 'desc')->paginate(5);
         // $hotels->setBaseUrl('custom/url');
-        foreach ($hotels as $key => $val) {
+        foreach ($combotrips as $key => $val) {
             $val->service_included = str_replace(";", "\n", $val->service_included);
             $val->service_included = str_replace(".", ". ", $val->service_included);
-            $val->place_around = $this->getListLocationName($val->place_around);
         }
-        // dd($hotels);
-        return view('admin/hotel/list-hotel')->with('hotels', $hotels);
+        return view('admin/combotrip/list-combotrip')->with('combotrips', $combotrips);
     }
 
 
@@ -41,8 +51,17 @@ class HotelController extends Controller
     public function create()
     {
         //
-        $locations = $this->getListLocationForCBB();
-        return view('admin/hotel/new-hotel')->with('locations', $locations);
+        $hotels = $this->getListHotelForCBB();
+        $cars = $this->getListCarForCBB();
+        $combotypes = $this->getListComboTypeForCBB();
+
+        $keyHotel = key($hotels);
+        if($keyHotel){
+            $rooms = $this->getListRoomByHotelIdForCBB($keyHotel);
+        }
+
+        return view('admin/combotrip/new-combotrip')->with("hotels", $hotels)
+            ->with("cars", $cars)->with("combotypes", $combotypes)->with('rooms',$rooms);
     }
 
     /**
@@ -128,7 +147,7 @@ class HotelController extends Controller
         $locations = $this->getListLocationForCBB();
         $hotel->image_root_folder = "hotels";
         $hotel->place_around =  explode(",", $hotel->place_around);
-        return view('admin/hotel/edit-hotel')->with('hotel', $hotel)
+        return view('admin/combotrip/edit-hotel')->with('hotel', $hotel)
             ->with('locations', $locations)->with('error_code', 5);
     }
 

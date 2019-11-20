@@ -89,7 +89,7 @@ $factory->define(Location::class, function (Faker $faker) {
     return [
         'location_name' => $faker->name,
         'detail' => 'Nằm tại khu' . $faker->name . ' nổi tiếng ' . $faker->name . ', ' . $faker->name . ' Loft nằm trong một Khu vực đẹp.',
-        'status' => $faker->numberBetween($min = 0, $max = 5),
+        'status' => $faker->numberBetween($min = 0, $max = 1),
     ];
 });
 

@@ -11,6 +11,8 @@ use App\Models\Location;
 use App\Models\Hotel;
 use App\Models\Combotype;
 use App\Models\Car;
+use App\Models\RoomHotel;
+use App\Models\ComboTrip;
 
 class Controller extends BaseController
 {
@@ -123,7 +125,17 @@ class Controller extends BaseController
                         ]);
                     }
                     break;
+                case "roomHotel":
+                    $roomhotel = RoomHotel::findOrFail($id);
+                    if ($roomhotel) {
+                        $roomhotel->status = $status;
+                        $roomhotel->save();
 
+                        return response()->json([
+                            'result' => "Cập nhật thành công cho Phòng"
+                        ]);
+                    }
+                    break;
                 case "car":
                     $car = Car::findOrFail($id);
                     if ($car) {
@@ -134,6 +146,18 @@ class Controller extends BaseController
                         ]);
                     }
                     break;
+
+                case "combotrip":
+                    $combotrip = ComboTrip::findOrFail($id);
+                    if ($combotrip) {
+                        $combotrip->status = $status;
+                        $combotrip->save();
+                        return response()->json([
+                            'result' => "Cập nhật thành công cho Combo  "
+                        ]);
+                    }
+                    break;
+
                 default:
                     return response()->json([
                         'result' => "Đối tượng cập nhật không đúng!"
@@ -162,7 +186,6 @@ class Controller extends BaseController
             }
             $placeAround .= $locationName;
         }
-
         return $placeAround;
     }
 
@@ -174,5 +197,55 @@ class Controller extends BaseController
             $locations[$val->id] = $val->location_name;
         }
         return $locations;
+    }
+
+    public function getListHotelForCBB()
+    {
+        $hoteldb = Hotel::get();
+        $hotels  = [];
+        foreach ($hoteldb as $key => $val) {
+            $hotels[$val->id] = $val->hotel_name;
+        }
+        return $hotels;
+    }
+    public function getListCarForCBB()
+    {
+        $cardb = Car::get();
+        $cars  = [];
+        foreach ($cardb as $key => $val) {
+            $cars[$val->id] = $val->own_car;
+        }
+        return $cars;
+    }
+    public function getListComboTypeForCBB()
+    {
+        $comboTypedb = ComboType::get();
+        $comboTypes  = [];
+        foreach ($comboTypedb as $key => $val) {
+            $comboTypes[$val->id] = $val->combo_type_name;
+        }
+        return $comboTypes;
+    }
+
+    public function getListRoomByHotelIdForCBB($id)
+    {
+        $roomHoteldb = RoomHotel::where('id', $id)->get();
+        $roomHotels  = [];
+        foreach ($roomHoteldb as $key => $val) {
+            $roomHotels[$val->id] = $val->level . ' Sao';
+        }
+        return $roomHotels;
+    }
+
+    public function getListRoomByHotelIdAjaxForCBB()
+    {
+        if (isset($_POST["id"])) {
+            $roomHoteldb = RoomHotel::where('hotel_id', $_POST["id"])->get();
+            $roomHotels  = [];
+            foreach ($roomHoteldb as $key => $val) {
+                $roomHotels[$val->id] = $val->level . ' Sao';
+            }
+            return response()->json(['data'=>$roomHotels, 'result' => 'Get OK']);
+        }
     }
 }

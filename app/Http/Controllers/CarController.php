@@ -18,16 +18,18 @@ class CarController extends Controller
 
 
         $cars = Car::orderBy('updated_at', 'desc')->paginate(5);
+       
         foreach ($cars as $key => $val) {
-
-            if ($val->places_passing != null) {
-                $val->places_passing = $this->getListLocationName($val->places_passing);
-            }
+            
 
             if ($val->starting_location_id != null) {
                 $val->start = $this->getListLocationName($val->starting_location_id);
             }
-
+            if ($val->places_passing != null) {
+                $val->places_passing = $this->getListLocationName($val->places_passing);
+            }
+           
+           
             if ($val->destination_id != null) {
                 $val->finish = $this->getListLocationName($val->destination_id);
             }

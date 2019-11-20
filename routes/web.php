@@ -52,5 +52,20 @@ Route::prefix('admin')->middleware('auth')->group(function () {
         'update' => 'cars.update'
     ]);
 
+    Route::resource('/roomhotels', 'RoomHotelController')->names([
+        'index' => 'roomhotels.view',
+        'create' => 'roomhotels.build',
+        'edit' => 'roomhotels.edit',
+        'update' => 'roomhotels.update'
+    ]);
+
+    Route::resource('/combotrips', 'ComboTripController')->names([
+        'index' => 'combotrips.view',
+        'create' => 'combotrips.build',
+        'edit' => 'combotrips.edit',
+        'update' => 'combotrips.update'
+    ]);
+
     Route::post('/changeStatus', 'Controller@changeStatus')->name('changeStatus');
+    Route::post('/getRoomByHotelId', 'Controller@getListRoomByHotelIdAjaxForCBB')->name('getRoomByHotelId');
 });

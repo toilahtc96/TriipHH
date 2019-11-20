@@ -1,4 +1,4 @@
-testSwitch = function (tswitch, e) {
+testSwitch = function(tswitch, e) {
     var isChecked = tswitch.getAttribute("checked");
     var idLB = tswitch.getAttribute("id");
     $labelThis = $('#' + idLB).parent().find("label");
@@ -36,7 +36,7 @@ $.ajaxSetup({
 
 });
 
-callAjax = function (e,table, id, status) {
+callAjax = function(e, table, id, status) {
     e.preventDefault();
 
 
@@ -48,10 +48,34 @@ callAjax = function (e,table, id, status) {
 
         data: { table: table, id: id, status: status },
 
-        success: function (data) {
+        success: function(data) {
 
             alert(data.result);
 
+        }
+
+    });
+}
+
+callRoomAjax = function(hotel, e) {
+    e.preventDefault();
+    console.log(hotel.value)
+    $.ajax({
+
+        type: 'POST',
+
+        url: '/admin/getRoomByHotelId',
+
+        data: { id: hotel.value },
+
+        success: function(data) {
+
+            console.log(data);
+            var myArr = [];
+            myArr[3] = "acs";
+            console.log($('#room_id').val());
+            $('#room_id').val(myArr);
+            console.log($('#room_id').val());
         }
 
     });
