@@ -35,7 +35,7 @@
                             </div>
                             <div class="col-sm-4 ">
                                 {!! Form::label('address_id', 'Address', ['class' => 'control-label']) !!}
-                                {!!Form::select('size', $locations, null, ['class'=>
+                                {!!Form::select('address_id', $locations, null, ['class'=>
                                 'form-control'])!!}
                             </div>
                         </div>
@@ -62,7 +62,7 @@
                             </div>
                             <div class="col-sm-4 ">
                                 {!! Form::label('status', 'status', ['class' => 'control-label']) !!}
-                                {!!Form::select('status', ['0' => 'Hoạt động', '1' => 'Không hoạt động'], null,
+                                {!!Form::select('status', ['1' => 'Hoạt động', '0' => 'Không hoạt động'], null,
                                 ['class'=>
                                 'form-control'])!!}
                             </div>

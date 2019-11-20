@@ -70,6 +70,9 @@
                             </div>
                         </div>
                         <div>
+                                {!! Form::hidden('image_root_folder',$value =
+                                    $hotel->image_root_folder,['class'=>'form-control','id'=>'image_root_folder'])
+                                    !!}
                             {{-- @if(!isset($hotel->main_image)) --}}
                             {!! Form::label('main_image', 'Main Image', ['class' => 'control-label']) !!}
                             <div id="myfileupload">
