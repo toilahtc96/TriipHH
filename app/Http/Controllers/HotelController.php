@@ -40,13 +40,7 @@ class HotelController extends Controller
     public function create()
     {
         //
-        $locationdb = Location::get();
-        $locations  = [];
-        foreach ($locationdb as $key => $val) {
-            $locations[$val->id] = $val->location_name;
-        }
-
-        // ['L' => 'Núi BV', 'S' => 'Đảo XC']
+        $locations = $this->getListLocationForCBB();
         return view('admin/hotel/new-hotel')->with('locations', $locations);
     }
 
@@ -75,19 +69,13 @@ class HotelController extends Controller
         $hotel->general_rule = $request->general_rule;
         $hotel->rate = $request->rate;
         $hotel->main_info = $request->main_info;
-
         $hotel->list_image = $request->list_image == null ? "" : $request->list_image;
         $hotel->full_info = $request->full_info == null ? "" : $request->full_info;
-
         $hotel->place_around = "";
-
-        foreach ($hotel->place_around  as $val) {
-            $hotel->place_around .= ',' .  $val;
-        }
-
+        
         if ($request->place_around) {
             foreach ($request->place_around as $place) {
-                $hotel->place_around .= $place . ";";
+                $hotel->place_around .= $place . ",";
             }
             $hotel->place_around = substr($hotel->place_around, 0, strlen($hotel->place_around) - 1);
         }
@@ -110,7 +98,7 @@ class HotelController extends Controller
 
         $hotel->save();
         // Session::flash('success', 'The hotel post was successfully saved!');
-        return redirect()->route('admin');
+        return redirect()->route('hotels.view');
     }
 
     /**
@@ -141,7 +129,8 @@ class HotelController extends Controller
         foreach ($locationdb as $key => $val) {
             $locations[$val->id] = $val->location_name;
         }
-        $hotel->place_around=  explode( ",",$hotel->place_around);
+        $hotel->image_root_folder = "hotels";
+        $hotel->place_around =  explode(",", $hotel->place_around);
         return view('admin/hotel/edit-hotel')->with('hotel', $hotel)
             ->with('locations', $locations)->with('error_code', 5);
     }
@@ -179,7 +168,7 @@ class HotelController extends Controller
 
         $hotel->list_image = $request->list_image_old == null ? "" : $request->list_image_old;
         $hotel->full_info = $request->full_info == null ? "" : $request->full_info;
-        $hotel->place_around = $request->place_around == null ? 1 : $request->place_around;
+        $hotel->place_around = $request->place_around == null ? [] : $request->place_around;
         $hotel->status = $request->status == null ? 1 : $request->status;
         $hotel->address_id = $request->address_id == null ? 1 : $request->status;
         if (!isset($request->main_image_hidden)) {

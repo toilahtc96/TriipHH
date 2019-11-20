@@ -9,6 +9,8 @@ use Illuminate\Routing\Controller as BaseController;
 use Illuminate\Http\Request;
 use App\Models\Location;
 use App\Models\Hotel;
+use App\Models\Combotype;
+use App\Models\Car;
 
 class Controller extends BaseController
 {
@@ -99,6 +101,39 @@ class Controller extends BaseController
                         ]);
                     }
                     break;
+                case "location":
+                    $location = Location::findOrFail($id);
+                    if ($location) {
+                        $location->status = $status;
+                        $location->save();
+
+                        return response()->json([
+                            'result' => "Cập nhật thành công cho Địa chỉ  : " . $location->location_name,
+                        ]);
+                    }
+                    break;
+                case "combotype":
+                    $combotype = Combotype::findOrFail($id);
+                    if ($combotype) {
+                        $combotype->status = $status;
+                        $combotype->save();
+
+                        return response()->json([
+                            'result' => "Cập nhật thành công cho Loại Combo  : " . $combotype->combo_type_name,
+                        ]);
+                    }
+                    break;
+
+                case "car":
+                    $car = Car::findOrFail($id);
+                    if ($car) {
+                        $car->status = $status;
+                        $car->save();
+                        return response()->json([
+                            'result' => "Cập nhật thành công cho Xe  : " . $car->own_car,
+                        ]);
+                    }
+                    break;
                 default:
                     return response()->json([
                         'result' => "Đối tượng cập nhật không đúng!"
@@ -119,13 +154,25 @@ class Controller extends BaseController
         //phai cat
         $placeAround = '';
         $arrName = explode(",", $listId);
+
         foreach ($arrName as $key => $val) {
             $locationName = Location::select('location_name')->findOrFail($val)->location_name;
             if ($key > 0) {
-                $placeAround .= "\n" . $locationName;
-            } else { }
+                $placeAround .= ",\n" . $locationName;
+            }
             $placeAround .= $locationName;
         }
+
         return $placeAround;
+    }
+
+    public function getListLocationForCBB()
+    {
+        $locationdb = Location::get();
+        $locations  = [];
+        foreach ($locationdb as $key => $val) {
+            $locations[$val->id] = $val->location_name;
+        }
+        return $locations;
     }
 }
