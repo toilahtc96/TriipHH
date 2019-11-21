@@ -2,10 +2,10 @@
 @section('content')
 <div class="row">
     <div class="container">
-        <h2>List Combo Type</h2>
+        <h2>List Combo Trip</h2>
         <div class="panel panel-primary ">
 
-            <div class="panel-heading">List Combo Type Of Website</div>
+            <div class="panel-heading">List Combo Trip Of Website</div>
         </div>
         <table class="table TFtable">
             <thead class="thead-light">
@@ -16,8 +16,9 @@
                     <th>Car</th>
                     <th>Start Time</th>
                     <th>Arrival Time</th>
+                    <th>Start Date</th>
+                    <th>End Date</th>
                     <th>Price</th>
-                    <th>Service Included</th>
                     <th>Status</th>
                     <th>Action</th>
                 </tr>
@@ -32,17 +33,17 @@
                     <td>{{$data->own_car}}</td>
                     <td>{{$data->start_time}}</td>
                     <td>{{$data->arrival_time}}</td>
+                    <td class="td-date">{{$data->start_date}}</td>
+                    <td class="td-date">{{$data->end_date}}</td>
                     <td>{{$data->price}}</td>
-                    <td>
-                        <div style="word-break: normal">{{$data->service_included}}</div>
-                    </td>
+                  
                     <td>
                         @if($data->status == 1)
                         <!-- Default checked -->
                         <div class="custom-control custom-switch">
                             <input type="checkbox" class="custom-control-input statusComboTripSwitch"
                                 id='combotripSwitch{{$data->id}}' onchange='testSwitch(this,event)' checked>
-                            <label class="custom-control-label" for='ComboTripSwitch{{$data->id}}'>Hoạt động</label>
+                            <label class="custom-control-label" for='combotripSwitch{{$data->id}}'>Hoạt động</label>
                         </div>
                         @endif
                         @if($data->status == 0)
@@ -50,7 +51,7 @@
                         <div class="custom-control custom-switch">
                             <input type="checkbox" class="custom-control-input statusComboTripSwitch"
                                 id='combotripSwitch{{$data->id}}' onchange='testSwitch(this,event)'>
-                            <label class="custom-control-label" for='ComboTripSwitch{{$data->id}}'>Không hoạt động</label>
+                            <label class="custom-control-label" for='combotripSwitch{{$data->id}}'>Không hoạt động</label>
                         </div>
                         @endif
                     </td>

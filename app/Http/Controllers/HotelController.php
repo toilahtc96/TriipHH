@@ -90,7 +90,7 @@ class HotelController extends Controller
         }
 
         $uploadMultiImage = $this->fileMultiUpload($request, "hotels");
-        if ($uploadImage->getSession()->get('listImageName') !== null) {
+        if ($uploadMultiImage->getSession()->get('listImageName') !== null) {
             $hotel->list_image = $uploadMultiImage->getSession()->get('listImageName');
         }
 

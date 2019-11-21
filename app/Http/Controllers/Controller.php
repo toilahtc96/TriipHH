@@ -229,7 +229,7 @@ class Controller extends BaseController
 
     public function getListRoomByHotelIdForCBB($id)
     {
-        $roomHoteldb = RoomHotel::where('id', $id)->get();
+        $roomHoteldb = RoomHotel::where('hotel_id', $id)->get();
         $roomHotels  = [];
         foreach ($roomHoteldb as $key => $val) {
             $roomHotels[$val->id] = $val->level . ' Sao';
@@ -243,7 +243,7 @@ class Controller extends BaseController
             $roomHoteldb = RoomHotel::where('hotel_id', $_POST["id"])->get();
             $roomHotels  = [];
             foreach ($roomHoteldb as $key => $val) {
-                $roomHotels[$val->id] = $val->level . ' Sao';
+                $roomHotels[$val->id] = $val->level;
             }
             return response()->json(['data'=>$roomHotels, 'result' => 'Get OK']);
         }

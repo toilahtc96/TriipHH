@@ -56,12 +56,12 @@ class ComboTripController extends Controller
         $combotypes = $this->getListComboTypeForCBB();
 
         $keyHotel = key($hotels);
-        if($keyHotel){
+        if ($keyHotel) {
             $rooms = $this->getListRoomByHotelIdForCBB($keyHotel);
         }
 
         return view('admin/combotrip/new-combotrip')->with("hotels", $hotels)
-            ->with("cars", $cars)->with("combotypes", $combotypes)->with('rooms',$rooms);
+            ->with("cars", $cars)->with("combotypes", $combotypes)->with('rooms', $rooms);
     }
 
     /**
@@ -76,49 +76,42 @@ class ComboTripController extends Controller
 
         // validate the data
         $this->validate($request, array(
-            'hotel_name' => 'required|max:255',
-            'service_included'  => 'required'
+            'hotel_id' => 'required|max:255',
+            'room_id'  => 'required',
+            'car_id' => 'required',
+            'combo_type_id' => 'required',
+            'price' => 'required',
+            'start_time' => 'required',
+            'arrival_time' => 'required',
+            'start_date' => 'required',
+            'end_date' => 'required',
         ));
+
         // store in the database
-        $hotel =  new Hotel;
-        $hotel->hotel_name = $request->hotel_name;
-        $hotel->service_included = $request->service_included;
-        $hotel->level = $request->level;
-        $hotel->info = $request->info;
-        $hotel->main_image = $request->main_image;
-        $hotel->general_rule = $request->general_rule;
-        $hotel->rate = $request->rate;
-        $hotel->main_info = $request->main_info;
-        $hotel->list_image = $request->list_image == null ? "" : $request->list_image;
-        $hotel->full_info = $request->full_info == null ? "" : $request->full_info;
-        $hotel->place_around = "";
+        $combotrip =  new ComboTrip;
+        $combotrip->hotel_id = $request->hotel_id;
+        $combotrip->room_id = $request->room_id;
+        $combotrip->car_id = $request->car_id;
+        $combotrip->combo_type_id = $request->combo_type_id;
+        $combotrip->service_included = $request->service_included;
+        $combotrip->price = $request->price;
 
-        if ($request->place_around) {
-            foreach ($request->place_around as $place) {
-                $hotel->place_around .= $place . ",";
-            }
-            $hotel->place_around = substr($hotel->place_around, 0, strlen($hotel->place_around) - 1);
+        $combotrip->start_time = $request->start_time;
+        $combotrip->arrival_time = $request->arrival_time;
+        $combotrip->end_date = $request->end_date;
+        $combotrip->start_date = $request->start_date;
+
+        $combotrip->status = $request->status == null ? 0 : $request->status;
+        $combotrip->list_image = $request->list_image == null ? "" : $request->list_image;
+        $uploadMultiImage = $this->fileMultiUpload($request, "combotrips");
+        if ($uploadMultiImage->getSession()->get('listImageName') !== null) {
+            $combotrip->list_image = $uploadMultiImage->getSession()->get('listImageName');
         }
+        // dd($combotrip);
 
-        $hotel->status = $request->status == null ? 1 : $request->status;
-        $hotel->address_id = $request->address_id == null ? 1 : $request->status;
-        $uploadImage = $this->fileUpload($request, "hotels");
-
-        if ($uploadImage->getSession()->get('imageName') !== null) {
-            $hotel->main_image = $uploadImage->getSession()->get('imageName');
-        }
-
-        $uploadMultiImage = $this->fileMultiUpload($request, "hotels");
-        if ($uploadImage->getSession()->get('listImageName') !== null) {
-            $hotel->list_image = $uploadMultiImage->getSession()->get('listImageName');
-        }
-
-
-
-
-        $hotel->save();
+        $combotrip->save();
         // Session::flash('success', 'The hotel post was successfully saved!');
-        return redirect()->route('hotels.view');
+        return redirect()->route('combotrips.view');
     }
 
     /**
@@ -142,13 +135,19 @@ class ComboTripController extends Controller
      */
     public function edit($id)
     {
-        //\
-        $hotel =  Hotel::where('id', $id)->findOrFail($id);
-        $locations = $this->getListLocationForCBB();
-        $hotel->image_root_folder = "hotels";
-        $hotel->place_around =  explode(",", $hotel->place_around);
-        return view('admin/combotrip/edit-hotel')->with('hotel', $hotel)
-            ->with('locations', $locations)->with('error_code', 5);
+        $hotels = $this->getListHotelForCBB();
+        $cars = $this->getListCarForCBB();
+        $combotypes = $this->getListComboTypeForCBB();
+
+        $keyHotel = key($hotels);
+        if ($keyHotel) {
+            $rooms = $this->getListRoomByHotelIdForCBB($keyHotel);
+        }
+        $combotrip = ComboTrip::where('id', $id)->findOrFail($id);
+        $combotrip->image_root_folder = "combotrips";
+
+        return view('admin/combotrip/edit-combotrip')->with("hotels", $hotels)->with("combotrip", $combotrip)
+            ->with("cars", $cars)->with("combotypes", $combotypes)->with('rooms', $rooms);
     }
 
     /**
@@ -163,8 +162,15 @@ class ComboTripController extends Controller
         //
 
         $this->validate($request, array(
-            'hotel_name' => 'required|max:255',
-            'service_included'  => 'required'
+            'hotel_id' => 'required|max:255',
+            'room_id'  => 'required',
+            'car_id' => 'required',
+            'combo_type_id' => 'required',
+            'price' => 'required',
+            'start_time' => 'required',
+            'arrival_time' => 'required',
+            'start_date' => 'required',
+            'end_date' => 'required',
         ));
 
         // // process the login
@@ -172,44 +178,33 @@ class ComboTripController extends Controller
         //     return Redirect::back()->withErrors($validator)
         //         ->withInput();
         // }
-        $hotel = Hotel::find($id);
-        $hotel->hotel_name = $request->hotel_name;
-        $hotel->service_included = $request->service_included;
-        $hotel->level = $request->level;
-        $hotel->info = $request->info;
-        $hotel->main_image = $request->main_image_hidden == null ? "" : $request->main_image_hidden;
-        $hotel->general_rule = $request->general_rule;
-        $hotel->rate = $request->rate;
-        $hotel->main_info = $request->main_info;
+        $combotrip = ComboTrip::find($id);
 
-        $hotel->list_image = $request->list_image_old == null ? "" : $request->list_image_old;
-        $hotel->full_info = $request->full_info == null ? "" : $request->full_info;
-        $hotel->place_around = $request->place_around == null ? [] : $request->place_around;
-        $hotel->status = $request->status == null ? 1 : $request->status;
-        $hotel->address_id = $request->address_id == null ? 1 : $request->status;
-        if (!isset($request->main_image_hidden)) {
-            $uploadImage = $this->fileUpload($request, "hotels");
-            if ($uploadImage->getSession()->get('imageName') !== null) {
-                $hotel->main_image .= $uploadImage->getSession()->get('imageName');
-            }
-        }
+        $combotrip->service_included = $request->service_included;
+        $combotrip->hotel_id = $request->hotel_id;
+        $combotrip->room_id = $request->room_id;
+        $combotrip->car_id = $request->car_id;
+        $combotrip->combo_type_id = $request->combo_type_id;
+        $combotrip->price = $request->price;
+
+        $combotrip->start_time = $request->start_time;
+        $combotrip->arrival_time = $request->arrival_time;
+        $combotrip->end_date = $request->end_date;
+        $combotrip->start_date = $request->start_date;
+        $combotrip->list_image = $request->list_image_old == null ? "" : $request->list_image_old;
+        $combotrip->status = $request->status == null ? 1 : $request->status;
         if ($request->hasFile('list_image')) {
-            $uploadMultiImage = $this->fileMultiUpload($request, "hotels");
+            $uploadMultiImage = $this->fileMultiUpload($request, "combotrips");
             if ($uploadMultiImage->getSession()->get('listImageName') !== null) {
-                $hotel->list_image .= ',' . $uploadMultiImage->getSession()->get('listImageName');
+                $combotrip->list_image .= ',' . $uploadMultiImage->getSession()->get('listImageName');
             }
         }
-        $place = "";
-        foreach ($hotel->place_around  as  $val) {
-            $place  .=  ',' .   $val;
-        }
-        $hotel->place_around = (substr($place, 1, strlen($place)));
-        $hotel->save();
+        $combotrip->save();
 
-        $request->session()->flash('status', 'Update Hotel ' . $hotel->hotel_name . ' Successful!');
+        $request->session()->flash('status', 'Update ComboTrip Successful!');
         $request->session()->flash('modal_title', 'Successful!');
-        $request->session()->flash('modal_content', 'Update Hotel Successful!');
-        return redirect('/admin/hotels');
+        $request->session()->flash('modal_content', 'Update ComboTrip Successful!');
+        return redirect('/admin/combotrips');
     }
 
     /**
