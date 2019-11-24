@@ -1,4 +1,4 @@
-testSwitch = function (tswitch, e) {
+testSwitch = function(tswitch, e) {
     var isChecked = tswitch.getAttribute("checked");
     var idLB = tswitch.getAttribute("id");
     $labelThis = $('#' + idLB).parent().find("label");
@@ -36,7 +36,7 @@ $.ajaxSetup({
 
 });
 
-callAjax = function (e, table, id, status) {
+callAjax = function(e, table, id, status) {
     e.preventDefault();
 
 
@@ -48,7 +48,7 @@ callAjax = function (e, table, id, status) {
 
         data: { table: table, id: id, status: status },
 
-        success: function (data) {
+        success: function(data) {
 
             alert(data.result);
 
@@ -57,7 +57,7 @@ callAjax = function (e, table, id, status) {
     });
 }
 
-callRoomAjax = function (hotel, e) {
+callRoomAjax = function(hotel, e) {
     e.preventDefault();
     console.log(hotel.value)
     $.ajax({
@@ -68,7 +68,7 @@ callRoomAjax = function (hotel, e) {
 
         data: { id: hotel.value },
 
-        success: function (data) {
+        success: function(data) {
             console.log(data);
             var arr = [];
             arr.push(data.data);
@@ -76,7 +76,7 @@ callRoomAjax = function (hotel, e) {
             $('#room_id').empty();
             console.log(data.data.length);
             if (data.data.length !== 0) {
-                $.each(data.data, function (key, value) {
+                $.each(data.data, function(key, value) {
                     if (key) {
                         $('#room_id').append('<option value="' + value + '">' + value + ' Sao' + '</option>');
                     }

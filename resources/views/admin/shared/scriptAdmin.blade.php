@@ -42,4 +42,5 @@
 
 <script src="{!! asset('js/common/call-ajax.js') !!}"></script>
 <script src="{!! asset('js/hotels/edit-hotels.js') !!}"></script>
+
 @include('admin/common/modal-error')

@@ -9,6 +9,7 @@ use App\Models\RoomHotel;
 use App\Models\Car;
 use App\Models\ComboType;
 use App\Models\Hotel;
+use App\Models\BookStatus;
 
 
 class BookCustomTripController extends Controller
@@ -21,15 +22,18 @@ class BookCustomTripController extends Controller
     public function index()
     {
         //
-        $bookcustomtrips = BookCustomTrip::select('book_custom_trips.*', 'locations.location_name','cars.own_car','room_hotels.level','combo_types.combo_type_name')
-        ->leftJoin('locations', 'locations.id', '=', 'book_custom_trips.pickup_place_id')
-        ->leftJoin('cars', 'cars.id', '=', 'book_custom_trips.car_id')
-        ->leftJoin('room_hotels', 'room_hotels.id', '=', 'book_custom_trips.room_id')
-        ->leftJoin('combo_types', 'combo_types.id', '=', 'book_custom_trips.combo_type_id')
-        ->orderBy('updated_at', 'desc')->paginate(5);
-    
-    return view('admin/bookcustomtrip/list-bookcustomtrip')->with('bookcustomtrips', $bookcustomtrips);
+        $bookstatuses = $this->getListBookStatusForCBB();
+        $bookcustomtrips = BookCustomTrip::select('book_custom_trips.*'
+        , 'locations.location_name', 'cars.own_car', 'room_hotels.level',
+         'combo_types.combo_type_name','book_statuses.status')
+            ->leftJoin('locations', 'locations.id', '=', 'book_custom_trips.pickup_place_id')
+            ->leftJoin('cars', 'cars.id', '=', 'book_custom_trips.car_id')
+            ->leftJoin('room_hotels', 'room_hotels.id', '=', 'book_custom_trips.room_id')
+            ->leftJoin('combo_types', 'combo_types.id', '=', 'book_custom_trips.combo_type_id')
+            ->leftJoin('book_statuses', 'book_statuses.id', '=', 'book_custom_trips.book_status_id')
+            ->orderBy('updated_at', 'desc')->paginate(5);
 
+        return view('admin/bookcustomtrip/list-bookcustomtrip')->with('bookcustomtrips', $bookcustomtrips)->with('bookstatuses',$bookstatuses);
     }
 
     /**

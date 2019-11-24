@@ -28,12 +28,14 @@ class ComboTripController extends Controller
             'hotel_name',
             'room_hotels.level',
             'combo_types.combo_type_name'
+            
         )
             ->leftJoin('cars', 'cars.id', '=', 'combo_trips.car_id')
             ->leftJoin('hotels', 'hotels.id', '=', 'combo_trips.hotel_id')
             ->leftJoin('room_hotels', 'room_hotels.id', '=', 'combo_trips.room_id')
             ->leftJoin('combo_types', 'combo_types.id', '=', 'combo_trips.combo_type_id')
             ->orderBy('updated_at', 'desc')->paginate(5);
+            
         // $hotels->setBaseUrl('custom/url');
         foreach ($combotrips as $key => $val) {
             $val->service_included = str_replace(";", "\n", $val->service_included);

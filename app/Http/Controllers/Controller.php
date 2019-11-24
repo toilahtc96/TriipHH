@@ -13,6 +13,7 @@ use App\Models\Combotype;
 use App\Models\Car;
 use App\Models\RoomHotel;
 use App\Models\ComboTrip;
+use App\Models\BookStatus;
 
 class Controller extends BaseController
 {
@@ -217,6 +218,17 @@ class Controller extends BaseController
         }
         return $cars;
     }
+
+    public function getListBookStatusForCBB()
+    {
+        $bookStatusDb = BookStatus::get();
+        $bookstatuses  = [];
+        foreach ($bookStatusDb as $key => $val) {
+            $bookstatuses[$val->id] = $val->status;
+        }
+        return $bookstatuses;
+    }
+
     public function getListComboTypeForCBB()
     {
         $comboTypedb = ComboType::get();
@@ -245,7 +257,22 @@ class Controller extends BaseController
             foreach ($roomHoteldb as $key => $val) {
                 $roomHotels[$val->id] = $val->level;
             }
-            return response()->json(['data'=>$roomHotels, 'result' => 'Get OK']);
+            return response()->json(['data' => $roomHotels, 'result' => 'Get OK']);
         }
+    }
+
+
+    public function changeBookStatusNew()
+    {
+        if (isset($_POST["key"])) {
+            $id = $_POST["key"];
+            return response()->json([
+                'result' => "Id : ".$id
+            ]);
+         }
+
+         return response()->json([
+            'result' => "Không có id book"
+        ]);
     }
 }

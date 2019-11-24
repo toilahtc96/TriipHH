@@ -78,5 +78,6 @@ Route::prefix('admin')->middleware('auth')->group(function () {
     ]);
 
     Route::post('/changeStatus', 'Controller@changeStatus')->name('changeStatus');
+    Route::post('/changeBookStatus', 'Controller@changeBookStatusNew')->name('changeBookStatus');
     Route::post('/getRoomByHotelId', 'Controller@getListRoomByHotelIdAjaxForCBB')->name('getRoomByHotelId');
 });

@@ -16,12 +16,11 @@
                     <th>Car</th>
                     <th>Pickup Place</th>
                     <th>Combo Type</th>
-                    <th>Checkin Time</th>
-                    <th>Checkout Time</th>
                     <th>Type Service</th>
                     <th>Link FaceBook</th>
                     <th>Status</th>
                     <th>Action</th>
+                    <th>Edit</th>
                 </tr>
             </thead>
             <tbody>
@@ -34,8 +33,6 @@
                     <td>{{$data->own_car}}</td>
                     <td>{{$data->location_name}}</td>
                     <td>{{$data->combo_type_name}}</td>
-                    <td>{{$data->checkin_time}}</td>
-                    <td>{{$data->checkout_time}}</td>
                     <td>
                         @if($data->type_service == 1)
                         {{__('Tư vấn qua số điện thoại')}}
@@ -43,13 +40,14 @@
                         {{__('Tư vấn qua FaceBook')}}
                         @endif
                     </td>
-                  <td>
-                        {{$data->checkout_time}}
-                  </td>
                     <td>
-                     
+                        @if($data->fb_link)
+                        <a target="_blank" rel="noopener noreferrer" href="{{$data->fb_link}}">Link</a>
+                        @endif
                     </td>
-
+                    
+                    <td>{{$data->status}}</td>
+                    <td>@include('admin.common.book-action-select')</td>
                     <td>
                         <a href="{{ url('/admin/bookcustomtrips/' . $data->id . '/edit') }}" class="btn btn-default"><i
                                 class="far fa-edit"></i></a>
