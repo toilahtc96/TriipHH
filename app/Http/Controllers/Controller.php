@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\BookCustomTrip;
 use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
 use Illuminate\Foundation\Bus\DispatchesJobs;
 use Illuminate\Foundation\Validation\ValidatesRequests;
@@ -261,19 +262,56 @@ class Controller extends BaseController
         }
     }
 
-    
+
 
 
     public function changeBookStatusNew()
     {
-        if (isset($_POST["key"])) {
-            $id = $_POST["key"];
-            return response()->json([
-                'result' => "Id : ".$id
-            ]);
-         }
+        if (isset($_POST["key"]) && isset($_POST["id"])) {
+            $id = $_POST["key"]; // 9
+            $idBookSelect =  $_POST["id"];
+            $arrIdSend = explode("book_status_", $idBookSelect);
+            $tableId = $arrIdSend[1];
 
-         return response()->json([
+            $numberLastIndex = strripos($tableId, "_");
+            $tableName = substr($tableId, 0, $numberLastIndex);
+            $idObject = substr($tableId, $numberLastIndex + 1);
+            $book_status_df = $id;
+            if ($id == 9) {
+                $book_status_df = 6;
+            }
+            if ($id == 6 || $id == 8) {
+                $book_status_df = 8;
+            }
+            $statusNew = "";
+            switch ($tableName) {
+                case "book_custom_trips":
+                    $bookCustomTrip = BookCustomTrip::find($idObject);
+                    $bookCustomTrip->book_status_id =  $book_status_df;
+                    $bookCustomTrip->save();
+                    $statusNew = BookStatus::select('status')->findOrFail($book_status_df);
+                    break;
+                default:
+                    break;
+            }
+            $bookStatus = BookStatus::where('position', 6)->firstOrFail();
+            if ($id != 9) {
+                $bookStatus = BookStatus::where('position', $id)->firstOrFail();
+            }
+            $status = "";
+            if (isset($bookStatus)) {
+                $status = $bookStatus->status;
+            }
+
+            return response()->json([
+                'result' => "Succes",
+                'data' => $status,
+                'statusNew' => $statusNew,
+                'idStatusNew' => $book_status_df
+            ]);
+        }
+
+        return response()->json([
             'result' => "Không có id book"
         ]);
     }

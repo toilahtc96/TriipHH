@@ -7,7 +7,7 @@
 
             <div class="panel-heading">List Book Custom Combo Of Customer</div>
         </div>
-        <table class="table TFtable">
+        <table class="table TFtable" id="book_custom_trip_table">
             <thead class="thead-light">
                 <tr>
                     <th>Full Name</th>
@@ -46,8 +46,8 @@
                         @endif
                     </td>
                     
-                    <td>{{$data->status}}</td>
-                    <td>@include('admin.common.book-action-select')</td>
+                    <td class="td-status">{{$data->status}}</td>
+                    <td style="width:18%">@include('admin.common.book-action-select')</td>
                     <td>
                         <a href="{{ url('/admin/bookcustomtrips/' . $data->id . '/edit') }}" class="btn btn-default"><i
                                 class="far fa-edit"></i></a>

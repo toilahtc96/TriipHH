@@ -1,22 +1,17 @@
 <head>
-    <meta name="csrf-token" content="{{ csrf_token() }}" />
+    <meta name="csrf-token" content="{{csrf_token()}}" />
 </head>
 <div>
-    <select name="book_status" id='book_status_{{ $data->id}}' class="form-control" onfocus="getOldVal(this,event)"
-        onchange="getAction(this,event)">
-        <option value="1">Nhận yêu cầu tư vấn</option>
-        <option value="2">Yêu cầu đặt cọc</option>
-        <option value="3">Yêu cầu mã phòng</option>
-        <option value="4">Yêu cầu thanh toán </option>
-        <option value="5">Gửi mail</option>
-        <option value="6">Khách sạn hủy</option>
-        <option value="7">Khách hủy</option>
-        <option value="8">Hủy với lý do khác</option>
-        <option value="9">Hoàn tất</option>
-    </select>
+    {!!Form::select('book_status',['0'=>'Chọn Hành Động','1'=>'Nhận yêu cầu tư vấn','2'=>'Yêu cầu đặt cọc','3'=>'Yêu cầu
+    mã phòng',
+    '4'=>'Yêu cầu thanh toán','5'=>'Gửi mail','6'=>'Khách hủy','7'=>'Khách sạn hủy','8'=>'Hủy với lý do khác','9'=>'Hoàn
+    tất'],
+    0,['class'=> 'form-control','id' =>'book_status_'.$data->getTable().'_'. $data->id,
+    'onfocus'=>'getOldVal(this,event)', 'onchange'=>'getAction(this,event)' ])!!}
+    {!!Form::hidden('book_status_hidden',$data->book_status_id,['class'=>'book_status_hidden'])!!}
 </div>
 
-<div class="modal fade" id='modal_status_book_status_{{ $data->id}}' tabindex="-1" role="dialog"
+<div class="modal fade" id='modal_status_book_status_{{ $data->getTable()}}_{{ $data->id}}' tabindex="-1" role="dialog"
     aria-labelledby="exampleModalLabel" aria-hidden="true">
     <div class="modal-dialog" role="document">
 
@@ -33,6 +28,33 @@
                         <label for="confirm-msg" class="col-form-label">Confirm(ok):</label>
                         <input type="text" class="form-control" id="confirm-msg">
                     </div>
+                    @if($data->book_status_id == 3)
+                    <div class="form-group">
+                        <label for="room-code-msg" class="col-form-label">Room Code:</label>
+                        <input type="text" class="form-control" id="room-code-msg">
+                    </div>
+                    <div class="row">
+                        <div class="col-sm-6 ">
+                            {!! Form::label('check_in_date', 'CheckIn Date', ['class' => 'control-label']) !!}
+                            {{ Form::date('check_in_date', null, ['class' => 'form-control']) }}
+                        </div>
+                        <div class="col-sm-6 ">
+                            {!! Form::label('check_in_time', 'CheckIn Time', ['class' => 'control-label']) !!}
+                            {{ Form::time('check_in_time', null, ['class' => 'form-control']) }}
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-sm-6 ">
+                            {!! Form::label('check_out_date', 'CheckOut Date', ['class' => 'control-label']) !!}
+                            {{ Form::date('check_out_date', null, ['class' => 'form-control']) }}
+                        </div>
+                        <div class="col-sm-6 ">
+                            {!! Form::label('check_out_time', 'CheckOut Time', ['class' => 'control-label']) !!}
+                            {{ Form::time('check_out_time', null, ['class' => 'form-control']) }}
+                        </div>
+                    </div>
+                    @endif
+
                 </form>
             </div>
             <div class="modal-footer">

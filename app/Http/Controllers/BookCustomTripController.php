@@ -23,9 +23,14 @@ class BookCustomTripController extends Controller
     {
         //
         $bookstatuses = $this->getListBookStatusForCBB();
-        $bookcustomtrips = BookCustomTrip::select('book_custom_trips.*'
-        , 'locations.location_name', 'cars.own_car', 'room_hotels.level',
-         'combo_types.combo_type_name','book_statuses.status')
+        $bookcustomtrips = BookCustomTrip::select(
+            'book_custom_trips.*',
+            'locations.location_name',
+            'cars.own_car',
+            'room_hotels.level',
+            'combo_types.combo_type_name',
+            'book_statuses.status'
+        )
             ->leftJoin('locations', 'locations.id', '=', 'book_custom_trips.pickup_place_id')
             ->leftJoin('cars', 'cars.id', '=', 'book_custom_trips.car_id')
             ->leftJoin('room_hotels', 'room_hotels.id', '=', 'book_custom_trips.room_id')
@@ -33,7 +38,7 @@ class BookCustomTripController extends Controller
             ->leftJoin('book_statuses', 'book_statuses.id', '=', 'book_custom_trips.book_status_id')
             ->orderBy('updated_at', 'desc')->paginate(5);
 
-        return view('admin/bookcustomtrip/list-bookcustomtrip')->with('bookcustomtrips', $bookcustomtrips)->with('bookstatuses',$bookstatuses);
+        return view('admin/bookcustomtrip/list-bookcustomtrip')->with('bookcustomtrips', $bookcustomtrips)->with('bookstatuses', $bookstatuses);
     }
 
     /**
@@ -77,6 +82,9 @@ class BookCustomTripController extends Controller
     public function edit($id)
     {
         //
+        $bookcustomtrip = BookCustomTrip::where('id',$id)->firstOrFail();
+        // dd($bookcustomtrip);
+        return view('admin/bookcustomtrip/edit-bookcustomtrip')->with('bookcustomtrip',$bookcustomtrip);
     }
 
     /**
