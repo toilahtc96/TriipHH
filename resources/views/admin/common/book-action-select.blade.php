@@ -25,7 +25,7 @@
             <div class="modal-body">
                 <form>
                     <div class="form-group">
-                        <label for="confirm-msg" class="col-form-label">Confirm(ok) {{$data->book_status_id}}:</label>
+                        <label for="confirm-msg" class="col-form-label">Confirm(ok):</label>
                         <input type="text" class="form-control" id="confirm-msg">
                     </div>
                     @if($data->book_status_id == 3)
@@ -52,6 +52,13 @@
                             {!! Form::label('check_out_time', 'CheckOut Time', ['class' => 'control-label']) !!}
                             {{ Form::time('check_out_time', null, ['class' => 'form-control']) }}
                         </div>
+                    </div>
+                    @endif
+
+                    @if($data->book_status_id == 8)
+                    <div class="form-group">
+                        <label for="reject-note-msg" class="col-form-label">Reject Note:</label>
+                        <input type="text" class="form-control" id="reject-note-msg">
                     </div>
                     @endif
 

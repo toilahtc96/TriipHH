@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\BookCombo;
 use App\Models\BookCustomTrip;
 use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
 use Illuminate\Foundation\Bus\DispatchesJobs;
@@ -215,7 +216,7 @@ class Controller extends BaseController
         $cardb = Car::get();
         $cars  = [];
         foreach ($cardb as $key => $val) {
-            $cars[$val->id] = $val->own_car;
+            $cars[$val->id] = $val->own_car . ' - ' . $val->car_type;
         }
         return $cars;
     }
@@ -235,10 +236,24 @@ class Controller extends BaseController
         $comboTypedb = ComboType::get();
         $comboTypes  = [];
         foreach ($comboTypedb as $key => $val) {
-            $comboTypes[$val->id] = $val->combo_type_name;
+            $comboTypes[$val->id] = $val->combo_type_name . ' - ' . $val->detail;
         }
         return $comboTypes;
     }
+
+    public function getListComboTripForCBB()
+    {
+        $comboTripdb = ComboTrip::select('combo_trips.*','combo_types.combo_type_name')
+        ->leftJoin('combo_types', 'combo_types.id', '=', 'combo_trips.combo_type_id')
+        ->get();
+        $comboTrips  = [];
+        foreach ($comboTripdb as $key => $val) {
+            $comboTrips[$val->id] = $val->combo_trip_name . ' - '.$val->combo_type_name .' - (' . $val->start_date . '-> ' . $val->end_date . ')';
+        }
+        return $comboTrips;
+    }
+
+
 
     public function getListRoomByHotelIdForCBB($id)
     {
@@ -249,6 +264,17 @@ class Controller extends BaseController
         }
         return $roomHotels;
     }
+
+    public function getListRoomdForCBB()
+    {
+        $roomHoteldb = RoomHotel::get();
+        $roomHotels  = [];
+        foreach ($roomHoteldb as $key => $val) {
+            $roomHotels[$val->id] = $val->level . ' Sao';
+        }
+        return $roomHotels;
+    }
+
 
     public function getListRoomByHotelIdAjaxForCBB()
     {
@@ -288,9 +314,43 @@ class Controller extends BaseController
                 case "book_custom_trips":
                     $bookCustomTrip = BookCustomTrip::find($idObject);
                     $bookCustomTrip->book_status_id =  $book_status_df;
+                    if (
+                        isset($_POST["roomcode"]) && isset($_POST["cinDate"]) && isset($_POST["cinTime"])
+                        && isset($_POST["coutDate"]) && isset($_POST["coutTime"])
+                    ) {
+                        $bookCustomTrip->room_code = $_POST["roomcode"];
+                        $bookCustomTrip->checkin_date = $_POST["cinDate"];
+                        $bookCustomTrip->checkin_time = $_POST["cinTime"];
+                        $bookCustomTrip->checkout_date = $_POST["coutDate"];
+                        $bookCustomTrip->checkout_time = $_POST["coutTime"];
+                    }
+                    if (isset($_POST["rejectNote"])) {
+                        $bookCustomTrip->reject_note = $_POST["rejectNote"];
+                    }
                     $bookCustomTrip->save();
                     $statusNew = BookStatus::select('status')->findOrFail($book_status_df);
                     break;
+
+                case "book_combos":
+                    $bookCombo = BookCombo::find($idObject);
+                    $bookCombo->book_status_id =  $book_status_df;
+                    if (
+                        isset($_POST["roomcode"]) && isset($_POST["cinDate"]) && isset($_POST["cinTime"])
+                        && isset($_POST["coutDate"]) && isset($_POST["coutTime"])
+                    ) {
+                        $bookCombo->room_code = $_POST["roomcode"];
+                        $bookCombo->checkin_date = $_POST["cinDate"];
+                        $bookCombo->checkin_time = $_POST["cinTime"];
+                        $bookCombo->checkout_date = $_POST["coutDate"];
+                        $bookCombo->checkout_time = $_POST["coutTime"];
+                    }
+                    if (isset($_POST["rejectNote"])) {
+                        $bookCombo->reject_note = $_POST["rejectNote"];
+                    }
+                    $bookCombo->save();
+                    $statusNew = BookStatus::select('status')->findOrFail($book_status_df);
+                    break;
+
                 default:
                     break;
             }

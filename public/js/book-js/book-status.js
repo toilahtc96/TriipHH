@@ -1,11 +1,11 @@
 $('body').wrapInner();
-$(document).ready(function() {
+$(document).ready(function () {
     initSelectStatus();
 })
 
-initSelectStatus = function() {
+initSelectStatus = function () {
     $selectBook = $("[name='book_status']");
-    $selectBook.each(function($index) {
+    $selectBook.each(function ($index) {
         $valueSelect = $(this).parent().find("[name='book_status_hidden']").val();
         $options = $(this).children("option");
 
@@ -43,7 +43,7 @@ initSelectStatus = function() {
                 setOptions($options, "9");
                 break;
             default:
-                console.log("no action");
+                console.log("no action");   
                 break;
         }
         $(this).val('0');
@@ -52,12 +52,12 @@ initSelectStatus = function() {
 }
 
 
-setOptions = function($options, $id) {
-    $options.each(function() {
+setOptions = function ($options, $id) {
+    $options.each(function () {
         $(this).show();
     })
     if ($id == 0) {
-        $options.each(function() {
+        $options.each(function () {
             if ($(this).val() == 1) {
                 $(this).hide();
             }
@@ -76,7 +76,7 @@ setOptions = function($options, $id) {
         })
     }
     if ($id == 1) {
-        $options.each(function() {
+        $options.each(function () {
             if ($(this).val() == 1) {
                 $(this).hide();
             }
@@ -95,7 +95,7 @@ setOptions = function($options, $id) {
         })
     }
     if ($id == 2) {
-        $options.each(function() {
+        $options.each(function () {
             if ($(this).val() == 1) {
                 $(this).hide();
             }
@@ -120,7 +120,7 @@ setOptions = function($options, $id) {
         })
     }
     if ($id == 3) {
-        $options.each(function() {
+        $options.each(function () {
             if ($(this).val() == 1) {
                 $(this).hide();
             }
@@ -145,7 +145,7 @@ setOptions = function($options, $id) {
         })
     }
     if ($id == 4) {
-        $options.each(function() {
+        $options.each(function () {
             if ($(this).val() == 1) {
                 $(this).hide();
             }
@@ -171,7 +171,7 @@ setOptions = function($options, $id) {
     }
     if ($id == 5) {
 
-        $options.each(function() {
+        $options.each(function () {
 
             if ($(this).val() == 1) {
                 $(this).hide();
@@ -197,24 +197,24 @@ setOptions = function($options, $id) {
         })
     }
     if ($id == 6) {
-        $options.each(function() {
+        $options.each(function () {
             $(this).hide();
         })
     }
 
     if ($id == 9 || $id == 7 || $id == 8) {
-        $options.each(function() {
+        $options.each(function () {
             $(this).hide();
         })
     }
 }
 
 var preVar;
-getOldVal = function(select, e) {
+getOldVal = function (select, e) {
     this.preVar = select.value;
     select.blur();
 }
-getAction = function(select, e) {
+getAction = function (select, e) {
     e.preventDefault();
     var select = e.target;
     var id = select.getAttribute('id');
@@ -225,13 +225,14 @@ getAction = function(select, e) {
     var inputHidden = trParent.find('.book_status_hidden');
     $(idModal).modal('show');
     $cancel = $(idModal).find('#cancel');
-    $cancel.click(function() {
+    $cancel.click(function () {
         e.target.value = preVar;
     })
     $confirm = $(idModal).find('#confirm');
     $valueSelect = select.value;
     var i = 0; // sure code not rerun
-    $confirm.click(function() {
+    var idTable =  document.getElementsByTagName("table")[0].getAttribute("id");
+    $confirm.click(function () {
         if (i == 0) {
             i++;
             $confirmMsg = $(idModal).find('#confirm-msg').val();
@@ -248,37 +249,50 @@ getAction = function(select, e) {
                 }
 
             }
+            
             if ($confirmMsg.toUpperCase() == 'OK') {
                 // call ajax here
-
+                var data = {}
+                if ($valueSelect == 4) {
+                    data = {
+                        roomcode: $roomCode,
+                        cinDate: $cinDate,
+                        cinTime: $cinTime,
+                        coutDate: $coutDate,
+                        coutTime: $coutTime,
+                        key: select.value,
+                        id: id
+                    }
+                }else {
+                    data = {
+                        key: select.value,
+                        id: id
+                    }
+                }
 
 
                 $.ajax({
                     type: 'POST',
                     url: '/admin/changeBookStatus',
-                    data: {
-
-                        key: select.value,
-                        id: id
-                    },
-                    beforeSend: function() {
+                    data: data,
+                    beforeSend: function () {
                         // setting a timeout
 
                     },
-                    success: function(data) {
+                    success: function (data) {
+                        console.log(data)
                         var newStatus = data.statusNew.status;
                         var newIdStatus = data.idStatusNew;
-                        console.log(newIdStatus)
                         inputHidden.val(newIdStatus);
                         tdStatus[0].innerHTML = newStatus;
-                        $("#book_custom_trip_table").load(window.location + " #book_custom_trip_table", function() {
+                        $("#"+idTable).load(window.location + " #"+idTable, function () {
                             initSelectStatus();
                         });
                     },
-                    error: function() {
+                    error: function () {
 
                     },
-                    complete: function() {
+                    complete: function () {
 
                     }
                 });

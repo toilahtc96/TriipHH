@@ -37,7 +37,6 @@ class BookCustomTripController extends Controller
             ->leftJoin('combo_types', 'combo_types.id', '=', 'book_custom_trips.combo_type_id')
             ->leftJoin('book_statuses', 'book_statuses.id', '=', 'book_custom_trips.book_status_id')
             ->orderBy('updated_at', 'desc')->paginate(5);
-
         return view('admin/bookcustomtrip/list-bookcustomtrip')->with('bookcustomtrips', $bookcustomtrips)->with('bookstatuses', $bookstatuses);
     }
 
@@ -82,9 +81,20 @@ class BookCustomTripController extends Controller
     public function edit($id)
     {
         //
-        $bookcustomtrip = BookCustomTrip::where('id',$id)->firstOrFail();
-        // dd($bookcustomtrip);
-        return view('admin/bookcustomtrip/edit-bookcustomtrip')->with('bookcustomtrip',$bookcustomtrip);
+        $locations = $this->getListLocationForCBB();
+        $cars = $this->getListCarForCBB();
+        $bookcustomtrip = BookCustomTrip::where('id', $id)->firstOrFail();
+        $combotypes = $this->getListComboTypeForCBB();
+        $hotel_id = RoomHotel::select('hotel_id')->where('id', $bookcustomtrip->room_id)->firstOrFail();
+        $hotel_name = "";
+        $room = "";
+
+        if (isset($hotel_id)) {
+            $hotel_name = Hotel::select('hotel_name')->where('id', $hotel_id)->get();
+            $rooms = $this->getListRoomByHotelIdForCBB($hotel_id->hotel_id);
+        }
+        return view('admin/bookcustomtrip/edit-bookcustomtrip')->with('bookcustomtrip', $bookcustomtrip)->with('locations', $locations)->with('cars', $cars)
+            ->with('hotel_name', $hotel_name)->with('rooms', $rooms)->with('combotypes',$combotypes);
     }
 
     /**
@@ -97,6 +107,12 @@ class BookCustomTripController extends Controller
     public function update(Request $request, $id)
     {
         //
+        $bookCustomTrip  = BookCustomTrip::findOrFail($id);
+
+        $input = $request->all();
+    
+        $bookCustomTrip->fill($input)->save();
+        return redirect('/admin/bookcustomtrips');
     }
 
     /**
