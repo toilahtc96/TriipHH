@@ -15,7 +15,7 @@ class AddCheckoutDateToBookRoomsTable extends Migration
     {
         Schema::table('book_rooms', function (Blueprint $table) {
             //
-            $table->date('checkout_date');
+            $table->date('checkout_date')->nullable();
         });
     }
 

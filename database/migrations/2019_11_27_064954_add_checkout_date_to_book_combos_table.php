@@ -15,7 +15,7 @@ class AddCheckoutDateToBookCombosTable extends Migration
     {
         Schema::table('book_combos', function (Blueprint $table) {
             //
-            $table->date('checkout_date');
+            $table->date('checkout_date')->nullable();
         });
     }
 

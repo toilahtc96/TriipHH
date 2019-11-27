@@ -15,8 +15,8 @@ class EditCheckoutCheckinTimeToBookCustomTripsTable extends Migration
     {
         Schema::table('book_custom_trips', function (Blueprint $table) {
             //
-            $table->time('checkin_time')->change();
-            $table->time('checkout_time')->change();
+            $table->time('checkin_time');
+            $table->time('checkout_time');
         });
     }
 

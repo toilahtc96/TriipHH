@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class AddCheckoutDateToBookCustomTripsTable extends Migration
+class AddRoomCarCustomToBookCombosTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,10 +13,10 @@ class AddCheckoutDateToBookCustomTripsTable extends Migration
      */
     public function up()
     {
-        Schema::table('book_custom_trips', function (Blueprint $table) {
+        Schema::table('book_combos', function (Blueprint $table) {
             //
-            $table->date('checkout_date')->nullable();
-            
+            $table->bigInteger('room_id')->nullable();
+            $table->bigInteger('car_id')->nullable();
         });
     }
 
@@ -27,9 +27,10 @@ class AddCheckoutDateToBookCustomTripsTable extends Migration
      */
     public function down()
     {
-        Schema::table('book_custom_trips', function (Blueprint $table) {
+        Schema::table('book_combos', function (Blueprint $table) {
             //
-            $table->dropColumn('checkout_date');
+            $table->dropColumn('room_id');
+            $table->dropColumn('car_id');
         });
     }
 }

@@ -15,8 +15,8 @@ class EditCheckoutCheckinTimeToBookRoomsTable extends Migration
     {
         Schema::table('book_rooms', function (Blueprint $table) {
             //
-            $table->time('checkin_time')->change();
-            $table->time('checkout_time')->change();
+            $table->time('checkin_time');
+            $table->time('checkout_time');
         });
     }
 
