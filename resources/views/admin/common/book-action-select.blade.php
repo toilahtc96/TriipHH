@@ -25,7 +25,7 @@
             <div class="modal-body">
                 <form>
                     <div class="form-group">
-                        <label for="confirm-msg" class="col-form-label">Confirm(ok):</label>
+                        <label for="confirm-msg" class="col-form-label">Confirm(ok) {{$data->book_status_id}}:</label>
                         <input type="text" class="form-control" id="confirm-msg">
                     </div>
                     @if($data->book_status_id == 3)

@@ -2,6 +2,8 @@
 <script src="{!! asset('bower_components/adminlte/plugins/jquery/jquery.min.js') !!}"></script>
 <!-- jQuery UI 1.11.4 -->
 <script src="{!! asset('bower_components/adminlte/plugins/jquery-ui/jquery-ui.min.js') !!}"></script>
+
+<script src="{!! asset('bower_components/adminlte/plugins/datatables/jquery.dataTables.js') !!}"></script>
 <!-- Resolve conflict in jQuery UI tooltip with Bootstrap tooltip -->
 <script>
   $.widget.bridge('uibutton', $.ui.button)
