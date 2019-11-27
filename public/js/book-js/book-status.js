@@ -252,10 +252,12 @@ getAction = function(select, e) {
                 // call ajax here
 
 
+
                 $.ajax({
                     type: 'POST',
                     url: '/admin/changeBookStatus',
                     data: {
+
                         key: select.value,
                         id: id
                     },
