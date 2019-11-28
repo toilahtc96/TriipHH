@@ -12,7 +12,8 @@
                 <div class="row">
                     <div class="col-sm-4">
                         <figure style="margin: 0 4px 0;text-align: center;">
-                            <img src="https://ssl.gstatic.com/accounts/signup/glif/account.svg" alt="" width="244" height="244" class="j9NuTc TrZEUc">
+                            <img src="https://ssl.gstatic.com/accounts/signup/glif/account.svg" alt="" width="244"
+                                height="244" class="j9NuTc TrZEUc">
                         </figure>
 
                     </div>
@@ -23,11 +24,12 @@
 
 
                         {!! Form::hidden('image_root_folder',$value =
-                                    $combotrip->image_root_folder,['class'=>'form-control','id'=>'image_root_folder'])
-                                    !!}
-                        
+                        $combotrip->image_root_folder,['class'=>'form-control','id'=>'image_root_folder'])
+                        !!}
+
                         {!! Form::label('hotel_id', 'Hotel', ['class' => 'control-label']) !!}
-                        {!!Form::select('hotel_id', $hotels, $combotrip->hotel_id, ['class'=>'form-control','onchange'=>'callRoomAjax(this,event)'])!!}
+                        {!!Form::select('hotel_id', $hotels, $combotrip->hotel_id,
+                        ['class'=>'form-control','onchange'=>'callRoomAjax(this,event)'])!!}
                         {{-- 'testSwitch(this,event) --}}
                         {!! Form::label('room_id', 'Room', ['class' => 'control-label']) !!}
                         {!!Form::select('room_id', $rooms, $combotrip->room_id, ['class'=>'form-control'])!!}
@@ -36,31 +38,35 @@
                         {!!Form::select('car_id', $cars, $value=$combotrip->car_id, ['class'=>'form-control'])!!}
 
                         {!! Form::label('combo_type_id', 'Combo Type', ['class' => 'control-label']) !!}
-                        {!!Form::select('combo_type_id', $combotypes, $value=$combotrip->combo_type_id, ['class'=>'form-control'])!!}
+                        {!!Form::select('combo_type_id', $combotypes, $value=$combotrip->combo_type_id,
+                        ['class'=>'form-control'])!!}
 
                         <div class="row">
                             <div class="col-sm-6 ">
 
-                        {!! Form::label('start_time', 'Start Time', ['class' => 'control-label']) !!}
-                        {!! Form::time('start_time', $value=$combotrip->start_time, ['class' =>'form-control']) !!}
+                                {!! Form::label('start_time', 'Start Time', ['class' => 'control-label']) !!}
+                                {!! Form::time('start_time', $value=$combotrip->start_time, ['class' =>'form-control'])
+                                !!}
                             </div>
-                        <div class="col-sm-6 ">
-                        {!! Form::label('arrival_time', 'Arrival Time', ['class' => 'control-label']) !!}
-                        {!! Form::time('arrival_time', $value=$combotrip->arrival_time, ['class' =>'form-control']) !!}
+                            <div class="col-sm-6 ">
+                                {!! Form::label('arrival_time', 'Arrival Time', ['class' => 'control-label']) !!}
+                                {!! Form::time('arrival_time', $value=$combotrip->arrival_time, ['class'
+                                =>'form-control']) !!}
 
-                        </div>
+                            </div>
                         </div>
                         <div class="row">
                             <div class="col-sm-6 ">
 
-                        {!! Form::label('start_date', 'Start Date', ['class' => 'control-label']) !!}
-                        {!! Form::date('start_date', $value=$combotrip->start_date, ['class' => 'form-control']) !!}
+                                {!! Form::label('start_date', 'Start Date', ['class' => 'control-label']) !!}
+                                {!! Form::date('start_date', $value=$combotrip->start_date, ['class' => 'form-control'])
+                                !!}
                             </div>
-                        <div class="col-sm-6 ">
-                        {!! Form::label('end_date', 'End Date ', ['class' => 'control-label']) !!}
-                        {!! Form::date('end_date', $value=$combotrip->end_date, ['class' =>'form-control']) !!}
+                            <div class="col-sm-6 ">
+                                {!! Form::label('end_date', 'End Date ', ['class' => 'control-label']) !!}
+                                {!! Form::date('end_date', $value=$combotrip->end_date, ['class' =>'form-control']) !!}
 
-                        </div>
+                            </div>
                         </div>
                         {!! Form::label('service_included', 'service', ['class' => 'control-label']) !!}
                         {!! Form::textarea('service_included', $value =$combotrip->service_included, ['class' =>
@@ -75,7 +81,8 @@
                             </div>
                             <div class="col-sm-4 ">
                                 {!! Form::label('status', 'status', ['class' => 'control-label']) !!}
-                                {!!Form::select('status', ['1' => 'Hoạt động', '0' => 'Không hoạt động'], $value =$combotrip->status,
+                                {!!Form::select('status', ['1' => 'Hoạt động', '0' => 'Không hoạt động'], $value
+                                =$combotrip->status,
                                 ['class'=>'form-control'])!!}
                             </div>
                         </div>
@@ -93,7 +100,8 @@
 
                                         {{-- $value = $hotel->list_image --}}
                                         {!!
-                                        Form::hidden('list_image_old',$value = $combotrip->list_image,['id'=>'list_image_old']);
+                                        Form::hidden('list_image_old',$value =
+                                        $combotrip->list_image,['id'=>'list_image_old']);
                                         !!}
                                     </div>
                                     <!--      Name  mà server request về sẽ là ImageUpload-->

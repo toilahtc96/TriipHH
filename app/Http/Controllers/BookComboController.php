@@ -11,6 +11,7 @@ use App\Models\Car;
 use App\Models\ComboType;
 use App\Models\Hotel;
 use App\Models\BookStatus;
+use App\Models\ComboTrip;
 
 class BookComboController extends Controller
 {
@@ -89,11 +90,27 @@ class BookComboController extends Controller
         $bookstatues = $this->getListBookStatusForCBB();
         $combotypes = $this->getListComboTypeForCBB();
         $combotrips = $this->getListComboTripForCBB();
-        $rooms = $this->getListRoomdForCBB();
+
         $hotels = $this->getListHotelForCBB();
         $bookcombo = BookCombo::where('id', $id)->firstOrFail();
+        $hotel_id_new = null;
+        $rooms_new = null;
+        if ($bookcombo->room_id) {
+            $hotel_id_new = RoomHotel::select('hotel_id')->where('id', $bookcombo->room_id)->firstOrFail();
+            if ($hotel_id_new->hotel_id) {
+                $rooms_new =  $this->getListRoomByHotelIdForCBB($hotel_id_new->hotel_id);
+            }
+        }
+        $combotrip = ComboTrip::where('id', $bookcombo->combo_id)->firstOrFail();
+        $locationPassing = $this->getListLocationByCarForCBB($combotrip->car_id);
+        $car = Car::find($combotrip->car_id);
+        $rooms = $this->getListRoomByHotelIdForCBB($combotrip->hotel_id);
+        $roomnews = $this->getListRoomByHotelIdForCBB($bookcombo->hotel_id);
         return view('admin/bookcombo/edit-bookcombo')->with('bookcombo', $bookcombo)->with('locations', $locations)->with('cars', $cars)
-        ->with('hotels', $hotels)->with('rooms', $rooms)->with('combotypes',$combotypes)->with('bookstatues',$bookstatues)->with('combotrips',$combotrips);
+            ->with('hotels', $hotels)->with('rooms', $rooms)->with('combotypes', $combotypes)->with('bookstatues', $bookstatues)->with('combotrips', $combotrips)
+            ->with('combotrip', $combotrip)->with('roomnews', $roomnews)->with('locationPassing', $locationPassing)->with('car', $car)
+            ->with('hotel_id_new', $hotel_id_new == null ? 0 : $hotel_id_new->hotel_id)
+            ->with('rooms_new', $rooms_new == null ? ['0'=>'Chọn hạng phòng'] : $rooms_new);
     }
 
     /**
@@ -105,12 +122,43 @@ class BookComboController extends Controller
      */
     public function update(Request $request, $id)
     {
-       
+
+        $this->validate($request, array(
+            'fullName' => 'required|max:255',
+            'msisdn'  => 'required|max:20',
+        ));
+
         $bookCombo  = BookCombo::findOrFail($id);
 
-        $input = $request->all();
-    
-        $bookCombo->fill($input)->save();
+        $bookCombo->fullname = $request->fullName;
+        $bookCombo->msisdn  = $request->msisdn;
+        $bookCombo->fb_link = $request->fb_link;
+        // $bookCombo->hotel_id = $request->hotel_id;
+        $bookCombo->room_id = $request->room_id;
+        $bookCombo->combo_id = $request->combo_id;
+        $bookCombo->combo_type_id = $request->combo_type_id;
+        $bookCombo->room_code = $request->room_code;
+        if (isset($request->checkin_date) &&  $request->checkin_date != "") {
+            $bookCombo->checkin_date = $request->checkin_date;
+        }
+        if (isset($request->checkin_time) &&  $request->checkin_time != "") {
+            $bookCombo->checkin_time = $request->checkin_time;
+        }
+        if (isset($request->checkout_date) &&  $request->checkout_date != "") {
+            $bookCombo->checkout_date = $request->checkout_date;
+        }
+        if (isset($request->checkout_time) &&  $request->checkout_time != "") {
+            $bookCombo->checkout_time = $request->checkout_time;
+        }
+        if (isset($request->price) &&  $request->price != "") {
+            $bookCombo->price = $request->price;
+        }
+        $bookCombo->car_id = $request->car_id;
+        $bookCombo->pickup_place_id = $request->pickup_place_id;
+        // $bookCombo-> = $request->;
+        // $bookCombo-> = $request->;
+        // $bookCombo-> = $request->;
+        $bookCombo->save();
         return redirect('/admin/bookcombos');
     }
 

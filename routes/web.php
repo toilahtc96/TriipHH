@@ -77,6 +77,18 @@ Route::prefix('admin')->middleware('auth')->group(function () {
         'update' => 'bookcustomtrips.update'
     ]);
 
+    Route::resource('/bookrooms', 'BookRoomController')->names([
+        'index' => 'bookrooms.view',
+        'edit' => 'bookrooms.edit',
+        'update' => 'bookrooms.update'
+    ]);
+
+    Route::resource('/bookcars', 'BookCarController')->names([
+        'index' => 'bookcars.view',
+        'edit' => 'bookcars.edit',
+        'update' => 'bookcars.update'
+    ]);
+
     Route::post('/changeStatus', 'Controller@changeStatus')->name('changeStatus');
     Route::post('/changeBookStatus', 'Controller@changeBookStatusNew')->name('changeBookStatus');
     Route::post('/getRoomByHotelId', 'Controller@getListRoomByHotelIdAjaxForCBB')->name('getRoomByHotelId');

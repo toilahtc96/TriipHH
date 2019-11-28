@@ -2,37 +2,37 @@
 @section('content')
 <div class="row">
     <div class="container">
-        <h2>List Book Combo Of Customer</h2>
+        <h2>List Book Room Of Customer</h2>
         <div class="panel panel-primary ">
 
-            <div class="panel-heading">List Book Combo Of Customer</div>
+            <div class="panel-heading">List Book Room Of Customer</div>
         </div>
-        <table class="table TFtable" id="book_combo_table">
+        <table class="table TFtable" id="book_room_table">
             <thead class="thead-light">
                 <tr>
                     <th>Full Name</th>
                     <th>Phone</th>
+                    <th>Hotel</th>
+                    <th>Room Level</th>
                     <th>Start Date </th>
-                    <th>Car</th>
-                    <th>Pickup Place</th>
                     <th>Combo Type</th>
                     <th>Type Service</th>
                     <th>Link FaceBook</th>
-                    <th>Price </th>
+                    <th>Price</th>
                     <th>Status</th>
                     <th>Action</th>
                     <th>Edit</th>
                 </tr>
             </thead>
             <tbody>
-                @foreach($bookcombos as $key => $data)
+                @foreach($bookrooms as $key => $data)
 
                 <tr>
                     <td>{{$data->fullname}}</td>
                     <td>{{$data->msisdn}}</td>
+                    <td>{{$data->hotel_name}}</td>
+                    <td>{{$data->level}}</td>
                     <td class="td-date">{{$data->start_date}}</td>
-                    <td>{{$data->own_car}} - {{$data->car_type}}</td>
-                    <td>{{$data->location_name}}</td>
                     <td>{{$data->combo_type_name}}</td>
                     <td>
                         @if($data->type_service == 1)
@@ -50,7 +50,7 @@
                     <td class="td-status">{{$data->status}}</td>
                     <td style="width:18%">@include('admin.common.book-action-select')</td>
                     <td>
-                        <a href="{{ url('/admin/bookcombos/' . $data->id . '/edit') }}" class="btn btn-default"><i
+                        <a href="{{ url('/admin/bookrooms/' . $data->id . '/edit') }}" class="btn btn-default"><i
                                 class="far fa-edit"></i></a>
                     </td>
                 </tr>
@@ -58,7 +58,7 @@
             </tbody>
 
         </table>
-        <div>{!! $bookcombos->links() !!}</div>
+        <div>{!! $bookrooms->links() !!}</div>
     </div>
 </div>
 @endsection

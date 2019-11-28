@@ -3,9 +3,8 @@
 </head>
 <div>
     {!!Form::select('book_status',['0'=>'Chọn Hành Động','1'=>'Nhận yêu cầu tư vấn','2'=>'Yêu cầu đặt cọc','3'=>'Yêu cầu
-    mã phòng',
-    '4'=>'Yêu cầu thanh toán','5'=>'Gửi mail','6'=>'Khách hủy','7'=>'Khách sạn hủy','8'=>'Hủy với lý do khác','9'=>'Hoàn
-    tất'],
+    mã phòng','4'=>'Yêu cầu thanh toán','5'=>'Gửi mail','6'=>'Khách hủy','7'=>'Khách sạn hủy',
+    '8'=>'Hủy với lý do khác','9'=>'Hoàn tất','10'=>'Đặt xe'],
     0,['class'=> 'form-control','id' =>'book_status_'.$data->getTable().'_'. $data->id,
     'onfocus'=>'getOldVal(this,event)', 'onchange'=>'getAction(this,event)' ])!!}
     {!!Form::hidden('book_status_hidden',$data->book_status_id,['class'=>'book_status_hidden'])!!}

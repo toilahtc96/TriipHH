@@ -28,14 +28,14 @@ class ComboTripController extends Controller
             'hotel_name',
             'room_hotels.level',
             'combo_types.combo_type_name'
-            
+
         )
             ->leftJoin('cars', 'cars.id', '=', 'combo_trips.car_id')
             ->leftJoin('hotels', 'hotels.id', '=', 'combo_trips.hotel_id')
             ->leftJoin('room_hotels', 'room_hotels.id', '=', 'combo_trips.room_id')
             ->leftJoin('combo_types', 'combo_types.id', '=', 'combo_trips.combo_type_id')
             ->orderBy('updated_at', 'desc')->paginate(5);
-            
+
         // $hotels->setBaseUrl('custom/url');
         foreach ($combotrips as $key => $val) {
             $val->service_included = str_replace(";", "\n", $val->service_included);
@@ -57,10 +57,7 @@ class ComboTripController extends Controller
         $cars = $this->getListCarForCBB();
         $combotypes = $this->getListComboTypeForCBB();
 
-        $keyHotel = key($hotels);
-        if ($keyHotel) {
-            $rooms = $this->getListRoomByHotelIdForCBB($keyHotel);
-        }
+        $rooms = $this->getListRoomdForCBB();
 
         return view('admin/combotrip/new-combotrip')->with("hotels", $hotels)
             ->with("cars", $cars)->with("combotypes", $combotypes)->with('rooms', $rooms);
@@ -140,12 +137,8 @@ class ComboTripController extends Controller
         $hotels = $this->getListHotelForCBB();
         $cars = $this->getListCarForCBB();
         $combotypes = $this->getListComboTypeForCBB();
-
-        $keyHotel = key($hotels);
-        if ($keyHotel) {
-            $rooms = $this->getListRoomByHotelIdForCBB($keyHotel);
-        }
         $combotrip = ComboTrip::where('id', $id)->findOrFail($id);
+        $rooms = $this->getListRoomByHotelIdForCBB($combotrip->hotel_id);
         $combotrip->image_root_folder = "combotrips";
 
         return view('admin/combotrip/edit-combotrip')->with("hotels", $hotels)->with("combotrip", $combotrip)

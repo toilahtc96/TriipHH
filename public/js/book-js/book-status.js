@@ -42,8 +42,11 @@ initSelectStatus = function () {
             case "9":
                 setOptions($options, "9");
                 break;
+            case "10":
+                setOptions($options, "10");
+                break;
             default:
-                console.log("no action");   
+                console.log("no action");
                 break;
         }
         $(this).val('0');
@@ -73,6 +76,9 @@ setOptions = function ($options, $id) {
             if ($(this).val() == 9) {
                 $(this).hide();
             }
+            if ($(this).val() == 10) {
+                $(this).hide();
+            }
         })
     }
     if ($id == 1) {
@@ -90,6 +96,9 @@ setOptions = function ($options, $id) {
                 $(this).hide();
             }
             if ($(this).val() == 9) {
+                $(this).hide();
+            }
+            if ($(this).val() == 10) {
                 $(this).hide();
             }
         })
@@ -117,6 +126,9 @@ setOptions = function ($options, $id) {
             if ($(this).val() == 9) {
                 $(this).hide();
             }
+            if ($(this).val() == 10) {
+                $(this).hide();
+            }
         })
     }
     if ($id == 3) {
@@ -140,6 +152,9 @@ setOptions = function ($options, $id) {
                 $(this).hide();
             }
             if ($(this).val() == 9) {
+                $(this).hide();
+            }
+            if ($(this).val() == 10) {
                 $(this).hide();
             }
         })
@@ -167,10 +182,12 @@ setOptions = function ($options, $id) {
             if ($(this).val() == 9) {
                 $(this).hide();
             }
+            if ($(this).val() == 10) {
+                $(this).hide();
+            }
         })
     }
     if ($id == 5) {
-
         $options.each(function () {
 
             if ($(this).val() == 1) {
@@ -194,6 +211,9 @@ setOptions = function ($options, $id) {
             if ($(this).val() == 7) {
                 $(this).hide();
             }
+            if ($(this).val() == 10) {
+                $(this).hide();
+            }
         })
     }
     if ($id == 6) {
@@ -202,9 +222,40 @@ setOptions = function ($options, $id) {
         })
     }
 
-    if ($id == 9 || $id == 7 || $id == 8) {
+    if ($id == 7 || $id == 8) {
+
         $options.each(function () {
             $(this).hide();
+        })
+    }
+    if ($id == 9) {
+        $options.each(function () {
+
+            if ($(this).val() == 1) {
+                $(this).hide();
+            }
+            if ($(this).val() == 2) {
+                $(this).hide();
+            }
+            if ($(this).val() == 3) {
+                $(this).hide();
+            }
+            if ($(this).val() == 4) {
+                $(this).hide();
+            }
+            if ($(this).val() == 5) {
+                $(this).hide();
+            }
+           
+            if ($(this).val() == 8) {
+                $(this).hide();
+            }
+            if ($(this).val() == 7) {
+                $(this).hide();
+            }
+            if ($(this).val() == 9) {
+                $(this).hide();
+            }
         })
     }
 }
@@ -231,7 +282,7 @@ getAction = function (select, e) {
     $confirm = $(idModal).find('#confirm');
     $valueSelect = select.value;
     var i = 0; // sure code not rerun
-    var idTable =  document.getElementsByTagName("table")[0].getAttribute("id");
+    var idTable = document.getElementsByTagName("table")[0].getAttribute("id");
     $confirm.click(function () {
         if (i == 0) {
             i++;
@@ -244,12 +295,13 @@ getAction = function (select, e) {
                 $coutTime = $(idModal).find('#check_out_time').val();
 
                 if ($roomCode == "" || $cinDate == "" || $cinTime == "" || $coutDate == "" || $coutTime == "") {
-                    alert('Bạn phải nhập đủ thông tin yêu cầu để thực hiện!');
+                    alert('Bạn phải nhập đủ thông tin yêu cầu để thực hiện! ');
                     $cancel.click();
                 }
 
             }
-            
+
+
             if ($confirmMsg.toUpperCase() == 'OK') {
                 // call ajax here
                 var data = {}
@@ -263,7 +315,7 @@ getAction = function (select, e) {
                         key: select.value,
                         id: id
                     }
-                }else {
+                } else {
                     data = {
                         key: select.value,
                         id: id
@@ -280,12 +332,11 @@ getAction = function (select, e) {
 
                     },
                     success: function (data) {
-                        console.log(data)
                         var newStatus = data.statusNew.status;
                         var newIdStatus = data.idStatusNew;
                         inputHidden.val(newIdStatus);
                         tdStatus[0].innerHTML = newStatus;
-                        $("#"+idTable).load(window.location + " #"+idTable, function () {
+                        $("#" + idTable).load(window.location + " #" + idTable, function () {
                             initSelectStatus();
                         });
                     },

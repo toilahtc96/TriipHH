@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\BookCombo;
 use App\Models\BookCustomTrip;
+use App\Models\BookRoom;
 use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
 use Illuminate\Foundation\Bus\DispatchesJobs;
 use Illuminate\Foundation\Validation\ValidatesRequests;
@@ -16,6 +17,7 @@ use App\Models\Car;
 use App\Models\RoomHotel;
 use App\Models\ComboTrip;
 use App\Models\BookStatus;
+use App\Models\BookCar;
 
 class Controller extends BaseController
 {
@@ -196,16 +198,32 @@ class Controller extends BaseController
     {
         $locationdb = Location::get();
         $locations  = [];
+        $locations[0]  = "Chọn Địa Điểm";
         foreach ($locationdb as $key => $val) {
             $locations[$val->id] = $val->location_name;
         }
         return $locations;
     }
+    public function getListLocationByCarForCBB($id)
+    {
+        $placePassing = Car::select('places_passing')->where('id', $id)->firstOrFail();
+        $locationArr = explode(",", $placePassing->places_passing);
+        $place_passingArr = [];
+        $place_passingArr[0] = "Điểm đón";
+        foreach ($locationArr as $key => $val) {
+            $location  = Location::select('location_name')->where('id', $val)->first();
+            $place_passingArr[$val] = $location->location_name;
+        }
+
+        return $place_passingArr;
+    }
+
 
     public function getListHotelForCBB()
     {
         $hoteldb = Hotel::get();
         $hotels  = [];
+        $hotels[0] = "Chọn khách sạn";
         foreach ($hoteldb as $key => $val) {
             $hotels[$val->id] = $val->hotel_name;
         }
@@ -215,6 +233,7 @@ class Controller extends BaseController
     {
         $cardb = Car::get();
         $cars  = [];
+        $cars[0] = "Chọn xe";
         foreach ($cardb as $key => $val) {
             $cars[$val->id] = $val->own_car . ' - ' . $val->car_type;
         }
@@ -243,12 +262,12 @@ class Controller extends BaseController
 
     public function getListComboTripForCBB()
     {
-        $comboTripdb = ComboTrip::select('combo_trips.*','combo_types.combo_type_name')
-        ->leftJoin('combo_types', 'combo_types.id', '=', 'combo_trips.combo_type_id')
-        ->get();
+        $comboTripdb = ComboTrip::select('combo_trips.*', 'combo_types.combo_type_name')
+            ->leftJoin('combo_types', 'combo_types.id', '=', 'combo_trips.combo_type_id')
+            ->get();
         $comboTrips  = [];
         foreach ($comboTripdb as $key => $val) {
-            $comboTrips[$val->id] = $val->combo_trip_name . ' - '.$val->combo_type_name .' - (' . $val->start_date . '-> ' . $val->end_date . ')';
+            $comboTrips[$val->id] = $val->combo_trip_name . ' - ' . $val->combo_type_name . ' - (' . $val->start_date . '-> ' . $val->end_date . ')';
         }
         return $comboTrips;
     }
@@ -259,6 +278,7 @@ class Controller extends BaseController
     {
         $roomHoteldb = RoomHotel::where('hotel_id', $id)->get();
         $roomHotels  = [];
+        $roomHotels[0] = "Không có loại phòng thuộc khách sạn này";
         foreach ($roomHoteldb as $key => $val) {
             $roomHotels[$val->id] = $val->level . ' Sao';
         }
@@ -269,6 +289,7 @@ class Controller extends BaseController
     {
         $roomHoteldb = RoomHotel::get();
         $roomHotels  = [];
+        $roomHotels[0] = "Không có loại phòng thuộc khách sạn này";
         foreach ($roomHoteldb as $key => $val) {
             $roomHotels[$val->id] = $val->level . ' Sao';
         }
@@ -281,6 +302,7 @@ class Controller extends BaseController
         if (isset($_POST["id"])) {
             $roomHoteldb = RoomHotel::where('hotel_id', $_POST["id"])->get();
             $roomHotels  = [];
+            $roomHotels[0] = "Không có loại phòng thuộc khách sạn này";
             foreach ($roomHoteldb as $key => $val) {
                 $roomHotels[$val->id] = $val->level;
             }
@@ -291,9 +313,11 @@ class Controller extends BaseController
 
 
 
+
     public function changeBookStatusNew()
     {
         if (isset($_POST["key"]) && isset($_POST["id"])) {
+
             $id = $_POST["key"]; // 9
             $idBookSelect =  $_POST["id"];
             $arrIdSend = explode("book_status_", $idBookSelect);
@@ -303,6 +327,10 @@ class Controller extends BaseController
             $tableName = substr($tableId, 0, $numberLastIndex);
             $idObject = substr($tableId, $numberLastIndex + 1);
             $book_status_df = $id;
+
+            if ($id == 10) {
+                $book_status_df = 6;
+            }
             if ($id == 9) {
                 $book_status_df = 6;
             }
@@ -350,14 +378,46 @@ class Controller extends BaseController
                     $bookCombo->save();
                     $statusNew = BookStatus::select('status')->findOrFail($book_status_df);
                     break;
+                case "book_rooms":
 
+                    $bookroom = BookRoom::find($idObject);
+                    $bookroom->book_status_id =  $book_status_df;
+
+                    if (
+                        isset($_POST["roomcode"]) && isset($_POST["cinDate"]) && isset($_POST["cinTime"])
+                        && isset($_POST["coutDate"]) && isset($_POST["coutTime"])
+                    ) {
+                        $bookroom->room_code = $_POST["roomcode"];
+                        $bookroom->checkin_date = $_POST["cinDate"];
+                        $bookroom->checkin_time = $_POST["cinTime"];
+                        $bookroom->checkout_date = $_POST["coutDate"];
+                        $bookroom->checkout_time = $_POST["coutTime"];
+                    }
+                    if (isset($_POST["rejectNote"])) {
+                        $bookroom->reject_note = $_POST["rejectNote"];
+                    }
+                    $bookroom->save();
+                    $statusNew = BookStatus::select('status')->findOrFail($book_status_df);
+                    break;
+                case "book_cars":
+                    
+                    $bookcar = BookCar::find($idObject);
+                  
+                    $bookcar->book_status_id =  $book_status_df;
+                    $bookcar->save();
+                    $statusNew = BookStatus::select('status')->findOrFail($book_status_df);
+                   
+                    break;
                 default:
+                    $statusNew = "no case found";
                     break;
             }
             $bookStatus = BookStatus::where('position', 6)->firstOrFail();
-            if ($id != 9) {
+           
+            if ($id != 9 && $id != 10) {
                 $bookStatus = BookStatus::where('position', $id)->firstOrFail();
             }
+           
             $status = "";
             if (isset($bookStatus)) {
                 $status = $bookStatus->status;

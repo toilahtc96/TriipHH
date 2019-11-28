@@ -3,8 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use App\Models\BookCustomTrip;
-use App\Models\Location;
+use App\Models\BookRoom;
 use App\Models\RoomHotel;
 use App\Models\Car;
 use App\Models\ComboType;
@@ -12,7 +11,7 @@ use App\Models\Hotel;
 use App\Models\BookStatus;
 
 
-class BookCustomTripController extends Controller
+class BookRoomController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -23,21 +22,20 @@ class BookCustomTripController extends Controller
     {
         //
         $bookstatuses = $this->getListBookStatusForCBB();
-        $bookcustomtrips = BookCustomTrip::select(
-            'book_custom_trips.*',
-            'locations.location_name',
-            'cars.own_car',
+        $bookrooms = BookRoom::select(
+            'book_rooms.*',
             'room_hotels.level',
+            'hotels.hotel_name',
             'combo_types.combo_type_name',
             'book_statuses.status'
         )
-            ->leftJoin('locations', 'locations.id', '=', 'book_custom_trips.pickup_place_id')
-            ->leftJoin('cars', 'cars.id', '=', 'book_custom_trips.car_id')
-            ->leftJoin('room_hotels', 'room_hotels.id', '=', 'book_custom_trips.room_id')
-            ->leftJoin('combo_types', 'combo_types.id', '=', 'book_custom_trips.combo_type_id')
-            ->leftJoin('book_statuses', 'book_statuses.id', '=', 'book_custom_trips.book_status_id')
+            ->leftJoin('room_hotels', 'room_hotels.id', '=', 'book_rooms.room_id')
+            ->leftJoin('combo_types', 'combo_types.id', '=', 'book_rooms.combo_type_id')
+            ->leftJoin('hotels', 'hotels.id', '=', 'room_hotels.hotel_id')
+            ->leftJoin('book_statuses', 'book_statuses.id', '=', 'book_rooms.book_status_id')
             ->orderBy('updated_at', 'desc')->paginate(5);
-        return view('admin/bookcustomtrip/list-bookcustomtrip')->with('bookcustomtrips', $bookcustomtrips)->with('bookstatuses', $bookstatuses);
+        return view('admin/bookroom/list-bookroom')->with('bookrooms', $bookrooms)
+            ->with('bookstatuses', $bookstatuses);
     }
 
     /**
@@ -81,20 +79,21 @@ class BookCustomTripController extends Controller
     public function edit($id)
     {
         //
-        $locations = $this->getListLocationForCBB();
-        $cars = $this->getListCarForCBB();
-        $bookcustomtrip = BookCustomTrip::where('id', $id)->firstOrFail();
         $combotypes = $this->getListComboTypeForCBB();
-        $hotel_id = RoomHotel::select('hotel_id')->where('id', $bookcustomtrip->room_id)->firstOrFail();
-        $hotel_name = "";
+        $bookroom = BookRoom::where('id', $id)->firstOrFail();
+        $hotel_id = RoomHotel::select('hotel_id')->where('id', $bookroom->room_id)->firstOrFail();
+        $hotel = "";
         $room = "";
+        $hotels = $this->getListHotelForCBB();
 
         if (isset($hotel_id)) {
-            $hotel_name = Hotel::select('hotel_name')->where('id', $hotel_id)->get();
+            $hotel = Hotel::where('id', $hotel_id->hotel_id)->firstOrFail();
             $rooms = $this->getListRoomByHotelIdForCBB($hotel_id->hotel_id);
         }
-        return view('admin/bookcustomtrip/edit-bookcustomtrip')->with('bookcustomtrip', $bookcustomtrip)->with('locations', $locations)->with('cars', $cars)
-            ->with('hotel_name', $hotel_name)->with('rooms', $rooms)->with('combotypes',$combotypes);
+        return view('admin/bookroom/edit-bookroom')->with('combotypes', $combotypes)
+            ->with('bookroom', $bookroom)->with('rooms', $rooms)->with('hotels', $hotels)
+            ->with('hotel', $hotel)
+            ->with('hotel_id', $hotel == null ? 0 : $hotel->id);
     }
 
     /**
@@ -108,15 +107,15 @@ class BookCustomTripController extends Controller
     {
         //
         $this->validate($request, array(
-            'fullName' => 'required|max:255',
+            'fullname' => 'required|max:255',
             'msisdn'  => 'required|max:20',
         ));
-        $bookCustomTrip  = BookCustomTrip::findOrFail($id);
+        $bookRoom  = BookRoom::findOrFail($id);
 
         $input = $request->all();
     
-        $bookCustomTrip->fill($input)->save();
-        return redirect('/admin/bookcustomtrips');
+        $bookRoom->fill($input)->save();
+        return redirect('/admin/bookrooms');
     }
 
     /**

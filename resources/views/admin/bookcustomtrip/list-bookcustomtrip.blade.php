@@ -18,6 +18,7 @@
                     <th>Combo Type</th>
                     <th>Type Service</th>
                     <th>Link FaceBook</th>
+                    <th>Price </th>
                     <th>Status</th>
                     <th>Action</th>
                     <th>Edit</th>
@@ -45,7 +46,7 @@
                         <a target="_blank" rel="noopener noreferrer" href="{{$data->fb_link}}">Link</a>
                         @endif
                     </td>
-                    
+                    <td>{{$data->price}}</td>
                     <td class="td-status">{{$data->status}}</td>
                     <td style="width:18%">@include('admin.common.book-action-select')</td>
                     <td>
