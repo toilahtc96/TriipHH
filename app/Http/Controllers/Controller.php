@@ -5,9 +5,6 @@ namespace App\Http\Controllers;
 use App\Models\BookCombo;
 use App\Models\BookCustomTrip;
 use App\Models\BookRoom;
-use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
-use Illuminate\Foundation\Bus\DispatchesJobs;
-use Illuminate\Foundation\Validation\ValidatesRequests;
 use Illuminate\Routing\Controller as BaseController;
 use Illuminate\Http\Request;
 use App\Models\Location;
@@ -18,10 +15,10 @@ use App\Models\RoomHotel;
 use App\Models\ComboTrip;
 use App\Models\BookStatus;
 use App\Models\BookCar;
+use Illuminate\Support\Facades\Input;
 
 class Controller extends BaseController
 {
-    use AuthorizesRequests, DispatchesJobs, ValidatesRequests;
 
 
     public function fileUpload(Request $request, $folderName)
@@ -400,24 +397,24 @@ class Controller extends BaseController
                     $statusNew = BookStatus::select('status')->findOrFail($book_status_df);
                     break;
                 case "book_cars":
-                    
+
                     $bookcar = BookCar::find($idObject);
-                  
+
                     $bookcar->book_status_id =  $book_status_df;
                     $bookcar->save();
                     $statusNew = BookStatus::select('status')->findOrFail($book_status_df);
-                   
+
                     break;
                 default:
                     $statusNew = "no case found";
                     break;
             }
             $bookStatus = BookStatus::where('position', 6)->firstOrFail();
-           
+
             if ($id != 9 && $id != 10) {
                 $bookStatus = BookStatus::where('position', $id)->firstOrFail();
             }
-           
+
             $status = "";
             if (isset($bookStatus)) {
                 $status = $bookStatus->status;
@@ -434,5 +431,36 @@ class Controller extends BaseController
         return response()->json([
             'result' => "Không có id book"
         ]);
+    }
+
+    public function search()
+    {
+        $table = Input::get('table');
+        switch ($table) {
+            case "book_cars":
+                $q = Input::get('q');
+                if ($q != "") {
+                    $bookcars = BookCar::select('book_cars.*', 'locations.location_name', 'cars.own_car', 'cars.car_type', 'book_statuses.status')
+                        ->leftJoin('locations', 'locations.id', '=', 'book_cars.pickup_place_id')
+                        ->leftJoin('cars', 'cars.id', '=', 'book_cars.car_id')
+                        ->leftJoin('book_statuses', 'book_statuses.id', '=', 'book_cars.book_status_id')
+                        ->where('fullname', 'LIKE', '%' . $q . '%')
+                        ->orWhere('book_cars.msisdn', 'LIKE', '%' . $q . '%')
+                        ->orWhere('cars.own_car', 'LIKE', '%' . $q . '%')
+                        ->sortable()->paginate(5);
+                    return view('admin/bookcar/list-bookcar')->with('bookcars', $bookcars)->with('table_name',$bookcars->first()->getTable());
+                } else {
+                    $bookcars = BookCar::select('book_cars.*', 'locations.location_name', 'cars.own_car', 'cars.car_type', 'book_statuses.status')
+                        ->leftJoin('locations', 'locations.id', '=', 'book_cars.pickup_place_id')
+                        ->leftJoin('cars', 'cars.id', '=', 'book_cars.car_id')
+                        ->leftJoin('book_statuses', 'book_statuses.id', '=', 'book_cars.book_status_id')
+                        ->sortable()->paginate(5);
+                    return view('admin/bookcar/list-bookcar')->with('bookcars', $bookcars)->with('table_name',$bookcars->first()->getTable());
+                }
+                break;
+            default:
+                break;
+        }
+       
     }
 }

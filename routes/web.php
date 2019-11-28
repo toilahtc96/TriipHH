@@ -89,6 +89,8 @@ Route::prefix('admin')->middleware('auth')->group(function () {
         'update' => 'bookcars.update'
     ]);
 
+    Route::any ( '/search', 'Controller@search');
+
     Route::post('/changeStatus', 'Controller@changeStatus')->name('changeStatus');
     Route::post('/changeBookStatus', 'Controller@changeBookStatusNew')->name('changeBookStatus');
     Route::post('/getRoomByHotelId', 'Controller@getListRoomByHotelIdAjaxForCBB')->name('getRoomByHotelId');

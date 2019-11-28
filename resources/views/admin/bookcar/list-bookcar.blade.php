@@ -7,16 +7,17 @@
 
             <div class="panel-heading">List Book Room Of Customer</div>
         </div>
+        @include('admin.common.search-action')
         <table class="table TFtable" id="book_car_table">
             <thead class="thead-light">
                 <tr>
 
                     <th style="width:10%">@sortablelink('fullname')</th>
                     <th style="width:10%">@sortablelink('msisdn','Phone')</th>
-                    <th>@sortablelink('start_date','Start Date')</th>
+                    <th>@sortablelink('car_id','Car') </th>
+                    <th>Start Date</th>
                     <th>Arrival Time</th>
                     <th style="width:10%">Pickup Place Id </th>
-                    <th>@sortablelink('car_id','Car') </th>
                     <th>Type Service</th>
                     <th>Link FaceBook</th>
                     <th>Price</th>
@@ -31,10 +32,11 @@
                 <tr>
                     <td>{{$data->fullname}}</td>
                     <td>{{$data->msisdn}}</td>
+                    <td>{{$data->own_car}} - {{$data->car_type}}</td>
+
                     <td style="width:10%">{{$data->start_date}}</td>
                     <td>{{$data->arrival_time}}</td>
                     <td>{{$data->location_name}}</td>
-                    <td>{{$data->own_car}} - {{$data->car_type}}</td>
                     <td>
                         @if($data->type_service == 1)
                         {{__('Tư vấn qua số điện thoại')}}
