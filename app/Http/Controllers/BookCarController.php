@@ -25,7 +25,7 @@ class BookCarController extends Controller
             ->leftJoin('cars', 'cars.id', '=', 'book_cars.car_id')
             ->leftJoin('book_statuses', 'book_statuses.id', '=', 'book_cars.book_status_id')
             ->sortable()->paginate(5);
-        return view('admin/bookcar/list-bookcar')->with('bookcars', $bookcars)->with('table_name',$bookcars->first()->getTable());
+        return view('admin/bookcar/list-bookcar')->with('bookcars', $bookcars)->with('table_name', 'book_cars');
     }
 
     /**
@@ -69,6 +69,7 @@ class BookCarController extends Controller
     public function edit($id)
     {
         //
+        return "Chan qua";
     }
 
     /**

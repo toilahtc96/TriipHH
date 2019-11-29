@@ -246,7 +246,7 @@ setOptions = function ($options, $id) {
             if ($(this).val() == 5) {
                 $(this).hide();
             }
-           
+
             if ($(this).val() == 8) {
                 $(this).hide();
             }
@@ -359,3 +359,45 @@ getAction = function (select, e) {
     })
     $(idModal).find('#confirm-msg').val('');
 }
+
+// searchTable = function () {
+
+//     $startdate = $('#startdate').val();
+//     $enddate = $('#enddate').val();
+//     $q = $('#q').val();
+//     console.log($startdate + ' - ' + $enddate + ' - ' + $q)
+
+//     var data = {}
+//     if ($startdate != "") {
+//         data['startdate'] = $startdate
+//     }
+//     if ($enddate != "") {
+//         data['enddate'] = $enddate
+//     }
+//     if ($q != "") {
+//         data['q'] = $q
+//     }
+//     var idTable = document.getElementsByTagName("table")[0].getAttribute("id");
+//     data['table'] = idTable;
+//     $.ajax({
+//         type: 'POST',
+//         url: '/admin/search',
+//         data: data,
+//         beforeSend: function () {
+//             // setting a timeout
+
+//         },
+//         success: function (response) {
+//             alert(1)
+//             // $('.collapse').collapse('show');
+//             $("#container ").html(response);
+//         }, 
+//         error: function () {
+
+//         },
+//         complete: function () {
+
+//         }
+//     });
+
+// }

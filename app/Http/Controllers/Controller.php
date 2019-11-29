@@ -438,29 +438,37 @@ class Controller extends BaseController
         $table = Input::get('table');
         switch ($table) {
             case "book_cars":
-                $q = Input::get('q');
-                if ($q != "") {
-                    $bookcars = BookCar::select('book_cars.*', 'locations.location_name', 'cars.own_car', 'cars.car_type', 'book_statuses.status')
-                        ->leftJoin('locations', 'locations.id', '=', 'book_cars.pickup_place_id')
-                        ->leftJoin('cars', 'cars.id', '=', 'book_cars.car_id')
-                        ->leftJoin('book_statuses', 'book_statuses.id', '=', 'book_cars.book_status_id')
-                        ->where('fullname', 'LIKE', '%' . $q . '%')
-                        ->orWhere('book_cars.msisdn', 'LIKE', '%' . $q . '%')
-                        ->orWhere('cars.own_car', 'LIKE', '%' . $q . '%')
-                        ->sortable()->paginate(5);
-                    return view('admin/bookcar/list-bookcar')->with('bookcars', $bookcars)->with('table_name',$bookcars->first()->getTable());
-                } else {
-                    $bookcars = BookCar::select('book_cars.*', 'locations.location_name', 'cars.own_car', 'cars.car_type', 'book_statuses.status')
-                        ->leftJoin('locations', 'locations.id', '=', 'book_cars.pickup_place_id')
-                        ->leftJoin('cars', 'cars.id', '=', 'book_cars.car_id')
-                        ->leftJoin('book_statuses', 'book_statuses.id', '=', 'book_cars.book_status_id')
-                        ->sortable()->paginate(5);
-                    return view('admin/bookcar/list-bookcar')->with('bookcars', $bookcars)->with('table_name',$bookcars->first()->getTable());
+                $query = BookCar::query();
+                $query = $query->select('book_cars.*', 'locations.location_name', 'cars.own_car', 'cars.car_type', 'book_statuses.status')
+                    ->leftJoin('locations', 'locations.id', '=', 'book_cars.pickup_place_id')
+                    ->leftJoin('cars', 'cars.id', '=', 'book_cars.car_id')
+                    ->leftJoin('book_statuses', 'book_statuses.id', '=', 'book_cars.book_status_id');
+                if (Input::has('q')) {
+                    $q = Input::get('q');
+                    if ($q != "") {
+                        $query = $query->where('fullname', 'LIKE', '%' . $q . '%')
+                            ->orWhere('book_cars.msisdn', 'LIKE', '%' . $q . '%')
+                            ->orWhere('cars.own_car', 'LIKE', '%' . $q . '%');
+                    }
                 }
+                if (Input::has('startdate')) {
+                    $startdate = Input::get('startdate');
+                    if ($startdate != null && $startdate != "") {
+                        $query =  $query->where('start_date', '>', $startdate);
+                    }
+                }
+                if (Input::has('enddate')) {
+                    $enddate = Input::get('enddate');
+                    if ($enddate != null && $enddate != "") {
+                        $query =  $query->where('start_date', '<', $enddate);
+                    }
+                }
+                $bookcars = $query->sortable()->paginate(5);
+
+                return view('admin/bookcar/list-bookcar')->with('bookcars', $bookcars)->with('table_name', 'book_cars');
                 break;
             default:
                 break;
         }
-       
     }
 }

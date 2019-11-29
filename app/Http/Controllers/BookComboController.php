@@ -41,7 +41,7 @@ class BookComboController extends Controller
             ->leftJoin('book_statuses', 'book_statuses.id', '=', 'book_combos.book_status_id')
             ->leftJoin('cars', 'cars.id', '=', 'combo_trips.car_id')
             ->orderBy('updated_at', 'desc')->paginate(5);
-        return view('admin/bookcombo/list-bookcombo')->with('bookcombos', $bookcombos)->with('bookstatuses', $bookstatuses);
+        return view('admin/bookcombo/list-bookcombo')->with('bookcombos', $bookcombos)->with('bookstatuses', $bookstatuses)->with('table_name', 'book_combos');
     }
 
     /**
