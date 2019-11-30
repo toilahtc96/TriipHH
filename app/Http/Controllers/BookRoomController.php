@@ -33,9 +33,9 @@ class BookRoomController extends Controller
             ->leftJoin('combo_types', 'combo_types.id', '=', 'book_rooms.combo_type_id')
             ->leftJoin('hotels', 'hotels.id', '=', 'room_hotels.hotel_id')
             ->leftJoin('book_statuses', 'book_statuses.id', '=', 'book_rooms.book_status_id')
-            ->orderBy('updated_at', 'desc')->paginate(5);
+            ->sortable()->paginate(5);
         return view('admin/bookroom/list-bookroom')->with('bookrooms', $bookrooms)
-            ->with('bookstatuses', $bookstatuses);
+            ->with('bookstatuses', $bookstatuses)->with('table_name','book_rooms');
     }
 
     /**
@@ -113,7 +113,7 @@ class BookRoomController extends Controller
         $bookRoom  = BookRoom::findOrFail($id);
 
         $input = $request->all();
-    
+
         $bookRoom->fill($input)->save();
         return redirect('/admin/bookrooms');
     }

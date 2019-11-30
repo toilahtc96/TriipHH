@@ -7,14 +7,15 @@
 
             <div class="panel-heading">List Book Combo Of Customer</div>
         </div>
-        @include('admin.common.search-action')
+
         <div class="container" id="container">
+            @include('admin.common.search-action')
             <table class="table TFtable" id="book_combo_table">
                 <thead class="thead-light">
                     <tr>
-                        <th>Full Name</th>
-                        <th>Phone</th>
-                        <th>Start Date </th>
+                        <th style="width:10%">@sortablelink('fullname','Tên khách hàng')</th>
+                        <th style="width:10%">@sortablelink('msisdn','Số điện thoại')</th>
+                        <th>@sortablelink('start_date','Ngày đi') </th>
                         <th>Car</th>
                         <th>Pickup Place</th>
                         <th>Combo Type</th>
@@ -60,7 +61,7 @@
                 </tbody>
 
             </table>
-            <div>{!! $bookcombos->links() !!}</div>
+            <div> {!! $bookcombos->appends(\Request::except('page'))->render() !!}</div>
         </div>
     </div>
 </div>

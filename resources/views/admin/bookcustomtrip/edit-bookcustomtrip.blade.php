@@ -23,8 +23,8 @@
 
                         <div class="row">
                             <div class="col-sm-6">
-                                {!! Form::label('fullName', 'Tên khách hàng', ['class' => 'control-label']) !!}
-                                {!! Form::text('fullName', $value = $bookcustomtrip->fullName, ['class' =>
+                                {!! Form::label('fullname', 'Tên khách hàng', ['class' => 'control-label']) !!}
+                                {!! Form::text('fullname', $value = $bookcustomtrip->fullname, ['class' =>
                                 'form-control','placeholder'=>'Tên khách hàng']) !!}
                             </div>
                             <div class="col-sm-6">

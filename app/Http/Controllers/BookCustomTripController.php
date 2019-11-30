@@ -36,8 +36,9 @@ class BookCustomTripController extends Controller
             ->leftJoin('room_hotels', 'room_hotels.id', '=', 'book_custom_trips.room_id')
             ->leftJoin('combo_types', 'combo_types.id', '=', 'book_custom_trips.combo_type_id')
             ->leftJoin('book_statuses', 'book_statuses.id', '=', 'book_custom_trips.book_status_id')
-            ->orderBy('updated_at', 'desc')->paginate(5);
-        return view('admin/bookcustomtrip/list-bookcustomtrip')->with('bookcustomtrips', $bookcustomtrips)->with('bookstatuses', $bookstatuses);
+            ->sortable()->paginate(5);
+        return view('admin/bookcustomtrip/list-bookcustomtrip')->with('bookcustomtrips', $bookcustomtrips)
+            ->with('bookstatuses', $bookstatuses)->with('table_name', 'book_custom_trips');
     }
 
     /**
@@ -94,7 +95,7 @@ class BookCustomTripController extends Controller
             $rooms = $this->getListRoomByHotelIdForCBB($hotel_id->hotel_id);
         }
         return view('admin/bookcustomtrip/edit-bookcustomtrip')->with('bookcustomtrip', $bookcustomtrip)->with('locations', $locations)->with('cars', $cars)
-            ->with('hotel_name', $hotel_name)->with('rooms', $rooms)->with('combotypes',$combotypes);
+            ->with('hotel_name', $hotel_name)->with('rooms', $rooms)->with('combotypes', $combotypes);
     }
 
     /**
@@ -108,13 +109,13 @@ class BookCustomTripController extends Controller
     {
         //
         $this->validate($request, array(
-            'fullName' => 'required|max:255',
+            'fullname' => 'required|max:255',
             'msisdn'  => 'required|max:20',
         ));
         $bookCustomTrip  = BookCustomTrip::findOrFail($id);
 
         $input = $request->all();
-    
+
         $bookCustomTrip->fill($input)->save();
         return redirect('/admin/bookcustomtrips');
     }

@@ -7,7 +7,7 @@ use Kyslik\ColumnSortable\Sortable;
 
 class BookCar extends Model
 {
-    use  Sortable;
+    use Sortable;
     //
     protected $guarded = ['id'];
     // protected $fillable = ['name', 'password', 'email'];.
@@ -15,5 +15,6 @@ class BookCar extends Model
         'fullname',
         'msisdn',
         'car_id',
+        'start_date'
     ];
 }

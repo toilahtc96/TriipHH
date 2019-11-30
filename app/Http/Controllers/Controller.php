@@ -454,18 +454,142 @@ class Controller extends BaseController
                 if (Input::has('startdate')) {
                     $startdate = Input::get('startdate');
                     if ($startdate != null && $startdate != "") {
-                        $query =  $query->where('start_date', '>', $startdate);
+                        $query =  $query->where('book_cars.start_date', '>=', $startdate);
                     }
                 }
                 if (Input::has('enddate')) {
                     $enddate = Input::get('enddate');
                     if ($enddate != null && $enddate != "") {
-                        $query =  $query->where('start_date', '<', $enddate);
+                        $query =  $query->where('book_cars.start_date', '<=', $enddate);
                     }
                 }
                 $bookcars = $query->sortable()->paginate(5);
-
                 return view('admin/bookcar/list-bookcar')->with('bookcars', $bookcars)->with('table_name', 'book_cars');
+                break;
+            case "book_combos":
+                $bookstatuses = $this->getListBookStatusForCBB();
+                $query = BookCombo::select(
+                    'book_combos.*',
+                    'locations.location_name',
+                    'cars.own_car',
+                    'cars.car_type',
+                    'combo_types.combo_type_name',
+                    'book_statuses.status'
+                )
+                    ->leftJoin('locations', 'locations.id', '=', 'book_combos.pickup_place_id')
+                    ->leftJoin('combo_types', 'combo_types.id', '=', 'book_combos.combo_type_id')
+                    ->leftJoin('combo_trips', 'combo_trips.id', '=', 'book_combos.combo_id')
+                    ->leftJoin('book_statuses', 'book_statuses.id', '=', 'book_combos.book_status_id')
+                    ->leftJoin('cars', 'cars.id', '=', 'combo_trips.car_id');
+                if (Input::has('q')) {
+                    $q = Input::get('q');
+                    if ($q != "") {
+                        $query = $query->where('fullname', 'LIKE', '%' . $q . '%')
+                            ->orWhere('book_combos.msisdn', 'LIKE', '%' . $q . '%')
+                            ->orWhere('combo_types.combo_type_name', 'LIKE', '%' . $q . '%')
+                            ->orWhere('book_statuses.status', 'LIKE', '%' . $q . '%');
+                    }
+                }
+                if (Input::has('startdate')) {
+                    $startdate = Input::get('startdate');
+                    // dd($startdate);
+                    if ($startdate != null && $startdate != "") {
+                        $query =  $query->where('book_combos.start_date', '>=', $startdate);
+                    }
+                }
+                if (Input::has('enddate')) {
+                    $enddate = Input::get('enddate');
+                    if ($enddate != null && $enddate != "") {
+                        $query =  $query->where('book_combos.start_date', '<=', $enddate);
+                    }
+                }
+                $bookcombos = $query->sortable()->paginate(5);
+                return view('admin/bookcombo/list-bookcombo')->with('bookcombos', $bookcombos)
+                    ->with('bookstatuses', $bookstatuses)->with('table_name', 'book_combos');
+                break;
+            case "book_rooms":
+                $bookstatuses = $this->getListBookStatusForCBB();
+                $query = BookRoom::select(
+                    'book_rooms.*',
+                    'room_hotels.level',
+                    'hotels.hotel_name',
+                    'combo_types.combo_type_name',
+                    'book_statuses.status'
+                )
+                    ->leftJoin('room_hotels', 'room_hotels.id', '=', 'book_rooms.room_id')
+                    ->leftJoin('combo_types', 'combo_types.id', '=', 'book_rooms.combo_type_id')
+                    ->leftJoin('hotels', 'hotels.id', '=', 'room_hotels.hotel_id')
+                    ->leftJoin('book_statuses', 'book_statuses.id', '=', 'book_rooms.book_status_id');
+                if (Input::has('q')) {
+                    $q = Input::get('q');
+                    if ($q != "") {
+                        $query = $query->where('book_rooms.fullname', 'LIKE', '%' . $q . '%')
+                            ->orWhere('book_rooms.msisdn', 'LIKE', '%' . $q . '%')
+                            ->orWhere('hotels.hotel_name', 'LIKE', '%' . $q . '%')
+                            ->orWhere('combo_types.combo_type_name', 'LIKE', '%' . $q . '%')
+                            ->orWhere('book_statuses.status', 'LIKE', '%' . $q . '%');
+                    }
+                }
+                if (Input::has('startdate')) {
+                    $startdate = Input::get('startdate');
+                    // dd($startdate);
+                    if ($startdate != null && $startdate != "") {
+                        $query =  $query->where('book_rooms.start_date', '>=', $startdate);
+                    }
+                }
+                if (Input::has('enddate')) {
+                    $enddate = Input::get('enddate');
+                    if ($enddate != null && $enddate != "") {
+                        $query =  $query->where('book_rooms.start_date', '<=', $enddate);
+                    }
+                }
+
+                $bookrooms = $query->sortable()->paginate(5);
+                return view('admin/bookroom/list-bookroom')->with('bookrooms', $bookrooms)
+                    ->with('bookstatuses', $bookstatuses)->with('table_name', 'book_rooms');
+                break;
+            case "book_custom_trips":
+                $bookstatuses = $this->getListBookStatusForCBB();
+                $query = BookCustomTrip::select(
+                    'book_custom_trips.*',
+                    'locations.location_name',
+                    'cars.own_car',
+                    'room_hotels.level',
+                    'combo_types.combo_type_name',
+                    'book_statuses.status'
+                )
+                    ->leftJoin('locations', 'locations.id', '=', 'book_custom_trips.pickup_place_id')
+                    ->leftJoin('cars', 'cars.id', '=', 'book_custom_trips.car_id')
+                    ->leftJoin('room_hotels', 'room_hotels.id', '=', 'book_custom_trips.room_id')
+                    ->leftJoin('combo_types', 'combo_types.id', '=', 'book_custom_trips.combo_type_id')
+                    ->leftJoin('book_statuses', 'book_statuses.id', '=', 'book_custom_trips.book_status_id');
+                if (Input::has('q')) {
+                    $q = Input::get('q');
+                    if ($q != "") {
+                        $query = $query->where('book_custom_trips.fullname', 'LIKE', '%' . $q . '%')
+                            ->orWhere('book_custom_trips.msisdn', 'LIKE', '%' . $q . '%')
+                            ->orWhere('cars.own_car', 'LIKE', '%' . $q . '%')
+                            ->orWhere('combo_types.combo_type_name', 'LIKE', '%' . $q . '%')
+                            ->orWhere('book_statuses.status', 'LIKE', '%' . $q . '%');
+                    }
+                }
+                if (Input::has('startdate')) {
+                    $startdate = Input::get('startdate');
+                    // dd($startdate);
+                    if ($startdate != null && $startdate != "") {
+                        $query =  $query->where('book_custom_trips.start_date', '>=', $startdate);
+                    }
+                }
+                if (Input::has('enddate')) {
+                    $enddate = Input::get('enddate');
+                    if ($enddate != null && $enddate != "") {
+                        $query =  $query->where('book_custom_trips.start_date', '<=', $enddate);
+                    }
+                }
+
+                $bookcustomtrips = $query->sortable()->paginate(5);
+                return view('admin/bookcustomtrip/list-bookcustomtrip')->with('bookcustomtrips', $bookcustomtrips)
+                    ->with('bookstatuses', $bookstatuses)->with('table_name', 'book_custom_trips');
                 break;
             default:
                 break;

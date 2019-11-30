@@ -2,18 +2,19 @@
 @section('content')
 <div class="row">
     <div class="container">
-        <h2>List Book Room Of Customer</h2>
+        <h2>List Book Car Of Customer</h2>
         <div class="panel panel-primary ">
 
-            <div class="panel-heading">List Book Room Of Customer</div>
+            <div class="panel-heading">List Book Car Of Customer</div>
         </div>
-        @include('admin.common.search-action')
+
         <div class="container" id="container">
+            @include('admin.common.search-action')
             <table class="table TFtable" id="book_car_table">
                 <thead class="thead-light">
                     <tr>
 
-                        <th style="width:10%">@sortablelink('fullname')</th>
+                        <th style="width:10%">@sortablelink('fullname','Tên khách hàng')</th>
                         <th style="width:10%">@sortablelink('msisdn','Phone')</th>
                         <th>@sortablelink('car_id','Car') </th>
                         <th>Start Date</th>
