@@ -208,8 +208,10 @@ class Controller extends BaseController
         $place_passingArr = [];
         $place_passingArr[0] = "Điểm đón";
         foreach ($locationArr as $key => $val) {
+            if($val != ""){
             $location  = Location::select('location_name')->where('id', $val)->first();
             $place_passingArr[$val] = $location->location_name;
+        }
         }
 
         return $place_passingArr;
@@ -590,6 +592,148 @@ class Controller extends BaseController
                 $bookcustomtrips = $query->sortable()->paginate(5);
                 return view('admin/bookcustomtrip/list-bookcustomtrip')->with('bookcustomtrips', $bookcustomtrips)
                     ->with('bookstatuses', $bookstatuses)->with('table_name', 'book_custom_trips');
+                break;
+            case "hotels":
+                $query = Hotel::select('hotels.*', 'location_name')
+                    ->leftJoin('locations', 'locations.id', '=', 'hotels.address_id');
+                if (Input::has('q')) {
+                    $q = Input::get('q');
+                    if ($q != "") {
+                        $query = $query->where('hotels.hotel_name', 'LIKE', '%' . $q . '%')
+                            ->orWhere('locations.location_name', 'LIKE', '%' . $q . '%');
+                    }
+                }
+                $hotels = $query->sortable()->paginate(5);
+                foreach ($hotels as $key => $val) {
+                    $val->service_included = str_replace(";", "\n", $val->service_included);
+                    $val->service_included = str_replace(".", ". ", $val->service_included);
+                    $val->place_around = $this->getListLocationName($val->place_around);
+                }
+                // dd($hotels);
+                return view('admin/hotel/list-hotel')->with('hotels', $hotels)->with('table_name', 'hotels');
+                break;
+            case "locations":
+                $query = Location::select('locations.*');
+                if (Input::has('q')) {
+                    $q = Input::get('q');
+                    if ($q != "") {
+                        $query = $query->where('location_name', 'LIKE', '%' . $q . '%');
+                    }
+                }
+                $locations = $query->sortable()->paginate(5);
+                return view('admin/location/list-location')->with('locations', $locations)->with('table_name', 'locations');
+                break;
+
+
+            case "room_hotels":
+                $query = RoomHotel::select('room_hotels.*', 'hotel_name')
+                    ->leftJoin('hotels', 'room_hotels.hotel_id', '=', 'hotels.id');
+
+                if (Input::has('q')) {
+                    $q = Input::get('q');
+                    if ($q != "") {
+                        $query = $query->where('hotels.hotel_name', 'LIKE', '%' . $q . '%');
+                    }
+                }
+                $roomHotels = $query->sortable()->paginate(5);
+
+
+                foreach ($roomHotels as $key => $val) {
+                    $val->service_included = str_replace(";", "\n", $val->service_included);
+                    $val->service_included = str_replace(".", ". ", $val->service_included);
+                }
+                return view('admin/roomhotel/list-room')->with('roomHotels', $roomHotels)->with('table_name', 'room_hotels');
+                break;
+
+
+            case "combotypes":
+                $query = ComboType::select('combo_types.*');
+                if (Input::has('q')) {
+                    $q = Input::get('q');
+                    if ($q != "") {
+                        $query = $query->where('combo_type_name', 'LIKE', '%' . $q . '%')
+                            ->orWhere('detail', 'LIKE', '%' . $q . '%');
+                    }
+                }
+                $combotypes = $query->sortable()->paginate(5);
+                return view('admin/combotype/list-combotype')
+                    ->with('combotypes', $combotypes)->with('table_name', 'combotypes');
+
+            case "combotrips":
+                $query = ComboTrip::select(
+                    'combo_trips.*',
+                    'own_car',
+                    'hotel_name',
+                    'room_hotels.level',
+                    'combo_types.combo_type_name'
+
+                )
+                    ->leftJoin('cars', 'cars.id', '=', 'combo_trips.car_id')
+                    ->leftJoin('hotels', 'hotels.id', '=', 'combo_trips.hotel_id')
+                    ->leftJoin('room_hotels', 'room_hotels.id', '=', 'combo_trips.room_id')
+                    ->leftJoin('combo_types', 'combo_types.id', '=', 'combo_trips.combo_type_id');
+
+                if (Input::has('q')) {
+                    $q = Input::get('q');
+                    if ($q != "") {
+                        $query = $query->where('hotels.hotel_name', 'LIKE', '%' . $q . '%')
+                            ->orWhere('cars.own_car', 'LIKE', '%' . $q . '%')
+                            ->orWhere('combo_types.combo_type_name', 'LIKE', '%' . $q . '%');
+                    }
+                }
+                if (Input::has('startdate')) {
+                    $startdate = Input::get('startdate');
+                    // dd($startdate);
+                    if ($startdate != null && $startdate != "") {
+                        $query =  $query->where('combo_trips.start_date', '>=', $startdate);
+                    }
+                }
+                if (Input::has('enddate')) {
+                    $enddate = Input::get('enddate');
+                    if ($enddate != null && $enddate != "") {
+                        $query =  $query->where('combo_trips.end_date', '<=', $enddate);
+                    }
+                }
+
+                $combotrips = $query->sortable()->paginate(5);
+                // $hotels->setBaseUrl('custom/urgetListLocationByCarForCBBl');
+                foreach ($combotrips as $key => $val) {
+                    $val->service_included = str_replace(";", "\n", $val->service_included);
+                    $val->service_included = str_replace(".", ". ", $val->service_included);
+                }
+                return view('admin/combotrip/list-combotrip')->with('combotrips', $combotrips)->with('table_name', 'combotrips');
+
+                break;
+            case "cars":
+
+                $query = Car::select('cars.*');
+
+                if (Input::has('q')) {
+                    $q = Input::get('q');
+                    if ($q != "") {
+                        $query = $query->where('own_car', 'LIKE', '%' . $q . '%')
+                            ->orWhere('car_type', 'LIKE', '%' . $q . '%');
+                    }
+                }
+
+                $cars = $query->sortable()->paginate(5);
+
+                foreach ($cars as $key => $val) {
+
+
+                    if ($val->starting_location_id != null) {
+                        $val->start = $this->getListLocationName($val->starting_location_id);
+                    }
+                    if ($val->places_passing != null) {
+                        $val->places_passing = $this->getListLocationName($val->places_passing);
+                    }
+
+
+                    if ($val->destination_id != null) {
+                        $val->finish = $this->getListLocationName($val->destination_id);
+                    }
+                }
+                return view('admin/car/list-car')->with('cars', $cars)->with('table_name', 'cars');
                 break;
             default:
                 break;

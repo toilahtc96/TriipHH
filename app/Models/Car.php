@@ -17,6 +17,7 @@ class Car extends Model
         'price',
         'status',
         'car_type',
+        'count_seat',
         'direction'
     ];
 }

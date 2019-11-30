@@ -2,10 +2,10 @@
 @section('content')
 <div class="row">
     <div class="container">
-        <h2>List Book Room Of Customer</h2>
+        <h2>Quản lý đặt phòng</h2>
         <div class="panel panel-primary ">
 
-            <div class="panel-heading">List Book Room Of Customer</div>
+            <div class="panel-heading">Danh sách đặt phòng</div>
         </div>
         <div class="container" id="container">
             @include('admin.common.search-action')
@@ -13,17 +13,17 @@
                 <thead class="thead-light">
                     <tr>
                         <th style="width:10%">@sortablelink('fullname','Tên khách hàng')</th>
-                        <th>Phone</th>
+                        <th>Số điện thoại </th>
                         <th style="width:10%">@sortablelink('room_id','Tên khách sạn')</th>
-                        <th>Room Level</th>
+                        <th>Hạng phòng</th>
                         <th >@sortablelink('start_date','Ngày đặt')</th>
-                        <th>Combo Type</th>
-                        <th>Type Service</th>
+                        <th>Loại combo</th>
+                        <th>Tư vấn</th>
                         <th>Link FaceBook</th>
-                        <th>Price</th>
-                        <th>Status</th>
-                        <th>Action</th>
-                        <th>Edit</th>
+                        <th>Giá</th>
+                        <th>@sortablelink('status','Trạng thái')</th>
+                        <th>Hành động</th>
+                        <th>Sửa</th>
                     </tr>
                 </thead>
                 <tbody>

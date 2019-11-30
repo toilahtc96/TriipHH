@@ -11,7 +11,7 @@ class ComboType extends Model
     //
     protected $guarded = ['id'];
     public $sortable = [
-      
-        ''
+        'combo_type_name',
+        'status'
     ];
 }

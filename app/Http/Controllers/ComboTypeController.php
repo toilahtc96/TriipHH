@@ -15,8 +15,8 @@ class ComboTypeController extends Controller
     public function index()
     {
         //
-        $combotypes = ComboType::orderBy('updated_at', 'desc')->paginate(5);
-        return view('admin/combotype/list-combotype')->with('combotypes', $combotypes);
+        $combotypes = ComboType::sortable()->paginate(5);
+        return view('admin/combotype/list-combotype')->with('combotypes', $combotypes)->with('table_name','combotypes');
     }
 
     /**

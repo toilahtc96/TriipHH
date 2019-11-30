@@ -17,7 +17,7 @@ class CarController extends Controller
     {
 
 
-        $cars = Car::orderBy('updated_at', 'desc')->paginate(5);
+        $cars = Car::sortable()->paginate(5);
        
         foreach ($cars as $key => $val) {
             
@@ -34,7 +34,7 @@ class CarController extends Controller
                 $val->finish = $this->getListLocationName($val->destination_id);
             }
         }
-        return view('admin/car/list-car')->with('cars', $cars);
+        return view('admin/car/list-car')->with('cars', $cars)->with('table_name','cars');
     }
 
 

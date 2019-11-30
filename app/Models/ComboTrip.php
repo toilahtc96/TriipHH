@@ -11,13 +11,14 @@ class ComboTrip extends Model
     //
     protected $guarded = ['id'];
     public $sortable = [
-
         'start_time',
         'hotel_id',
         'room_id',
         'car_id',
         'combo_type_id',
         'end_date',
+        'price',
+        'status',
         'combo_trip_name'
     ];
 }

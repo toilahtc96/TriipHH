@@ -15,5 +15,6 @@ class BookCombo extends Model
         'msisdn',
         'start_date',
         'combo_id',
+        'status',
     ];
 }

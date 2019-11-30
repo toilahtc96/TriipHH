@@ -10,7 +10,7 @@
             <input type="date" class="form-control" name="enddate" id="enddate">
         </div>
         <div class="col-sm-8" style="margin-top:2%">
-            <div class="col-sm-6" style="float:left">
+            <div class="col-sm-4" style="float:left">
                 <input type="text" class="form-control" name="q" id="q" placeholder="Search "> <span class="input-group-btn">
             </div>
             <div class="col-sm-2" style="float:left">
@@ -21,6 +21,9 @@
                     </i>
                 </button>
                 </span>
+            </div>
+            <div class="col-sm-2" style="float:right">
+                <button  class="btn btn-default"><a href="create" >Thêm mới</a></button>
             </div>
         </div>
     </div>

@@ -15,6 +15,7 @@ class BookCar extends Model
         'fullname',
         'msisdn',
         'car_id',
-        'start_date'
+        'start_date',
+        'status'
     ];
 }

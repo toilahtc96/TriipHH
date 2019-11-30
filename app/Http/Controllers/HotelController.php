@@ -21,7 +21,7 @@ class HotelController extends Controller
 
         $hotels = Hotel::select('hotels.*', 'location_name')
             ->leftJoin('locations', 'locations.id', '=', 'hotels.address_id')
-            ->orderBy('updated_at', 'desc')->paginate(5);
+            ->sortable()->paginate(5);
         // $hotels->setBaseUrl('custom/url');
         foreach ($hotels as $key => $val) {
             $val->service_included = str_replace(";", "\n", $val->service_included);
@@ -29,7 +29,7 @@ class HotelController extends Controller
             $val->place_around = $this->getListLocationName($val->place_around);
         }
         // dd($hotels);
-        return view('admin/hotel/list-hotel')->with('hotels', $hotels);
+        return view('admin/hotel/list-hotel')->with('hotels', $hotels)->with('table_name','hotels');
     }
 
 

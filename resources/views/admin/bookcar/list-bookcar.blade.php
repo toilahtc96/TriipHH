@@ -2,10 +2,10 @@
 @section('content')
 <div class="row">
     <div class="container">
-        <h2>List Book Car Of Customer</h2>
+        <h2>Quản lý đặt xe</h2>
         <div class="panel panel-primary ">
 
-            <div class="panel-heading">List Book Car Of Customer</div>
+            <div class="panel-heading">Danh sách đặt xe</div>
         </div>
 
         <div class="container" id="container">
@@ -17,15 +17,15 @@
                         <th style="width:10%">@sortablelink('fullname','Tên khách hàng')</th>
                         <th style="width:10%">@sortablelink('msisdn','Phone')</th>
                         <th>@sortablelink('car_id','Car') </th>
-                        <th>Start Date</th>
-                        <th>Arrival Time</th>
-                        <th style="width:10%">Pickup Place Id </th>
-                        <th>Type Service</th>
+                        <th>@sortablelink('start_date','Ngày đi')</th>
+                        <th>Giờ dự kiến đến</th>
+                        <th style="width:10%">Điểm đón </th>
+                        <th>Tư vấn</th>
                         <th>Link FaceBook</th>
-                        <th>Price</th>
-                        <th>Status</th>
-                        <th>Action</th>
-                        <th>Edit</th>
+                        <th>Giá</th>
+                        <th> @sortablelink('status','Trạng thái')</th>
+                        <th>Hành động</th>
+                        <th>Sửa</th>
                     </tr>
                 </thead>
                 <tbody>

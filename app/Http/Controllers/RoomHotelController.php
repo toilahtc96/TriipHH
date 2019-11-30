@@ -14,13 +14,13 @@ class RoomHotelController extends Controller
 
         $roomHotels = RoomHotel::select('room_hotels.*', 'hotel_name')
             ->leftJoin('hotels', 'room_hotels.hotel_id', '=', 'hotels.id')
-            ->orderBy('updated_at', 'desc')->paginate(5);
+            ->sortable()->paginate(5);
 
         foreach ($roomHotels as $key => $val) {
             $val->service_included = str_replace(";", "\n", $val->service_included);
             $val->service_included = str_replace(".", ". ", $val->service_included);
         }
-        return view('admin/roomhotel/list-room')->with('roomHotels', $roomHotels);
+        return view('admin/roomhotel/list-room')->with('roomHotels', $roomHotels)->with('table_name','room_hotels');
     }
 
 

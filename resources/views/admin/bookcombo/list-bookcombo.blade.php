@@ -2,10 +2,10 @@
 @section('content')
 <div class="row">
     <div class="container">
-        <h2>List Book Combo Of Customer</h2>
+        <h2>Quản lý đặt Combo</h2>
         <div class="panel panel-primary ">
 
-            <div class="panel-heading">List Book Combo Of Customer</div>
+            <div class="panel-heading">Danh sách đặt combo</div>
         </div>
 
         <div class="container" id="container">
@@ -16,15 +16,15 @@
                         <th style="width:10%">@sortablelink('fullname','Tên khách hàng')</th>
                         <th style="width:10%">@sortablelink('msisdn','Số điện thoại')</th>
                         <th>@sortablelink('start_date','Ngày đi') </th>
-                        <th>Car</th>
-                        <th>Pickup Place</th>
-                        <th>Combo Type</th>
-                        <th>Type Service</th>
+                        <th>Xe </th>
+                        <th>Điểm đón</th>
+                        <th>Loại Combo</th>
+                        <th>Tư vấn</th>
                         <th>Link FaceBook</th>
-                        <th>Price </th>
-                        <th>Status</th>
-                        <th>Action</th>
-                        <th>Edit</th>
+                        <th>Giá </th>
+                        <th>@sortablelink('status','Trạng thái')</th>
+                        <th>Hành động</th>
+                        <th>Sửa</th>
                     </tr>
                 </thead>
                 <tbody>

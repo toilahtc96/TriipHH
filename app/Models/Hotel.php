@@ -17,7 +17,7 @@ class Hotel extends Model
         return $this->hasOne(Location::class, 'address_id');
     }
     public $sortable = [
-      
-        ''
+        'hotel_name',
+        'status'
     ];
 }

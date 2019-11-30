@@ -15,6 +15,7 @@ class BookRoom extends Model
         'fullname',
         'msisdn',
         'room_id',
-        'start_date'
+        'start_date',
+        'status'
     ];
 }

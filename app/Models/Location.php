@@ -11,7 +11,7 @@ class Location extends Model
     use Sortable;
     protected $guarded = ['id'];
     public $sortable = [
-      
-        ''
+        'location_name',
+        'status'
     ];
 }
