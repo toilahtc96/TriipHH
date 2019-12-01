@@ -37,7 +37,9 @@
                         <td>{{$data->own_car}} - {{$data->car_type}}</td>
 
                         <td style="width:10%">
+                                @if($data->start_date != null)
                                 {{date('d-m-Y', strtotime($data->start_date)) }}
+                                @endif
                         </td>
                         <td>{{$data->arrival_time}}</td>
                         <td>{{$data->location_name}}</td>

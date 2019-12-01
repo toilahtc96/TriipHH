@@ -34,7 +34,9 @@
                         <td>{{$data->fullname}}</td>
                         <td>{{$data->msisdn}}</td>
                         <td class="td-date">
+                            @if($data->start_date != null)
                             {{date('d-m-Y', strtotime($data->start_date)) }}
+                            @endif
                         </td>
                         <td>{{$data->own_car}} - {{$data->car_type}}</td>
                         <td>{{$data->location_name}}</td>
