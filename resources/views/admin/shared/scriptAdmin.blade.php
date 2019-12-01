@@ -46,5 +46,6 @@
 <script src="{!! asset('js/hotels/edit-hotels.js') !!}"></script>
 <script src="{!! asset('js/book-js/book-status.js') !!}"></script>
 <script src="{!! asset('js/bookcombo-js/bookcombo.js') !!}"></script>
+<script src="{!! asset('js/admin.js') !!}"></script>
 
 @include('admin/common/modal-error')

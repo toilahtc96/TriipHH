@@ -24,7 +24,7 @@ class Controller extends BaseController
     public function fileUpload(Request $request, $folderName)
     {
 
-        $this->validate($request, [
+        $validatedData = $request->validate([
             'main_image' => 'required|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
         ]);
 
@@ -46,9 +46,8 @@ class Controller extends BaseController
             'image/gif',
             'image/jpeg'
         );
-        $this->validate($request, [
-            'list_image' => 'required',
-        ]);
+       
+        
 
         if ($request->hasFile('list_image')) {
 

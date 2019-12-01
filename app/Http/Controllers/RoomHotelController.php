@@ -46,8 +46,7 @@ class RoomHotelController extends Controller
      */
     public function store(Request $request)
     {
-        //
-
+      
         // validate the data
         $validatedData = $request->validate([
             'hotel_id' => 'required|max:255',

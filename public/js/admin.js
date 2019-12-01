@@ -1,0 +1,1 @@
+$('#close-open-menu').click();
