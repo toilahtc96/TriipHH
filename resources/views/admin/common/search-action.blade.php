@@ -23,7 +23,9 @@
                 </span>
             </div>
             <div class="col-sm-2" style="float:right">
-                <button  class="btn btn-default"><a href="create" >Thêm mới</a></button>
+                @if(isset($url_link))
+                <button  class="btn btn-default"><a href="{{$url_link}}/create" >Thêm mới</a></button>
+                @endif
             </div>
         </div>
     </div>

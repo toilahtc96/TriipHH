@@ -35,7 +35,8 @@ class BookRoomController extends Controller
             ->leftJoin('book_statuses', 'book_statuses.id', '=', 'book_rooms.book_status_id')
             ->sortable()->paginate(5);
         return view('admin/bookroom/list-bookroom')->with('bookrooms', $bookrooms)
-            ->with('bookstatuses', $bookstatuses)->with('table_name','book_rooms');
+            ->with('bookstatuses', $bookstatuses)->with('table_name','book_rooms')
+            ->with('url_link','bookrooms');
     }
 
     /**
@@ -93,7 +94,7 @@ class BookRoomController extends Controller
         return view('admin/bookroom/edit-bookroom')->with('combotypes', $combotypes)
             ->with('bookroom', $bookroom)->with('rooms', $rooms)->with('hotels', $hotels)
             ->with('hotel', $hotel)
-            ->with('hotel_id', $hotel == null ? 0 : $hotel->id);
+            ->with('hotel_id', $hotel == null ? 0 : $hotel->id)->with('url_link','bookrooms');
     }
 
     /**
@@ -106,16 +107,16 @@ class BookRoomController extends Controller
     public function update(Request $request, $id)
     {
         //
-        $this->validate($request, array(
+        $validatedData = $request->validate([
             'fullname' => 'required|max:255',
             'msisdn'  => 'required|max:20',
-        ));
+        ]);
         $bookRoom  = BookRoom::findOrFail($id);
 
         $input = $request->all();
 
         $bookRoom->fill($input)->save();
-        return redirect('/admin/bookrooms');
+        return redirect('/admin/bookrooms')->with('url_link','bookrooms');
     }
 
     /**

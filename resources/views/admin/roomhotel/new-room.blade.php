@@ -3,11 +3,11 @@
 <div class="container body">
     <div class="main_container">
 
-        <h2>{{__('Add New Room')}}</h2>
-
+        <h2>{{__('Thêm thông tin phòng')}}</h2>
+        @include('admin.common.url-to-list')
         <div class="panel panel-primary ">
 
-            <div class="panel-heading">{{__('add Room For Hotel')}}</div>
+            <div class="panel-heading">{{__('Thêm thông tin phòng cho khách sạn ')}}</div>
 
             <div class="panel-body">
                 <div class="row">
@@ -22,33 +22,33 @@
                         {!! Form::open(['method' => 'post', 'action' => 'RoomHotelController@index', 'files' => true,
                         'class' => 'form-horizontal']) !!}
 
-                        {!! Form::label('hotel_id', 'Hotel', ['class' => 'control-label']) !!}
+                        {!! Form::label('hotel_id', 'Khách sạn', ['class' => 'control-label']) !!}
                         {!!Form::select('hotel_id', $hotels, null, ['class'=>'form-control'])!!}
 
                         <div class="row">
                             <div class="col-sm-4 ">
-                                {!! Form::label('level', 'level', ['class' => 'control-label']) !!}
+                                {!! Form::label('level', 'Hạng', ['class' => 'control-label']) !!}
                                 {!! Form::selectRange('level', 1, 5, null, ['class'=> 'form-control']) !!}
                             </div>
                             <div class="col-sm-4 ">
-                                {!! Form::label('status', 'status', ['class' => 'control-label']) !!}
+                                {!! Form::label('status', 'Trạng thái', ['class' => 'control-label']) !!}
                                 {!!Form::select('status', ['1' => 'Hoạt động', '0' => 'Không hoạt động'], null,
                                 ['class'=> 'form-control'])!!}
                             </div>
                         </div>
 
-                        {!! Form::label('price', 'Price', ['class' => 'control-label']) !!}
+                        {!! Form::label('price', 'Giá', ['class' => 'control-label']) !!}
                         {!! Form::number('price', $value = "", ['class' =>
                         'form-control','placeholder'=>'price']) !!}
 
 
 
-                        {!! Form::label('service_included', 'service', ['class' => 'control-label']) !!}
+                        {!! Form::label('service_included', 'Dịch vụ', ['class' => 'control-label']) !!}
                         {!! Form::textarea('service_included', $value = "", ['class' =>
                         'form-control','placeholder'=>'Service Include', 'rows' => 5]) !!}
 
                         <div>
-                            {!! Form::label('main_image', 'Main Image', ['class' => 'control-label']) !!}
+                            {!! Form::label('main_image', 'Ảnh chính', ['class' => 'control-label']) !!}
                             <div id="myfileupload">
                                 <div>
 
@@ -63,7 +63,7 @@
                         </div>
 
                         <div class="div-multi-image">
-                            {!! Form::label('list_image', 'List Image', ['class' => 'control-label']) !!}
+                            {!! Form::label('list_image', 'Ảnh kèm theo', ['class' => 'control-label']) !!}
                             <div id="myfileupload">
                                 <div>
 
@@ -78,7 +78,7 @@
                         </div>
 
                         <div class="mt-3 mb-3">
-                            {!!Form::submit('Submit', ['class' => 'btn btn-large btn-primary openbutton
+                            {!!Form::submit('Đồng ý', ['class' => 'btn btn-large btn-primary openbutton
                             form-control','onClick'=>'getValue()'])!!}
                             {!! Form::close() !!}
                         </div>

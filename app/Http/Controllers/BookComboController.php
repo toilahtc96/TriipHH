@@ -40,7 +40,8 @@ class BookComboController extends Controller
             ->leftJoin('combo_trips', 'combo_trips.id', '=', 'book_combos.combo_id')
             ->leftJoin('book_statuses', 'book_statuses.id', '=', 'book_combos.book_status_id')
             ->leftJoin('cars', 'cars.id', '=', 'combo_trips.car_id')->sortable()->paginate(5);
-        return view('admin/bookcombo/list-bookcombo')->with('bookcombos', $bookcombos)->with('bookstatuses', $bookstatuses)->with('table_name', 'book_combos');
+        return view('admin/bookcombo/list-bookcombo')->with('bookcombos', $bookcombos)
+        ->with('bookstatuses', $bookstatuses)->with('table_name', 'book_combos')->with('url_link','bookcombos');
     }
 
     /**
@@ -109,7 +110,8 @@ class BookComboController extends Controller
             ->with('hotels', $hotels)->with('rooms', $rooms)->with('combotypes', $combotypes)->with('bookstatues', $bookstatues)->with('combotrips', $combotrips)
             ->with('combotrip', $combotrip)->with('roomnews', $roomnews)->with('locationPassing', $locationPassing)->with('car', $car)
             ->with('hotel_id_new', $hotel_id_new == null ? 0 : $hotel_id_new->hotel_id)
-            ->with('rooms_new', $rooms_new == null ? ['0' => 'Chọn hạng phòng'] : $rooms_new);
+            ->with('rooms_new', $rooms_new == null ? ['0' => 'Chọn hạng phòng'] : $rooms_new)
+            ->with('url_link','bookcombos');
     }
 
     /**
@@ -122,10 +124,10 @@ class BookComboController extends Controller
     public function update(Request $request, $id)
     {
 
-        $this->validate($request, array(
+        $validatedData = $request->validate([
             'fullName' => 'required|max:255',
             'msisdn'  => 'required|max:20',
-        ));
+        ]);
 
         $bookCombo  = BookCombo::findOrFail($id);
 
@@ -158,7 +160,7 @@ class BookComboController extends Controller
         // $bookCombo-> = $request->;
         // $bookCombo-> = $request->;
         $bookCombo->save();
-        return redirect('/admin/bookcombos');
+        return redirect('/admin/bookcombos')->with('url_link','bookcombos');;
     }
 
     /**

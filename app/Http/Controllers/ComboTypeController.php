@@ -16,7 +16,8 @@ class ComboTypeController extends Controller
     {
         //
         $combotypes = ComboType::sortable()->paginate(5);
-        return view('admin/combotype/list-combotype')->with('combotypes', $combotypes)->with('table_name','combotypes');
+        return view('admin/combotype/list-combotype')->with('combotypes', $combotypes)
+        ->with('table_name','combotypes')->with('url_link','combotypes');
     }
 
     /**
@@ -27,7 +28,7 @@ class ComboTypeController extends Controller
     public function create()
     {
         //
-        return view('admin/combotype/new-combotype');
+        return view('admin/combotype/new-combotype')->with('url_link','combotypes');
     }
 
     /**
@@ -39,10 +40,10 @@ class ComboTypeController extends Controller
     public function store(Request $request)
     {
         //
-        $this->validate($request, array(
+        $validatedData = $request->validate([
             'combo_type_name' => 'required|max:255',
             'detail'  => 'required'
-        ));
+        ]);
         // store in the database
         $combotype =  new ComboType();
         $combotype->combo_type_name = $request->combo_type_name;
@@ -50,7 +51,7 @@ class ComboTypeController extends Controller
         $combotype->status = $request->status == null ? 1 : $request->status;
         $combotype->save();
         // Session::flash('success', 'The hotel post was successfully saved!');
-        return redirect()->route('combotypes.view');
+        return redirect()->route('combotypes.view')->with('url_link','combotypes');
     }
 
     /**
@@ -74,7 +75,7 @@ class ComboTypeController extends Controller
     {
         //
         $combotype =  Combotype::where('id', $id)->findOrFail($id);
-        return view('admin/combotype/edit-combotype')->with('combotype', $combotype);
+        return view('admin/combotype/edit-combotype')->with('combotype', $combotype)->with('url_link','combotypes');
     }
 
     /**
@@ -87,10 +88,10 @@ class ComboTypeController extends Controller
     public function update(Request $request, $id)
     {
         //
-        $this->validate($request, array(
+        $validatedData = $request->validate([
             'combo_type_name' => 'required|max:255',
             'detail'  => 'required'
-        ));
+        ]);
 
         // // process the login
         // if ($validator->fails()) {
@@ -107,7 +108,7 @@ class ComboTypeController extends Controller
         $request->session()->flash('status', 'Update Combotype ' . $combotype->combo_type_name . ' Successful!');
         $request->session()->flash('modal_title', 'Successful!');
         $request->session()->flash('modal_content', 'Update ComboType Successful!');
-        return redirect('/admin/combotypes');
+        return redirect('/admin/combotypes')->with('url_link','combotypes');
     }
 
     /**

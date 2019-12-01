@@ -3,11 +3,11 @@
 <div class="container body">
     <div class="main_container">
 
-        <h2>Edit Room</h2>
-
+        <h2>Chỉnh sửa thông tin phòng </h2>
+        @include('admin.common.url-to-list')
         <div class="panel panel-primary ">
 
-            <div class="panel-heading">Edit Room </div>
+            <div class="panel-heading">Sửa thông tin phòng </div>
             <div class="panel-body">
                 <div class="row">
                     <div class="col-sm-4">
@@ -21,31 +21,31 @@
 
                         {{ Form::model($roomhotel, array('route' => array('roomhotels.update', $roomhotel->id), 'method' => 'PUT','files' => true)) }}
 
-                        {!! Form::label('hotel_id', 'Hotel', ['class' => 'control-label']) !!}
+                        {!! Form::label('hotel_id', 'Khách sạn', ['class' => 'control-label']) !!}
                         {!!Form::select('hotel_id', $hotels, $value = $roomhotel->hotel_id,
                         ['class'=>'form-control'])!!}
 
                         <div class="row">
                             <div class="col-sm-4 ">
-                                {!! Form::label('level', 'level', ['class' => 'control-label']) !!}
+                                {!! Form::label('level', 'Hạng phòng', ['class' => 'control-label']) !!}
                                 {!! Form::selectRange('level', 1, 5, $value = $roomhotel->level, ['class'=>
                                 'form-control']) !!}
                             </div>
                             <div class="col-sm-4 ">
-                                {!! Form::label('status', 'status', ['class' => 'control-label']) !!}
+                                {!! Form::label('status', 'Trạng thái', ['class' => 'control-label']) !!}
                                 {!!Form::select('status', ['1' => 'Hoạt động', '0' => 'Không hoạt động'], $value =
                                 $roomhotel->status,
                                 ['class'=> 'form-control'])!!}
                             </div>
                         </div>
 
-                        {!! Form::label('price', 'Price', ['class' => 'control-label']) !!}
+                        {!! Form::label('price', 'Giá', ['class' => 'control-label']) !!}
                         {!! Form::number('price', $value = $roomhotel->price, ['class' =>
                         'form-control','placeholder'=>'price']) !!}
 
 
 
-                        {!! Form::label('service_included', 'service', ['class' => 'control-label']) !!}
+                        {!! Form::label('service_included', 'Dịch vụ', ['class' => 'control-label']) !!}
                         {!! Form::textarea('service_included',$value = $roomhotel->service_included, ['class' =>
                         'form-control','placeholder'=>'Service Include', 'rows' => 5]) !!}
 
@@ -53,7 +53,7 @@
                             {!! Form::hidden('image_root_folder',$value =$roomhotel->image_root_folder,['class'=>'form-control','id'=>'image_root_folder'])
                             !!}
                             {{-- @if(!isset($hotel->main_image)) --}}
-                            {!! Form::label('main_image', 'Main Image', ['class' => 'control-label']) !!}
+                            {!! Form::label('main_image', 'Ảnh chính', ['class' => 'control-label']) !!}
                             <div id="myfileupload">
                                 <div>
 
@@ -77,7 +77,7 @@
                         <div class="mt-3 mb-3">
 
                             <div class="div-multi-image">
-                                {!! Form::label('list_image', 'List Image', ['class' => 'control-label']) !!}
+                                {!! Form::label('list_image', 'Ảnh kèm theo', ['class' => 'control-label']) !!}
                                 <div id="myfileupload">
                                     <div>
 
@@ -98,7 +98,7 @@
                             </div>
                         </div>
                         <div class="mt-3 mb-3">
-                            {!!Form::submit('Submit', ['class' => 'btn btn-large btn-primary openbutton
+                            {!!Form::submit('Đồng ý', ['class' => 'btn btn-large btn-primary openbutton
                             form-control','onClick'=>'getValue()'])!!}
                             {!! Form::close() !!}
                         </div>

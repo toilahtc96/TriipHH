@@ -34,7 +34,7 @@ class CarController extends Controller
                 $val->finish = $this->getListLocationName($val->destination_id);
             }
         }
-        return view('admin/car/list-car')->with('cars', $cars)->with('table_name','cars');
+        return view('admin/car/list-car')->with('cars', $cars)->with('table_name','cars')->with('url_link','cars');
     }
 
 
@@ -47,7 +47,7 @@ class CarController extends Controller
     {
         //
         $locations = $this->getListLocationForCBB();
-        return view('admin/car/new-car')->with('locations', $locations);
+        return view('admin/car/new-car')->with('locations', $locations)->with('url_link','cars');
     }
 
     /**
@@ -61,12 +61,13 @@ class CarController extends Controller
         //
 
         // validate the data
-        $this->validate($request, array(
+      
+        $validatedData = $request->validate([
             'own_car' => 'required|max:255',
             'msisdn'  => 'required|max:20',
             'count_seat' => 'required',
             'price' => 'required'
-        ));
+        ]);
         // store in the database
         $car =  new Car;
         $car->own_car = $request->own_car;
@@ -115,7 +116,7 @@ class CarController extends Controller
         }
         $car->save();
         $request->session()->flash('success', 'The car post was successfully saved!');
-        return redirect()->route('cars.view');
+        return redirect()->route('cars.view')->with('url_link','cars');
     }
 
     /**
@@ -152,7 +153,7 @@ class CarController extends Controller
         $car->places_passing =  explode(",", $car->places_passing);
 
         return view('admin/car/edit-car')->with('car', $car)
-            ->with('locations', $locations)->with('error_code', 5);
+            ->with('locations', $locations)->with('error_code', 5)->with('url_link','cars');
     }
 
     /**
@@ -165,12 +166,14 @@ class CarController extends Controller
     public function update(Request $request, $id)
     {
         //
-        $this->validate($request, array(
+
+        $validatedData = $request->validate([
             'own_car' => 'required|max:255',
             'msisdn'  => 'required|max:20',
             'count_seat' => 'required',
             'price' => 'required'
-        ));
+        ]);
+
 
         // // process the login
         // if ($validator->fails()) {
@@ -238,7 +241,7 @@ class CarController extends Controller
         $request->session()->flash('status', 'Update Car ' . $car->own_car . ' Successful!');
         $request->session()->flash('modal_title', 'Successful!');
         $request->session()->flash('modal_content', 'Update Car Successful!');
-        return redirect('/admin/cars');
+        return redirect('/admin/cars')->with('url_link','cars');
     }
 
     /**

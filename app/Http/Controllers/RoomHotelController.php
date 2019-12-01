@@ -20,7 +20,8 @@ class RoomHotelController extends Controller
             $val->service_included = str_replace(";", "\n", $val->service_included);
             $val->service_included = str_replace(".", ". ", $val->service_included);
         }
-        return view('admin/roomhotel/list-room')->with('roomHotels', $roomHotels)->with('table_name','room_hotels');
+        return view('admin/roomhotel/list-room')->with('roomHotels', $roomHotels)
+        ->with('table_name','room_hotels')->with('url_link','roomhotels');
     }
 
 
@@ -34,7 +35,7 @@ class RoomHotelController extends Controller
         //
         $hotels = $this->getListHotelForCBB();
         
-        return view('admin/roomhotel/new-room')->with('hotels', $hotels);
+        return view('admin/roomhotel/new-room')->with('hotels', $hotels)->with('url_link','roomhotels');
     }
 
     /**
@@ -48,11 +49,11 @@ class RoomHotelController extends Controller
         //
 
         // validate the data
-        $this->validate($request, array(
+        $validatedData = $request->validate([
             'hotel_id' => 'required|max:255',
             'level'  => 'required|max:20',
             'price' => 'required'
-        ));
+        ]);
         // store in the database
         $roomhotel =  new RoomHotel();
         $roomhotel->hotel_id = $request->hotel_id;
@@ -71,7 +72,7 @@ class RoomHotelController extends Controller
         // dd($roomhotel);
         $roomhotel->save();
         $request->session()->flash('success', 'The Room post was successfully saved!');
-        return redirect()->route('roomhotels.view');
+        return redirect()->route('roomhotels.view')->with('url_link','roomhotels');
     }
 
     /**
@@ -101,7 +102,7 @@ class RoomHotelController extends Controller
         $roomhotel->image_root_folder = "roomhotels";
 
         return view('admin/roomhotel/edit-room')->with('hotels', $hotels)
-            ->with('roomhotel', $roomhotel);
+            ->with('roomhotel', $roomhotel)->with('url_link','roomhotels');
     }
 
     /**
@@ -114,11 +115,11 @@ class RoomHotelController extends Controller
     public function update(Request $request, $id)
     {
         //
-        $this->validate($request, array(
+        $validatedData = $request->validate([
             'hotel_id' => 'required|max:255',
             'level'  => 'required|max:20',
             'price' => 'required'
-        ));
+        ]);
 
         // // process the login
         // if ($validator->fails()) {
@@ -151,7 +152,7 @@ class RoomHotelController extends Controller
         $request->session()->flash('status', 'Update Room Successful!');
         $request->session()->flash('modal_title', 'Successful!');
         $request->session()->flash('modal_content', 'Update Room Successful!');
-        return redirect('/admin/roomhotels');
+        return redirect('/admin/roomhotels')->with('url_link','roomhotels');
     }
 
     /**

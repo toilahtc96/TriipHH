@@ -3,11 +3,11 @@
 <div class="container body">
     <div class="main_container">
 
-        <h2>{{__('Add New Location')}}</h2>
-
+        <h2>{{__('Thêm mới địa chỉ')}}</h2>
+        @include('admin.common.url-to-list')
         <div class="panel panel-primary ">
 
-            <div class="panel-heading">{{__('add Location For Website')}}</div>
+            <div class="panel-heading">{{__('Thêm địa chỉ mới cho Website')}}</div>
 
             <div class="panel-body">
                 <div class="row">
@@ -21,21 +21,21 @@
                         {!! Form::open(['method' => 'post', 'action' => 'LocationController@index',
                         'class' => 'form-horizontal']) !!}
 
-                        {!! Form::label('location_name', 'Location Name', ['class' => 'control-label']) !!}
+                        {!! Form::label('location_name', 'Tên địa điểm', ['class' => 'control-label']) !!}
                         {!! Form::text('location_name', $value = "", ['class' => 'form-control', 'rows' => 3]) !!}
 
-                        {!! Form::label('Detail', 'detail', ['class' => 'control-label']) !!}
+                        {!! Form::label('Detail', 'Chi tiết', ['class' => 'control-label']) !!}
                         {!! Form::textarea('detail', $value = "", ['class' =>
                         'form-control','placeholder'=>'Location Detail', 'rows' => 5]) !!}
 
                         <div class="col-sm-4 ">
-                            {!! Form::label('status', 'status', ['class' => 'control-label']) !!}
+                            {!! Form::label('status', 'Trạng thái', ['class' => 'control-label']) !!}
                             {!!Form::select('status', ['1' => 'Hoạt động', '0' => 'Không hoạt động'], null,
                             ['class'=>
                             'form-control'])!!}
                         </div>
                         <div class="mt-3 mb-3">
-                            {!!Form::submit('Submit', ['class' => 'btn btn-large btn-primary openbutton
+                            {!!Form::submit('Đồng ý', ['class' => 'btn btn-large btn-primary openbutton
                             form-control','onClick'=>'getValue()'])!!}
                             {!! Form::close() !!}
                         </div>

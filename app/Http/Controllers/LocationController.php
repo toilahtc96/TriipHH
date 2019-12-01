@@ -16,7 +16,8 @@ class LocationController extends Controller
     {
         //
         $locations = Location::sortable()->paginate(5);
-        return view('admin/location/list-location')->with('locations', $locations)->with('table_name','locations');
+        return view('admin/location/list-location')->with('locations', $locations)
+        ->with('table_name','locations')->with('url_link','locations');
     }
 
     /**
@@ -27,7 +28,7 @@ class LocationController extends Controller
     public function create()
     {
         //
-        return view('admin/location/new-location');
+        return view('admin/location/new-location')->with('url_link','locations');
     }
 
     /**
@@ -39,10 +40,14 @@ class LocationController extends Controller
     public function store(Request $request)
     {
         //
-        $this->validate($request, array(
+        // $this->validate($request, array(
+        //     'location_name' => 'required|max:255',
+        //     'detail'  => 'required'
+        // ));
+        $validatedData = $request->validate([
             'location_name' => 'required|max:255',
             'detail'  => 'required'
-        ));
+        ]);
         // store in the database
         $location =  new Location();
         $location->location_name = $request->location_name;
@@ -50,7 +55,7 @@ class LocationController extends Controller
         $location->status = $request->status == null ? 1 : $request->status;
         $location->save();
         // Session::flash('success', 'The hotel post was successfully saved!');
-        return redirect()->route('locations.view');
+        return redirect()->route('locations.view')->with('url_link','locations');
     }
 
     /**
@@ -75,7 +80,7 @@ class LocationController extends Controller
         //
 
         $location =  Location::where('id', $id)->findOrFail($id);
-        return view('admin/location/edit-location')->with('location', $location);
+        return view('admin/location/edit-location')->with('location', $location)->with('url_link','locations');
     }
 
     /**
@@ -88,10 +93,10 @@ class LocationController extends Controller
     public function update(Request $request, $id)
     {
         //
-        $this->validate($request, array(
+        $validatedData = $request->validate([
             'location_name' => 'required|max:255',
             'detail'  => 'required'
-        ));
+        ]);
 
         // // process the login
         // if ($validator->fails()) {
@@ -107,7 +112,7 @@ class LocationController extends Controller
         $request->session()->flash('status', 'Update Location ' . $location->location_name . ' Successful!');
         $request->session()->flash('modal_title', 'Successful!');
         $request->session()->flash('modal_content', 'Update location Successful!');
-        return redirect('/admin/locations');
+        return redirect('/admin/locations')->with('url_link','locations');
     }
 
     /**

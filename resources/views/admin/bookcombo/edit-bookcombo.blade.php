@@ -4,7 +4,7 @@
     <div class="main_container">
 
         <h2>Edit bookcombo</h2>
-
+        @include('admin.common.url-to-list')
         <div class="panel panel-primary ">
 
             <div class="panel-heading">Edit bookcombo</div>

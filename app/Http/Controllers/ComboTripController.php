@@ -41,7 +41,8 @@ class ComboTripController extends Controller
             $val->service_included = str_replace(";", "\n", $val->service_included);
             $val->service_included = str_replace(".", ". ", $val->service_included);
         }
-        return view('admin/combotrip/list-combotrip')->with('combotrips', $combotrips)->with('table_name','combotrips');
+        return view('admin/combotrip/list-combotrip')->with('combotrips', $combotrips)
+        ->with('table_name','combotrips')->with('url_link','combotrips');
     }
 
 
@@ -60,7 +61,7 @@ class ComboTripController extends Controller
         $rooms = $this->getListRoomdForCBB();
 
         return view('admin/combotrip/new-combotrip')->with("hotels", $hotels)
-            ->with("cars", $cars)->with("combotypes", $combotypes)->with('rooms', $rooms);
+            ->with("cars", $cars)->with("combotypes", $combotypes)->with('rooms', $rooms)->with('url_link','combotrips');
     }
 
     /**
@@ -74,7 +75,7 @@ class ComboTripController extends Controller
         //
 
         // validate the data
-        $this->validate($request, array(
+        $validatedData = $request->validate([
             'hotel_id' => 'required|max:255',
             'room_id'  => 'required',
             'car_id' => 'required',
@@ -84,7 +85,7 @@ class ComboTripController extends Controller
             'arrival_time' => 'required',
             'start_date' => 'required',
             'end_date' => 'required',
-        ));
+        ]);
 
         // store in the database
         $combotrip =  new ComboTrip;
@@ -110,7 +111,7 @@ class ComboTripController extends Controller
 
         $combotrip->save();
         // Session::flash('success', 'The hotel post was successfully saved!');
-        return redirect()->route('combotrips.view');
+        return redirect()->route('combotrips.view')->with('url_link','combotrips');
     }
 
     /**
@@ -142,7 +143,7 @@ class ComboTripController extends Controller
         $combotrip->image_root_folder = "combotrips";
 
         return view('admin/combotrip/edit-combotrip')->with("hotels", $hotels)->with("combotrip", $combotrip)
-            ->with("cars", $cars)->with("combotypes", $combotypes)->with('rooms', $rooms);
+            ->with("cars", $cars)->with("combotypes", $combotypes)->with('rooms', $rooms)->with('url_link','combotrips');
     }
 
     /**
@@ -199,7 +200,7 @@ class ComboTripController extends Controller
         $request->session()->flash('status', 'Update ComboTrip Successful!');
         $request->session()->flash('modal_title', 'Successful!');
         $request->session()->flash('modal_content', 'Update ComboTrip Successful!');
-        return redirect('/admin/combotrips');
+        return redirect('/admin/combotrips')->with('url_link','combotrips');
     }
 
     /**

@@ -134,7 +134,7 @@ class Controller extends BaseController
                         $roomhotel->save();
 
                         return response()->json([
-                            'result' => "Cập nhật thành công cho Phòng"
+                            'result' => "Cập nhật thành công " 
                         ]);
                     }
                     break;
@@ -466,7 +466,8 @@ class Controller extends BaseController
                     }
                 }
                 $bookcars = $query->sortable()->paginate(5);
-                return view('admin/bookcar/list-bookcar')->with('bookcars', $bookcars)->with('table_name', 'book_cars');
+                return view('admin/bookcar/list-bookcar')->with('bookcars', $bookcars)
+                ->with('table_name', 'book_cars')->with('url_link','bookcars');
                 break;
             case "book_combos":
                 $bookstatuses = $this->getListBookStatusForCBB();
@@ -507,7 +508,8 @@ class Controller extends BaseController
                 }
                 $bookcombos = $query->sortable()->paginate(5);
                 return view('admin/bookcombo/list-bookcombo')->with('bookcombos', $bookcombos)
-                    ->with('bookstatuses', $bookstatuses)->with('table_name', 'book_combos');
+                    ->with('bookstatuses', $bookstatuses)->with('table_name', 'book_combos')
+                    ->with('url_link','bookcombos');
                 break;
             case "book_rooms":
                 $bookstatuses = $this->getListBookStatusForCBB();
@@ -548,7 +550,8 @@ class Controller extends BaseController
 
                 $bookrooms = $query->sortable()->paginate(5);
                 return view('admin/bookroom/list-bookroom')->with('bookrooms', $bookrooms)
-                    ->with('bookstatuses', $bookstatuses)->with('table_name', 'book_rooms');
+                    ->with('bookstatuses', $bookstatuses)->with('table_name', 'book_rooms')
+                    ->with('url_link','bookrooms');
                 break;
             case "book_custom_trips":
                 $bookstatuses = $this->getListBookStatusForCBB();
@@ -591,7 +594,8 @@ class Controller extends BaseController
 
                 $bookcustomtrips = $query->sortable()->paginate(5);
                 return view('admin/bookcustomtrip/list-bookcustomtrip')->with('bookcustomtrips', $bookcustomtrips)
-                    ->with('bookstatuses', $bookstatuses)->with('table_name', 'book_custom_trips');
+                    ->with('bookstatuses', $bookstatuses)->with('table_name', 'book_custom_trips')
+                    ->with('url_link','bookcustomtrips');
                 break;
             case "hotels":
                 $query = Hotel::select('hotels.*', 'location_name')
@@ -610,7 +614,8 @@ class Controller extends BaseController
                     $val->place_around = $this->getListLocationName($val->place_around);
                 }
                 // dd($hotels);
-                return view('admin/hotel/list-hotel')->with('hotels', $hotels)->with('table_name', 'hotels');
+                return view('admin/hotel/list-hotel')->with('hotels', $hotels)->with('table_name', 'hotels')
+                ->with('url_link','hotels');
                 break;
             case "locations":
                 $query = Location::select('locations.*');
@@ -621,7 +626,8 @@ class Controller extends BaseController
                     }
                 }
                 $locations = $query->sortable()->paginate(5);
-                return view('admin/location/list-location')->with('locations', $locations)->with('table_name', 'locations');
+                return view('admin/location/list-location')->with('locations', $locations)->with('table_name', 'locations')
+                ->with('url_link','locations');
                 break;
 
 
@@ -642,7 +648,8 @@ class Controller extends BaseController
                     $val->service_included = str_replace(";", "\n", $val->service_included);
                     $val->service_included = str_replace(".", ". ", $val->service_included);
                 }
-                return view('admin/roomhotel/list-room')->with('roomHotels', $roomHotels)->with('table_name', 'room_hotels');
+                return view('admin/roomhotel/list-room')->with('roomHotels', $roomHotels)->with('table_name', 'room_hotels')
+                ->with('url_link','roomhotels');
                 break;
 
 
@@ -657,7 +664,7 @@ class Controller extends BaseController
                 }
                 $combotypes = $query->sortable()->paginate(5);
                 return view('admin/combotype/list-combotype')
-                    ->with('combotypes', $combotypes)->with('table_name', 'combotypes');
+                    ->with('combotypes', $combotypes)->with('table_name', 'combotypes')->with('url_link','combotypes');
 
             case "combotrips":
                 $query = ComboTrip::select(
@@ -701,7 +708,8 @@ class Controller extends BaseController
                     $val->service_included = str_replace(";", "\n", $val->service_included);
                     $val->service_included = str_replace(".", ". ", $val->service_included);
                 }
-                return view('admin/combotrip/list-combotrip')->with('combotrips', $combotrips)->with('table_name', 'combotrips');
+                return view('admin/combotrip/list-combotrip')->with('combotrips', $combotrips)
+                ->with('table_name', 'combotrips')->with('url_link','combotrips');
 
                 break;
             case "cars":
@@ -733,7 +741,8 @@ class Controller extends BaseController
                         $val->finish = $this->getListLocationName($val->destination_id);
                     }
                 }
-                return view('admin/car/list-car')->with('cars', $cars)->with('table_name', 'cars');
+                return view('admin/car/list-car')->with('cars', $cars)->with('table_name', 'cars')
+                ->with('url_link','cars');
                 break;
             default:
                 break;

@@ -29,7 +29,8 @@ class HotelController extends Controller
             $val->place_around = $this->getListLocationName($val->place_around);
         }
         // dd($hotels);
-        return view('admin/hotel/list-hotel')->with('hotels', $hotels)->with('table_name','hotels');
+        return view('admin/hotel/list-hotel')->with('hotels', $hotels)->with('table_name','hotels')
+        ->with('url_link','hotels');
     }
 
 
@@ -42,7 +43,7 @@ class HotelController extends Controller
     {
         //
         $locations = $this->getListLocationForCBB();
-        return view('admin/hotel/new-hotel')->with('locations', $locations);
+        return view('admin/hotel/new-hotel')->with('locations', $locations)->with('url_link','hotels');
     }
 
     /**
@@ -56,10 +57,10 @@ class HotelController extends Controller
         //
 
         // validate the data
-        $this->validate($request, array(
+        $validatedData = $request->validate([
             'hotel_name' => 'required|max:255',
             'service_included'  => 'required'
-        ));
+        ]);
         // store in the database
         $hotel =  new Hotel;
         $hotel->hotel_name = $request->hotel_name;
@@ -99,7 +100,7 @@ class HotelController extends Controller
 
         $hotel->save();
         // Session::flash('success', 'The hotel post was successfully saved!');
-        return redirect()->route('hotels.view');
+        return redirect()->route('hotels.view')->with('url_link','hotels');
     }
 
     /**
@@ -129,7 +130,7 @@ class HotelController extends Controller
         $hotel->image_root_folder = "hotels";
         $hotel->place_around =  explode(",", $hotel->place_around);
         return view('admin/hotel/edit-hotel')->with('hotel', $hotel)
-            ->with('locations', $locations)->with('error_code', 5);
+            ->with('locations', $locations)->with('error_code', 5)->with('url_link','hotels');
     }
 
     /**
@@ -143,11 +144,11 @@ class HotelController extends Controller
     {
         //
 
-        $this->validate($request, array(
+
+        $validatedData = $request->validate([
             'hotel_name' => 'required|max:255',
             'service_included'  => 'required'
-        ));
-
+        ]);
         // // process the login
         // if ($validator->fails()) {
         //     return Redirect::back()->withErrors($validator)
@@ -190,7 +191,7 @@ class HotelController extends Controller
         $request->session()->flash('status', 'Update Hotel ' . $hotel->hotel_name . ' Successful!');
         $request->session()->flash('modal_title', 'Successful!');
         $request->session()->flash('modal_content', 'Update Hotel Successful!');
-        return redirect('/admin/hotels');
+        return redirect('/admin/hotels')->with('url_link','hotels');
     }
 
     /**
