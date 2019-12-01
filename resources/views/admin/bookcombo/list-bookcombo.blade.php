@@ -33,7 +33,9 @@
                     <tr>
                         <td>{{$data->fullname}}</td>
                         <td>{{$data->msisdn}}</td>
-                        <td class="td-date">{{$data->start_date}}</td>
+                        <td class="td-date">
+                            {{date('d-m-Y', strtotime($data->start_date)) }}
+                        </td>
                         <td>{{$data->own_car}} - {{$data->car_type}}</td>
                         <td>{{$data->location_name}}</td>
                         <td>{{$data->combo_type_name}}</td>

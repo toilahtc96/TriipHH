@@ -3,11 +3,11 @@
 <div class="container body">
     <div class="main_container">
 
-        <h2>Edit bookcombo</h2>
+        <h2>Chính sửa Đặt Combo </h2>
         @include('admin.common.url-to-list')
         <div class="panel panel-primary ">
 
-            <div class="panel-heading">Edit bookcombo</div>
+            <div class="panel-heading">Chỉnh sửa đặt combo </div>
             <div class="panel-body">
                 <div class="row">
                     <div class="col-sm-4">
@@ -100,7 +100,7 @@
                             <div class="col-sm-6">
                                 {!! Form::label('checkin_date', 'Ngày checkin', ['class' => 'control-label']) !!}
                                 {!! Form::date('checkin_date', $value = $bookcombo->checkin_date, ['class' =>
-                                'form-control','placeholder'=>'Ngày checkin']) !!}
+                                'form-control','placeholder'=>'Ngày checkin','format'=>'dd/mm/yyyy']) !!}
                             </div>
                             <div class="col-sm-6">
                                 {!! Form::label('checkin_time', 'Giờ checkin', ['class' => 'control-label']) !!}
@@ -113,7 +113,7 @@
                             <div class="col-sm-6">
                                 {!! Form::label('checkout_date', 'Ngày checkout', ['class' => 'control-label']) !!}
                                 {!! Form::date('checkout_date', $value = $bookcombo->checkout_date, ['class' =>
-                                'form-control','placeholder'=>'Ngày checkout']) !!}
+                                'form-control','placeholder'=>'Ngày checkout','format'=>'dd/mm/yyyy']) !!}
                             </div>
                             <div class="col-sm-6">
                                 {!! Form::label('checkout_time', 'Giờ checkout', ['class' => 'control-label']) !!}
@@ -169,7 +169,7 @@
                         </div>
                         @endif
                         <div class="mt-3 mb-3">
-                            {!!Form::submit('Submit', ['class' => 'btn btn-large btn-primary openbutton
+                            {!!Form::submit('Đồng ý', ['class' => 'btn btn-large btn-primary openbutton
                             form-control'])!!}
                             {!! Form::close() !!}
                         </div>

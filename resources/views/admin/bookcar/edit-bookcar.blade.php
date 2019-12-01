@@ -54,7 +54,7 @@
                                 <div class="col-sm-6">
                                     {!! Form::label('start_date', 'Ngày đi', ['class' => 'control-label']) !!}
                                     {!! Form::date('start_date', $value = $bookcar->start_date, ['class' =>
-                                    'form-control','placeholder'=>'Ngày đi']) !!}
+                                    'form-control','placeholder'=>'Ngày đi','format'=>'dd/mm/yyyy']) !!}
                                 </div>
                                 <div class="col-sm-6">
                                     {!! Form::label('arrival_time', 'Giờ dự kiến đến', ['class' => 'control-label'])

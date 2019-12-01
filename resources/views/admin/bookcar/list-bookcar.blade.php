@@ -36,7 +36,9 @@
                         <td>{{$data->msisdn}}</td>
                         <td>{{$data->own_car}} - {{$data->car_type}}</td>
 
-                        <td style="width:10%">{{$data->start_date}}</td>
+                        <td style="width:10%">
+                                {{date('d-m-Y', strtotime($data->start_date)) }}
+                        </td>
                         <td>{{$data->arrival_time}}</td>
                         <td>{{$data->location_name}}</td>
                         <td>

@@ -3,11 +3,11 @@
     <div class="row">
         <div class="col-sm-2">
                 {{__('Từ ngày')}}
-            <input type="date" class="form-control" name="startdate" id="startdate">
+            <input type="date" class="form-control" format="dd/mm/yyyy" name="startdate" id="startdate">
         </div>
         <div class="col-sm-2">
             {{__('Tới ngày')}}
-            <input type="date" class="form-control" name="enddate" id="enddate">
+            <input type="date" format="dd/mm/yyyy" class="form-control" name="enddate" id="enddate">
         </div>
         <div class="col-sm-8" style="margin-top:2%">
             <div class="col-sm-4" style="float:left">

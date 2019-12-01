@@ -3,11 +3,11 @@
 <div class="container body">
     <div class="main_container">
 
-        <h2>Edit bookroom</h2>
+        <h2>Chỉnh sửa đặt phòng </h2>
         @include('admin.common.url-to-list')
         <div class="panel panel-primary ">
 
-            <div class="panel-heading">Edit bookroom</div>
+            <div class="panel-heading">Chỉnh sửa đặt phòng </div>
             <div class="panel-body">
                 <div class="row">
                     <div class="col-sm-4">
@@ -58,7 +58,7 @@
                             <div class="col-sm-6">
                                 {!! Form::label('checkin_date', 'Ngày checkin', ['class' => 'control-label']) !!}
                                 {!! Form::date('checkin_date', $value = $bookroom->checkin_date, ['class' =>
-                                'form-control','placeholder'=>'Ngày checkin']) !!}
+                                'form-control','placeholder'=>'Ngày checkin','format'=>'dd/mm/yyyy']) !!}
                             </div>
                             <div class="col-sm-6">
                                 {!! Form::label('checkin_time', 'Giờ checkin', ['class' => 'control-label']) !!}
@@ -71,7 +71,7 @@
                             <div class="col-sm-6">
                                 {!! Form::label('checkout_date', 'Ngày checkout', ['class' => 'control-label']) !!}
                                 {!! Form::date('checkout_date', $value = $bookroom->checkout_date, ['class' =>
-                                'form-control','placeholder'=>'Ngày checkout']) !!}
+                                'form-control','placeholder'=>'Ngày checkout','format'=>'dd/mm/yyyy']) !!}
                             </div>
                             <div class="col-sm-6">
                                 {!! Form::label('checkout_time', 'Giờ checkout', ['class' => 'control-label']) !!}

@@ -35,8 +35,8 @@
                         <td>{{$data->own_car}}</td>
                         <td>{{$data->start_time}}</td>
                         <td>{{$data->arrival_time}}</td>
-                        <td class="td-date">{{$data->start_date}}</td>
-                        <td class="td-date">{{$data->end_date}}</td>
+                        <td class="td-date">{{date('d-m-Y', strtotime($data->start_date)) }}</td>
+                        <td class="td-date">{{date('d-m-Y', strtotime($data->end_date)) }}</td>
                         <td>{{$data->price}}</td>
 
                         <td>

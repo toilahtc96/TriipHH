@@ -35,11 +35,11 @@
                     <div class="row">
                         <div class="col-sm-6 ">
                             {!! Form::label('check_in_date', 'CheckIn Date', ['class' => 'control-label']) !!}
-                            {{ Form::date('check_in_date', null, ['class' => 'form-control']) }}
+                            {{ Form::date('check_in_date', null, ['class' => 'form-control','format'=>'dd/mm/yyyy']) }}
                         </div>
                         <div class="col-sm-6 ">
                             {!! Form::label('check_in_time', 'CheckIn Time', ['class' => 'control-label']) !!}
-                            {{ Form::time('check_in_time', null, ['class' => 'form-control']) }}
+                            {{ Form::time('check_in_time', null, ['class' => 'form-control','format'=>'dd/mm/yyyy']) }}
                         </div>
                     </div>
                     <div class="row">

@@ -34,7 +34,7 @@
                         <td>{{$data->msisdn}}</td>
                         <td>{{$data->hotel_name}}</td>
                         <td>{{$data->level}}</td>
-                        <td class="td-date">{{$data->start_date}}</td>
+                        <td class="td-date"> {{date('d-m-Y', strtotime($data->start_date)) }}</td>
                         <td>{{$data->combo_type_name}}</td>
                         <td>
                             @if($data->type_service == 1)

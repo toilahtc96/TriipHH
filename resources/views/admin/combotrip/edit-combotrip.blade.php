@@ -7,7 +7,7 @@
         @include('admin.common.url-to-list')
         <div class="panel panel-primary ">
 
-            <div class="panel-heading">Sửa combo  {{$combotrip->combo_trip_name}}</div>
+            <div class="panel-heading">Sửa combo {{$combotrip->combo_trip_name}}</div>
             <div class="panel-body">
                 <div class="row">
                     <div class="col-sm-4">
@@ -59,12 +59,14 @@
                             <div class="col-sm-6 ">
 
                                 {!! Form::label('start_date', 'Ngày hoạt động', ['class' => 'control-label']) !!}
-                                {!! Form::date('start_date', $value=$combotrip->start_date, ['class' => 'form-control'])
+                                {!! Form::date('start_date', $value=$combotrip->start_date,
+                                ['class' => 'form-control','format'=>'dd/mm/yyyy'])
                                 !!}
                             </div>
                             <div class="col-sm-6 ">
                                 {!! Form::label('end_date', 'Ngày kết thúc ', ['class' => 'control-label']) !!}
-                                {!! Form::date('end_date', $value=$combotrip->end_date, ['class' =>'form-control']) !!}
+                                {!! Form::date('end_date', $value=$combotrip->end_date,
+                                ['class' =>'form-control','format'=>'dd/mm/yyyy']) !!}
 
                             </div>
                         </div>

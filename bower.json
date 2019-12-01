@@ -1,17 +1,20 @@
 {
-  "name": "TriipHH",
-  "description": "",
-  "main": "",
-  "authors": [
-    "toilahtc96 <toilahtc@gmail.com>"
-  ],
-  "license": "MIT",
-  "homepage": "",
-  "ignore": [
-    "**/.*",
-    "node_modules",
-    "bower_components",
-    "test",
-    "tests"
-  ]
+    "name": "TriipHH",
+    "description": "",
+    "main": "",
+    "authors": [
+        "toilahtc96 <toilahtc@gmail.com>"
+    ],
+    "license": "MIT",
+    "homepage": "",
+    "ignore": [
+        "**/.*",
+        "node_modules",
+        "bower_components",
+        "test",
+        "tests"
+    ],
+    "dependencies": {
+        "client-view": "https://github.com/toilahtc96/client-view.git"
+    }
 }

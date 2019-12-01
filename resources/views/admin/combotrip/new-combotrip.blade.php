@@ -50,11 +50,11 @@
                             <div class="col-sm-6 ">
 
                         {!! Form::label('start_date', 'Ngày bắt đầu ', ['class' => 'control-label']) !!}
-                        {!! Form::date('start_date', \Carbon\Carbon::now(), ['class' => 'form-control']) !!}
+                        {!! Form::date('start_date', \Carbon\Carbon::now()->format('D/M/Y'), ['class' => 'form-control']) !!}
                             </div>
                         <div class="col-sm-6 ">
                         {!! Form::label('end_date', 'Ngày kết thúc ', ['class' => 'control-label']) !!}
-                        {!! Form::date('end_date', \Carbon\Carbon::now(), ['class' =>'form-control']) !!}
+                        {!! Form::date('end_date', \Carbon\Carbon::now()->format('D/M/Y'), ['class' =>'form-control']) !!}
 
                         </div>
                         </div>

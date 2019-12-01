@@ -13,7 +13,7 @@
                 <thead class="thead-light">
                     <tr>
                         <th style="width:10%">@sortablelink('fullname','Tên khách hàng')</th>
-                        <th>@sortablelink('start_date','Số điện thoại')</th>
+                        <th>@sortablelink('msisdn','Số điện thoại')</th>
                         <th style="width:10%">@sortablelink('start_date','Ngày đi')</th>
                         <th style="width:10%">@sortablelink('car_id','Xe')</th>
                         <th style="width:10%">@sortablelink('pickup_place_id','Nơi đón')</th>
@@ -32,7 +32,10 @@
                     <tr>
                         <td>{{$data->fullname}}</td>
                         <td>{{$data->msisdn}}</td>
-                        <td class="td-date">{{$data->start_date}}</td>
+
+                        <td class="td-date">
+                            {{date('d-m-Y', strtotime($data->start_date)) }}
+                        </td>
                         <td>{{$data->own_car}}</td>
                         <td>{{$data->location_name}}</td>
                         <td>{{$data->combo_type_name}}</td>
