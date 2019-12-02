@@ -15,13 +15,11 @@ Route::get('/', function () {
     return view('client/home');
 });
 
-
-Route::get('newHotel', function () {
-    return view('admin/hotel/newHotel');
-})->name('newHotel');
 Auth::routes();
 
 Route::get('/home', 'HomeController@index')->name('home');
+
+Route::get('/hotels', 'HotelClientController@index')->name('hotel');
 
 Route::prefix('admin')->middleware('auth')->group(function () {
     Route::get('/', 'AdminController@index')->name('admin');
@@ -89,7 +87,7 @@ Route::prefix('admin')->middleware('auth')->group(function () {
         'update' => 'bookcars.update'
     ]);
 
-    Route::any ( '/search', 'Controller@search');
+    Route::any('/search', 'Controller@search');
 
     Route::post('/changeStatus', 'Controller@changeStatus')->name('changeStatus');
     Route::post('/changeBookStatus', 'Controller@changeBookStatusNew')->name('changeBookStatus');
