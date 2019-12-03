@@ -25,7 +25,7 @@
                     <div class="fh5co-text">
                         <h2 class="title-name">{{$data->hotel_name}}</h2>
                         <p class="p-main-info">{{$data->main_info}}</p>
-                        <p class="read-more"><a href="{{ url('/hotel/'.$data->main_image) }}"><span
+                        <p class="read-more"><a href="{{ url('/hotel/'.$data->id.'-'.$data->slugs) }}"><span
                                     class="btn btn-primary">{{__('Xem Thêm')}}</span></a></p>
                     </div>
                 </span>

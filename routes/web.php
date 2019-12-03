@@ -19,7 +19,13 @@ Auth::routes();
 
 Route::get('/home', 'HomeController@index')->name('home');
 
-Route::get('/hotels', 'HotelClientController@index')->name('hotel');
+Route::resource('/hotels', 'HotelClientController')->names([
+    'index' => 'hotelclients.view',
+    'create' => 'hotelclients.build',
+    'edit' => 'hotelclients.edit',
+    'update' => 'hotelclients.update'
+]);
+Route::get('/hotel/{hotel}-{slug}', 'HotelClientController@show')->name('hotels.show');
 
 Route::prefix('admin')->middleware('auth')->group(function () {
     Route::get('/', 'AdminController@index')->name('admin');

@@ -1,6 +1,7 @@
 <!-- jQuery -->
-<script src="{!! asset('bower_components/client-view/js/jquery.min.js') !!}"></script>
+{{-- <script src="{!! asset('bower_components/client-view/js/jquery.min.js') !!}"></script> --}}
 
+<script src="{!! asset('client/js/jquery-3.3.1.min.js') !!}"></script>
 <!-- jQuery Easing -->
 <script src="{!! asset('bower_components/client-view/js/jquery.easing.1.3.js') !!}"></script>
 <!-- Bootstrap -->
@@ -27,4 +28,17 @@
 
 
 <script src="{!! asset('js/client/main.js') !!}"></script>
+
 <script src="{!! asset('js/client/hotel/hotel.js') !!}"></script>
+
+
+<script src="{!! asset('client/js/bootstrap-datepicker.js') !!}"></script>
+<script src="{!! asset('client/js/jquery-migrate-3.0.1.min.js') !!}"></script>
+
+<script src="{!! asset('client/js/aos.js') !!}"></script>
+<script src="{!! asset('client/js/jquery.timepicker.min.js') !!}"></script>
+
+<script src="{!! asset('client/js/popper.min.js') !!}"></script>
+<script src="{!! asset('client/js/jquery.stellar.min.js') !!}"></script>
+<script src="{!! asset('client/js/jquery.fancybox.min.js') !!}"></script>
+<script src="{!! asset('client/js/main.js') !!}"></script>

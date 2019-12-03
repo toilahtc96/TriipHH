@@ -1,5 +1,5 @@
 <header id="gtco-header" class="gtco-cover gtco-cover-md" role="banner"
-    style="background-image: url(images/hotels/0bg.png)">
+    style="background-image: url(/images/hotels/0bg.png)">
     <div class="overlay"></div>
     <div class="gtco-container">
         <div class="row">
