@@ -167,6 +167,8 @@ return [
         // Illuminate\View\ViewServiceProvider::class,
         /*For HTML Form*/
         Collective\Html\HtmlServiceProvider::class,
+        Unisharp\Ckeditor\ServiceProvider::class,
+        
 
         // Illuminate\Html\HtmlServiceProvider::class,
         

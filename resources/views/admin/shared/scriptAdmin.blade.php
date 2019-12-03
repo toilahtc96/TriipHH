@@ -47,5 +47,12 @@
 <script src="{!! asset('js/book-js/book-status.js') !!}"></script>
 <script src="{!! asset('js/bookcombo-js/bookcombo.js') !!}"></script>
 <script src="{!! asset('js/admin.js') !!}"></script>
+<script src={{ url('ckeditor/ckeditor.js') }}></script>
+<script>
+    CKEDITOR.replace( 'text', {
+    filebrowserBrowseUrl: '{{ route('ckfinder_browser') }}',
 
+} );
+</script>
+@include('ckfinder::setup')
 @include('admin/common/modal-error')

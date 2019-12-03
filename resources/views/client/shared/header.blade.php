@@ -1,7 +1,7 @@
 <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <title>Traveler &mdash; Free Website Template, Free HTML5 Template by FreeHTML5.co</title>
+    <title>HHTraveler &mdash; Trải nghiệm du lịch thú vị</title>
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="description" content="Free HTML5 Website Template by FreeHTML5.co" />
     <meta name="keywords"
@@ -51,11 +51,10 @@
     <link rel="stylesheet" href="{!! asset('client/fonts/ionicons/css/ionicons.min.css') !!}">
     <link rel="stylesheet" href="{!! asset('client/fonts/fontawesome/css/font-awesome.min.css') !!}">
     <link rel="stylesheet" href="{!! asset('client/css/style.css') !!}">
+
+
+
     <!-- Modernizr JS -->
     <script src="{!! asset('bower_components/client-view/js/modernizr-2.6.2.min.js') !!}"></script>
-    <!-- FOR IE9 below -->
-    <!--[if lt IE 9]>
-        <script src="js/respond.min.js"></script>
-        <![endif]-->
 
 </head>

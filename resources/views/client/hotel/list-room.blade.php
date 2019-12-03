@@ -1,44 +1,31 @@
 @extends('client.layout')
 @section('content')
+@include('client.hotel.detail-hotel')
 <section class="section bg-light">
     <div class="container">
         <div class="row justify-content-center text-center mb-5">
-            <div class="col-md-7">
-                <h2 class="heading aos-init" data-aos="fade">Great Offers</h2>
-                <p data-aos="fade" class="aos-init">Far far away, behind the word mountains, far from the countries
-                    Vokalia and Consonantia, there live the blind texts. Separated they live in Bookmarksgrove right at
-                    the coast of the Semantics, a large language ocean.</p>
+            <div class="col-md-2"></div>
+            <div class="col-md-8">
+                <h2 class="heading aos-init" data-aos="fade">Khách sạn {{$hotel->hotel_name}}</h2>
+                <p data-aos="fade" class="aos-init">Số 16, Phố Dịch Vọng Hậu, Dịch Vọng Hậu, Cầu Giấy, Hà Nội, Việt Nam.
+                </p>
             </div>
+            <div class="col-md-2"></div>
         </div>
-        <div class="site-block-half d-block d-lg-flex bg-white aos-init" data-aos="fade" data-aos-delay="100">
-            <div style="float:right"><img src="/images/hotels/0bg.png" style="width:50%;float:right" />
-                <div class="text">
-                    <span class="d-block mb-4"><span class="display-4 text-primary">$199</span> <span
-                            class="text-uppercase letter-spacing-2">/ per night</span> </span>
-                    <h2 class="mb-4">Family Room</h2>
-                    <p>Far far away, behind the word mountains, far from the countries Vokalia and Consonantia, there
-                        live
-                        the blind texts. Separated they live in Bookmarksgrove right at the coast of the Semantics, a
-                        large
-                        language ocean.</p>
-                    <p><a href="#" class="btn btn-primary text-white">Book Now</a></p>
-                </div>
-            </div>
-            <div class="site-block-half d-block d-lg-flex bg-white aos-init" data-aos="fade" data-aos-delay="200">
-                <div style="float:left"><img src="/images/hotels/0bg.png"
-                        style="width:50%;float:right;padding-top:1.4%" />
-                    <div class="text order-1" style="float:right">
-                        <span class="d-block mb-4"><span class="display-4 text-primary">$299</span> <span
-                                class="text-uppercase letter-spacing-2">/ per night</span> </span>
-                        <h2 class="mb-4">Presidential Room</h2>
-                        <p>Far far away, behind the word mountains, far from the countries Vokalia and Consonantia,
-                            there live
-                            the blind texts. Separated they live in Bookmarksgrove right at the coast of the Semantics,
-                            a large
-                            language ocean.</p>
-                        <p><a href="#" class="btn btn-primary text-white">Book Now</a></p>
-                    </div>
-                </div>
-            </div>
+        @foreach ($rooms as $key=>$room)
+        @if($key%2==0)
+        @include('client.hotel.detail-room-left')
+        @include('client.hotel.book-room-form')
+
+        @else
+        @include('client.hotel.detail-room-right')
+        @include('client.hotel.book-room-form')
+        @endif
+        @endforeach
+        <!-- Trigger the modal with a button -->
+        {{-- <button type="button" class="btn btn-info btn-lg" data-toggle="modal" data-target="#myModal">Open Modal</button> --}}
+
+        <!-- Modal -->
+
 </section>
 @endsection

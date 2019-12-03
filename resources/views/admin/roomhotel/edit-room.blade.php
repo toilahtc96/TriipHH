@@ -48,9 +48,11 @@
                         {!! Form::label('service_included', 'Dịch vụ', ['class' => 'control-label']) !!}
                         {!! Form::textarea('service_included',$value = $roomhotel->service_included, ['class' =>
                         'form-control','placeholder'=>'Service Include', 'rows' => 5]) !!}
-
+                        <textarea name=text id="text" cols="30" rows="10"></textarea>
+                       
                         <div>
-                            {!! Form::hidden('image_root_folder',$value =$roomhotel->image_root_folder,['class'=>'form-control','id'=>'image_root_folder'])
+                            {!! Form::hidden('image_root_folder',$value
+                            =$roomhotel->image_root_folder,['class'=>'form-control','id'=>'image_root_folder'])
                             !!}
                             {{-- @if(!isset($hotel->main_image)) --}}
                             {!! Form::label('main_image', 'Ảnh chính', ['class' => 'control-label']) !!}
@@ -115,3 +117,5 @@
 </div>
 
 @endsection
+
+<script src="{!! asset('bower_components/adminlte/plugins/jquery/jquery.min.js') !!}"></script>

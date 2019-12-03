@@ -44,7 +44,7 @@ callAjax = function(e, table, id, status) {
 
         type: 'POST',
 
-        url: 'changeStatus',
+        url: '/admin/changeStatus',
 
         data: { table: table, id: id, status: status },
 
@@ -52,6 +52,9 @@ callAjax = function(e, table, id, status) {
 
             alert(data.result);
 
+        },
+        error: function() {
+            alert("có lỗi");
         }
 
     });

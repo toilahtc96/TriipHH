@@ -33,7 +33,7 @@
                             <p>{{$data->price}}</p>
                         </td>
                         <td>
-                            <div style="word-break: normal">{{$data->service_included}}</div>
+                            <div style="word-break: normal">{!!$data->service_included!!}</div>
                         </td>
                         <td>
                             <div>
