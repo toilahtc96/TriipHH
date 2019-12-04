@@ -43,13 +43,16 @@
                         {!! Form::number('price', $value = $roomhotel->price, ['class' =>
                         'form-control','placeholder'=>'price']) !!}
 
-
+                        {!! Form::label('info', 'Thông tin phòng', ['class' => 'control-label']) !!}
+                        {!! Form::textarea('info', $value = $roomhotel->info, ['class' => 'form-control', 'rows' => 6]) !!}
 
                         {!! Form::label('service_included', 'Dịch vụ', ['class' => 'control-label']) !!}
-                        {!! Form::textarea('service_included',$value = $roomhotel->service_included, ['class' =>
-                        'form-control','placeholder'=>'Service Include', 'rows' => 5]) !!}
-                        <textarea name=text id="text" cols="30" rows="10"></textarea>
-                       
+                        <textarea name=service_included id="text" cols="30" rows="10">
+                           {!!$roomhotel->service_included!!}
+                        </textarea>
+                        
+                        {!! Form::label('slugs', 'Đường dẫn', ['class' => 'control-label']) !!}
+                        {!! Form::text('slugs', $value = $value=$roomhotel->slugs, ['class' => 'form-control']) !!}
                         <div>
                             {!! Form::hidden('image_root_folder',$value
                             =$roomhotel->image_root_folder,['class'=>'form-control','id'=>'image_root_folder'])

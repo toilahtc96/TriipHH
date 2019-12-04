@@ -71,9 +71,11 @@
                             </div>
                         </div>
                         {!! Form::label('service_included', 'Dịch vụ', ['class' => 'control-label']) !!}
-                        {!! Form::textarea('service_included', $value =$combotrip->service_included, ['class' =>
-                        'form-control','placeholder'=>'Service Include', 'rows' => 5]) !!}
-
+                        <textarea name=service_included id="text" cols="30" rows="10">
+                            {!!$combotrip->service_included!!}
+                         </textarea>
+                        {!! Form::label('slugs', 'Đường dẫn', ['class' => 'control-label']) !!}
+                        {!! Form::text('slugs', $value = $combotrip->slugs, ['class' => 'form-control']) !!}
                         <div class="row">
                             <div class="col-sm-4 ">
 

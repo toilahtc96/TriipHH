@@ -13,7 +13,8 @@
                 <div class="row">
                     <div class="col-sm-4">
                         <figure style="margin: 0 4px 0;text-align: center;">
-                            <img src="{!! asset('bower_components/images/kissclipart-hotel-clipart-hotel-clip-art-243e5c97e85fab97.jpg') !!}" alt="" width="244" height="244" class="j9NuTc TrZEUc">
+                            <img src="{!! asset('bower_components/images/kissclipart-hotel-clipart-hotel-clip-art-243e5c97e85fab97.jpg') !!}"
+                                alt="" width="244" height="244" class="j9NuTc TrZEUc">
                         </figure>
 
                     </div>
@@ -22,7 +23,8 @@
                         'class' => 'form-horizontal']) !!}
 
                         {!! Form::label('own_car', 'Tên Hãng xe', ['class' => 'control-label']) !!}
-                        {!! Form::text('own_car', $value = "", ['class' => 'form-control','placeholder' =>'Own Name']) !!}
+                        {!! Form::text('own_car', $value = "", ['class' => 'form-control','placeholder' =>'Own Name'])
+                        !!}
 
                         {!! Form::label('msisdn', 'Số điện thoại', ['class' => 'control-label']) !!}
                         {!! Form::text('msisdn', $value = "", ['class' => 'form-control','placeholder' =>'msisdn']) !!}
@@ -33,7 +35,8 @@
 
                         <div class="row">
                             <div class="col-sm-4 ">
-                                {!! Form::label('starting_location_id', 'Điểm xuất phát', ['class' => 'control-label']) !!}
+                                {!! Form::label('starting_location_id', 'Điểm xuất phát', ['class' => 'control-label'])
+                                !!}
                                 {!!Form::select('starting_location_id', $locations, null, ['class'=>'form-control'])!!}
                             </div>
                             <div class="col-sm-4 ">
@@ -42,18 +45,27 @@
                             </div>
                         </div>
                         {!! Form::label('license_plates', 'Biển số xe ', ['class' => 'control-label']) !!}
-                        {!! Form::text('license_plates', $value = "", ['class' => 'form-control','placeholder' =>'Licanse Plate']) !!}
+                        {!! Form::text('license_plates', $value = "", ['class' => 'form-control','placeholder'
+                        =>'Licanse Plate']) !!}
+
+                        {!! Form::label('service_included', 'Dịch vụ', ['class' => 'control-label']) !!}
+                        <textarea name=service_included id="text" cols="30" rows="10">
+
+                        </textarea>
 
                         <div class="row">
                             <div class="col-sm-4 ">
-                                {!! Form::label('start_pickup_location', 'Điểm đón khách', ['class' => 'control-label']) !!}
+                                {!! Form::label('start_pickup_location', 'Điểm đón khách', ['class' => 'control-label'])
+                                !!}
                                 {!!Form::select('start_pickup_location[]',$locations, null,
                                 ['multiple'=>true,'class'=> 'form-control'])!!}
                             </div>
 
                             <div class="col-sm-4 ">
-                                {!! Form::label('destination_pickup_location', 'Điểm trả khách', ['class' => 'control-label']) !!}
-                                {!!Form::select('destination_pickup_location[]',$locations, null,['multiple'=>true,'class'=> 'form-control'])!!}
+                                {!! Form::label('destination_pickup_location', 'Điểm trả khách', ['class' =>
+                                'control-label']) !!}
+                                {!!Form::select('destination_pickup_location[]',$locations,
+                                null,['multiple'=>true,'class'=> 'form-control'])!!}
                             </div>
                             <div class="col-sm-4 ">
                                 {!! Form::label('places_passing', 'Điểm đi qua', ['class' => 'control-label']) !!}
@@ -75,9 +87,14 @@
                         </div>
 
                         {!! Form::label('count_seat', 'Số ghế', ['class' => 'control-label']) !!}
-                        {!! Form::number('count_seat', $value = "", ['class' => 'form-control','placeholder' => 'Count Seat']) !!}
+                        {!! Form::number('count_seat', $value = "", ['class' => 'form-control','placeholder' => 'Count
+                        Seat']) !!}
                         {!! Form::label('car_type', 'Loại Xe', ['class' => 'control-label']) !!}
-                        {!! Form::text('car_type', $value = "", ['class' => 'form-control','placeholder'=>'Car Type']) !!}
+                        {!! Form::text('car_type', $value = "", ['class' => 'form-control','placeholder'=>'Car Type'])
+                        !!}
+
+                        {!! Form::label('slugs', 'Đường dẫn', ['class' => 'control-label']) !!}
+                        {!! Form::text('slugs', $value = "", ['class' => 'form-control']) !!}
                         <div>
                             {!! Form::label('main_image', 'Ảnh chính', ['class' => 'control-label']) !!}
                             <div id="myfileupload">

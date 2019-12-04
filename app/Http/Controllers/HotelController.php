@@ -59,7 +59,8 @@ class HotelController extends Controller
         // validate the data
         $validatedData = $request->validate([
             'hotel_name' => 'required|max:255',
-            'service_included'  => 'required'
+            'service_included'  => 'required',
+            'slugs'  => 'required'
         ]);
         // store in the database
         $hotel =  new Hotel;
@@ -71,6 +72,7 @@ class HotelController extends Controller
         $hotel->general_rule = $request->general_rule;
         $hotel->rate = $request->rate;
         $hotel->main_info = $request->main_info;
+        $hotel->slugs = $request->slugs;
         $hotel->list_image = $request->list_image == null ? "" : $request->list_image;
         $hotel->full_info = $request->full_info == null ? "" : $request->full_info;
         $hotel->place_around = "";
@@ -147,7 +149,8 @@ class HotelController extends Controller
 
         $validatedData = $request->validate([
             'hotel_name' => 'required|max:255',
-            'service_included'  => 'required'
+            'service_included'  => 'required',
+            'slugs'=>'required'
         ]);
         // // process the login
         // if ($validator->fails()) {
@@ -163,7 +166,7 @@ class HotelController extends Controller
         $hotel->general_rule = $request->general_rule;
         $hotel->rate = $request->rate;
         $hotel->main_info = $request->main_info;
-
+        $hotel->slugs = $request->slugs;
         $hotel->list_image = $request->list_image_old == null ? "" : $request->list_image_old;
         $hotel->full_info = $request->full_info == null ? "" : $request->full_info;
         $hotel->place_around = $request->place_around == null ? [] : $request->place_around;

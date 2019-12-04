@@ -26,8 +26,8 @@
                         {!! Form::text('hotel_name', $value = "", ['class' => 'form-control', 'rows' => 3]) !!}
 
                         {!! Form::label('service_included', 'Dịch vụ', ['class' => 'control-label']) !!}
-                        {!! Form::textarea('service_included', $value = "", ['class' =>
-                        'form-control','placeholder'=>'Service Include', 'rows' => 5]) !!}
+                        <textarea name=service_included id="text" cols="30" rows="10">
+                        </textarea>
                         <div class="row">
                             <div class="col-sm-4 ">
                                 {!! Form::label('level', 'Hạng', ['class' => 'control-label']) !!}
@@ -68,6 +68,9 @@
                                 'form-control'])!!}
                             </div>
                         </div>
+
+                        {!! Form::label('slugs', 'Đường dẫn', ['class' => 'control-label']) !!}
+                        {!! Form::text('slugs', $value = "", ['class' => 'form-control']) !!}
                         <div>
                             {!! Form::label('main_image', 'Ảnh chính', ['class' => 'control-label']) !!}
                             <div id="myfileupload">

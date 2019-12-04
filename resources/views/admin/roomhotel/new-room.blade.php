@@ -41,12 +41,15 @@
                         {!! Form::number('price', $value = "", ['class' =>
                         'form-control','placeholder'=>'price']) !!}
 
+                        {!! Form::label('info', 'Thông tin phòng', ['class' => 'control-label']) !!}
+                        {!! Form::textarea('info', $value = "", ['class' => 'form-control', 'rows' =>6]) !!}
 
 
                         {!! Form::label('service_included', 'Dịch vụ', ['class' => 'control-label']) !!}
-                        {!! Form::textarea('service_included', $value = "", ['class' =>
-                        'form-control','placeholder'=>'Service Include', 'rows' => 5]) !!}
-
+                        <textarea name=service_included id="text" cols="30" rows="10">
+                        </textarea>
+                        {!! Form::label('slugs', 'Đường dẫn', ['class' => 'control-label']) !!}
+                        {!! Form::text('slugs', $value = $value="", ['class' => 'form-control']) !!}
                         <div>
                             {!! Form::label('main_image', 'Ảnh chính', ['class' => 'control-label']) !!}
                             <div id="myfileupload">

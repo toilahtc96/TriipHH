@@ -85,6 +85,7 @@ class ComboTripController extends Controller
             'arrival_time' => 'required',
             'start_date' => 'required',
             'end_date' => 'required',
+            'slugs' => 'required',
         ]);
 
         // store in the database
@@ -95,7 +96,7 @@ class ComboTripController extends Controller
         $combotrip->combo_type_id = $request->combo_type_id;
         $combotrip->service_included = $request->service_included;
         $combotrip->price = $request->price;
-
+        $combotrip->slugs = $request->slugs;
         $combotrip->start_time = $request->start_time;
         $combotrip->arrival_time = $request->arrival_time;
         $combotrip->end_date = $request->end_date;
@@ -167,6 +168,7 @@ class ComboTripController extends Controller
             'arrival_time' => 'required',
             'start_date' => 'required',
             'end_date' => 'required',
+            'slugs' => 'required',
         ));
 
         // // process the login
@@ -182,7 +184,7 @@ class ComboTripController extends Controller
         $combotrip->car_id = $request->car_id;
         $combotrip->combo_type_id = $request->combo_type_id;
         $combotrip->price = $request->price;
-
+        $combotrip->slugs = $request->slugs;
         $combotrip->start_time = $request->start_time;
         $combotrip->arrival_time = $request->arrival_time;
         $combotrip->end_date = $request->end_date;

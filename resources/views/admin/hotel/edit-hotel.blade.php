@@ -12,7 +12,8 @@
                 <div class="row">
                     <div class="col-sm-4">
                         <figure style="margin: 0 4px 0;text-align: center;">
-                            <img src="https://ssl.gstatic.com/accounts/signup/glif/account.svg" alt="" width="244" height="244" class="j9NuTc TrZEUc">
+                            <img src="https://ssl.gstatic.com/accounts/signup/glif/account.svg" alt="" width="244"
+                                height="244" class="j9NuTc TrZEUc">
                         </figure>
 
                     </div>
@@ -25,8 +26,9 @@
                         3]) !!}
 
                         {!! Form::label('service_included', 'Dịch vụ', ['class' => 'control-label']) !!}
-                        {!! Form::textarea('service_included', $value = $hotel->service_included, ['class' =>
-                        'form-control','placeholder'=>'Service Include', 'rows' => 5]) !!}
+                        <textarea name=service_included id="text" cols="30" rows="10">
+                            {!!$hotel->service_included!!}
+                         </textarea>
                         <div class="row">
                             <div class="col-sm-4 ">
                                 {!! Form::label('level', 'Hạng', ['class' => 'control-label']) !!}
@@ -46,7 +48,7 @@
                         {!! Form::label('info', 'Thông tin', ['class' => 'control-label']) !!}
                         {!! Form::textarea('info', $value = $hotel->info, ['class' => 'form-control','placeholder'
                         =>'info Hotel','rows' => 5]) !!}
-                        
+
                         {!! Form::label('general_rule', 'Quy tắc chung', ['class' => 'control-label']) !!}
                         {!! Form::textarea('general_rule', $value = $hotel->general_rule, ['class' =>
                         'form-control','placeholder'=>'General Rule Hotel', 'rows' => 5]) !!}
@@ -70,10 +72,12 @@
                                 'form-control'])!!}
                             </div>
                         </div>
+                        {!! Form::label('slugs', 'Đường dẫn', ['class' => 'control-label']) !!}
+                        {!! Form::text('slugs', $value = $value=$hotel->slugs, ['class' => 'form-control']) !!}
                         <div>
-                                {!! Form::hidden('image_root_folder',$value =
-                                    $hotel->image_root_folder,['class'=>'form-control','id'=>'image_root_folder'])
-                                    !!}
+                            {!! Form::hidden('image_root_folder',$value =
+                            $hotel->image_root_folder,['class'=>'form-control','id'=>'image_root_folder'])
+                            !!}
                             {{-- @if(!isset($hotel->main_image)) --}}
                             {!! Form::label('main_image', 'Ảnh chính', ['class' => 'control-label']) !!}
                             <div id="myfileupload">
@@ -109,7 +113,8 @@
 
                                         {{-- $value = $hotel->list_image --}}
                                         {!!
-                                        Form::hidden('list_image_old',$value = $hotel->list_image,['id'=>'list_image_old']);
+                                        Form::hidden('list_image_old',$value =
+                                        $hotel->list_image,['id'=>'list_image_old']);
                                         !!}
                                     </div>
                                     <!--      Name  mà server request về sẽ là ImageUpload-->

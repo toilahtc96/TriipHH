@@ -49,7 +49,7 @@
 <script src="{!! asset('js/admin.js') !!}"></script>
 <script src={{ url('ckeditor/ckeditor.js') }}></script>
 <script>
-    CKEDITOR.replace( 'text', {
+  CKEDITOR.replace( 'text', {
     filebrowserBrowseUrl: '{{ route('ckfinder_browser') }}',
 
 } );

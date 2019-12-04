@@ -66,7 +66,8 @@ class CarController extends Controller
             'own_car' => 'required|max:255',
             'msisdn'  => 'required|max:20',
             'count_seat' => 'required',
-            'price' => 'required'
+            'price' => 'required',
+            'slugs' => 'required'
         ]);
         // store in the database
         $car =  new Car;
@@ -78,10 +79,11 @@ class CarController extends Controller
         $car->direction = $request->direction == null ? 1 : $request->direction;
         $car->starting_location_id = $request->starting_location_id == null ? 1 : $request->starting_location_id;
         $car->destination_id =  $request->destination_id;
+        $car->service_included =  $request->service_included;
         $car->license_plates = $request->license_plates == null ? "" : $request->license_plates;
         $car->list_image = $request->list_image == null ? "" : $request->list_image;
         $car->car_type =  $request->car_type;
-
+        $car->slugs =  $request->slugs;
         if ($request->start_pickup_location) {
             foreach ($request->start_pickup_location as $place) {
                 $car->start_pickup_location .= $place . ",";
@@ -171,7 +173,8 @@ class CarController extends Controller
             'own_car' => 'required|max:255',
             'msisdn'  => 'required|max:20',
             'count_seat' => 'required',
-            'price' => 'required'
+            'price' => 'required',
+            'slugs' => 'required'
         ]);
 
 
@@ -189,6 +192,8 @@ class CarController extends Controller
         $car->direction = $request->direction == null ? 1 : $request->direction;
         $car->starting_location_id = $request->starting_location_id == null ? [] : $request->starting_location_id;
         $car->destination_id =  $request->destination_id;
+        $car->service_included =  $request->service_included;
+        $car->slugs =  $request->slugs;
         $car->license_plates = $request->license_plates == null ? "": $request->license_plates ;
         $car->list_image = $request->list_image_old == null ? null : $request->list_image_old;
         $car->car_type =  $request->car_type;
