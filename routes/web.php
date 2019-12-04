@@ -19,6 +19,14 @@ Auth::routes();
 
 Route::get('/home', 'HomeController@index')->name('home');
 
+Route::post('/bookroomClients/store', 'BookRoomClientController@store')->name('createBookRoom');
+Route::resource('/bookroomClients', 'BookRoomClientController')->names([
+    'index' => 'bookroomClients.view',
+    'create' => 'bookroomClients.build',
+    'edit' => 'bookroomClients.edit',
+    'update' => 'bookroomClients.update',
+]);
+
 Route::resource('/hotels', 'HotelClientController')->names([
     'index' => 'hotelclients.view',
     'create' => 'hotelclients.build',

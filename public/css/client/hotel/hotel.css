@@ -136,3 +136,13 @@
 .jssort101 .p:hover .t {
     opacity: 1;
 }
+
+#gallery {
+    width: 1200px;
+    max-width: 1200px !important;
+    margin: 0 auto;
+}
+
+.detail-text {
+    color: white;
+}

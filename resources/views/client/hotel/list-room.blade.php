@@ -6,21 +6,22 @@
         <div class="row justify-content-center text-center mb-5">
             <div class="col-md-2"></div>
             <div class="col-md-8">
-                <h2 class="heading aos-init" data-aos="fade">Khách sạn {{$hotel->hotel_name}}</h2>
-                <p data-aos="fade" class="aos-init">Số 16, Phố Dịch Vọng Hậu, Dịch Vọng Hậu, Cầu Giấy, Hà Nội, Việt Nam.
+                <h2 class="heading aos-init" data-aos="fade">Hạng phòng Khách sạn {{$hotel->hotel_name}}</h2>
+                <p data-aos="fade" class="aos-init">Hạng phòng và dịch vụ khách sạn
                 </p>
             </div>
             <div class="col-md-2"></div>
         </div>
         @foreach ($rooms as $key=>$room)
+        
         @if($key%2==0)
         @include('client.hotel.detail-room-left')
-        @include('client.hotel.book-room-form')
-
         @else
         @include('client.hotel.detail-room-right')
-        @include('client.hotel.book-room-form')
         @endif
+
+        @include('client.hotel.book-room-form')
+
         @endforeach
         <!-- Trigger the modal with a button -->
         {{-- <button type="button" class="btn btn-info btn-lg" data-toggle="modal" data-target="#myModal">Open Modal</button> --}}

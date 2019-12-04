@@ -42,27 +42,28 @@ class HotelClientController extends Controller
             $rooms = RoomHotel::where('status', 1)->where('hotel_id', $hotel->id)->get();
         }
 
-        $gallery = [];
-        array_push($gallery,  $hotel->main_image);
+        $galleryHotel = [];
+        array_push($galleryHotel,  $hotel->main_image);
 
-        $imgHotel = explode(',',$hotel->list_image);
+        $imgHotel = explode(',', $hotel->list_image);
         foreach ($imgHotel as $key => $value) {
-            if($value != ""){
-            array_push($gallery,  $value);
+            if ($value != "") {
+                array_push($galleryHotel,  $value);
             }
         }
-        
+        $gallery = [];
         foreach ($rooms as $key => $value) {
             # code...
-            $imgRoom = explode(',',$value->list_image);
-            array_push($gallery,$value->main_image);
+            $imgRoom = explode(',', $value->list_image);
+            array_push($gallery, $value->main_image);
             foreach ($imgRoom as $key2 => $value2) {
                 # code...
-                if($value2 != ""){
-                array_push($gallery,  $value2);}
+                if ($value2 != "") {
+                    array_push($gallery,  $value2);
+                }
             }
         }
-        return view('client.hotel.list-room')->with('hotel', $hotel)->with('rooms', $rooms)->with('gallery',$gallery);
+        return view('client.hotel.list-room')->with('hotel', $hotel)->with('rooms', $rooms)->with('gallery', $gallery)->with('galleryHotel', $galleryHotel);
     }
 
     /**

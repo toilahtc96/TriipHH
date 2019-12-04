@@ -49,12 +49,24 @@
     <link rel="stylesheet" href="{!! asset('client/css/aos.css') !!}">
     <link rel="stylesheet" href="{!! asset('client/css/fancybox.min.css') !!}">
     <link rel="stylesheet" href="{!! asset('client/fonts/ionicons/css/ionicons.min.css') !!}">
-    <link rel="stylesheet" href="{!! asset('client/fonts/fontawesome/css/font-awesome.min.css') !!}">
     <link rel="stylesheet" href="{!! asset('client/css/style.css') !!}">
+    <link rel="stylesheet" href="{!! asset('client/fonts/fontawesome/css/font-awesome.min.css') !!}">
 
 
 
     <!-- Modernizr JS -->
     <script src="{!! asset('bower_components/client-view/js/modernizr-2.6.2.min.js') !!}"></script>
 
+
+    {{-- gallery --}}
+
+
+    <link rel='stylesheet' href="{!! asset('unitegallery/dist/css/unite-gallery.css') !!}">
+    <link rel='stylesheet' href="{!! asset('unitegallery/dist/themes/default/ug-theme-default.css') !!}">
+    <link rel='stylesheet' href="{!! asset('unitegallery/dist/skins/alexis/alexis.css') !!}" />
+
+    <!-- Fotorama from CDNJS, 19 KB -->
+    <link rel='stylesheet' href="https://cdnjs.cloudflare.com/ajax/libs/fotorama/4.6.4/fotorama.css" />
+    {{-- <link href="https://cdnjs.cloudflare.com/ajax/libs/fotorama/4.6.4/fotorama.css" rel="stylesheet"> --}}
+    <meta name="csrf-token" content="{{ csrf_token() }}" />
 </head>
