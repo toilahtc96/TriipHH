@@ -4,7 +4,7 @@ data-stellar-background-ratio="0.5">
 <div class="gtco-container text-center">
     <div class="display-t">
         <div class="display-tc">
-            <h1>We have high quality services that you will surely love!</h1>
+            <h1>Chúng tôi có dịch vụ chất lượng cao mà bạn chắc chắn sẽ yêu thích!</h1>
         </div>
     </div>
 </div>

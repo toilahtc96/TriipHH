@@ -13,7 +13,7 @@
                                     <a href="#">Travel</a>
                                     <ul class="dropdown">
                                         <li><a href="/hotels">Khách sạn</a></li>
-                                        <li><a href="#">Asia</a></li>
+                                        <li><a href="/combotrips">Combo</a></li>
                                         <li><a href="#">America</a></li>
                                         <li><a href="#">Canada</a></li>
                                     </ul>

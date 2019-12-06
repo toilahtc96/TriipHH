@@ -11,13 +11,11 @@
 |
 */
 
-Route::get('/', function () {
-    return view('client/home');
-});
+Route::get('/', 'HomeController@index')->name('home');
 
 Auth::routes();
 
-Route::get('/home', 'HomeController@index')->name('home');
+// Route::get('/home', 'HomeController@index')->name('home');
 
 Route::post('/bookroomClients/store', 'BookRoomClientController@store')->name('createBookRoom');
 Route::resource('/bookroomClients', 'BookRoomClientController')->names([
@@ -34,6 +32,14 @@ Route::resource('/hotels', 'HotelClientController')->names([
     'update' => 'hotelclients.update'
 ]);
 Route::get('/hotel/{hotel}-{slug}', 'HotelClientController@show')->name('hotels.show');
+
+Route::resource('/combotrips', 'ComboTripClientController')->names([
+    'index' => 'combotripclients.view',
+    'create' => 'combotripclients.build',
+    'edit' => 'combotripclients.edit',
+    'update' => 'combotripclients.update'
+]);
+Route::get('/combotrips/{combo}-{slug}', 'ComboTripClientController@show')->name('combotrips.show');
 
 Route::prefix('admin')->middleware('auth')->group(function () {
     Route::get('/', 'AdminController@index')->name('admin');

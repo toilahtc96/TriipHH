@@ -91,6 +91,32 @@
                             </div>
                         </div>
 
+                        <div>
+                            {!! Form::hidden('image_root_folder',$value =
+                            $combotrip->image_root_folder,['class'=>'form-control','id'=>'image_root_folder'])
+                            !!}
+                            {{-- @if(!isset($hotel->main_image)) --}}
+                            {!! Form::label('main_image', 'Ảnh chính', ['class' => 'control-label']) !!}
+                            <div id="myfileupload">
+                                <div>
+
+                                    {!!
+                                    Form::file('main_image',['onchange'=>"readURL(this);",
+                                    'class'=>'form-control','id'=>'uploadfile'])
+                                    !!}
+                                    {!!
+                                    Form::hidden('main_image_hidden',$value =
+                                    $combotrip->main_image,['class'=>'form-control','id'=>'main_image_hidden'])
+                                    !!}
+                                </div>
+                                <!--      Name  mà server request về sẽ là ImageUpload-->
+
+                            </div>
+                            @include('admin.common.image-upload')
+                            {{-- @else --}}
+
+                            {{-- @endif --}}
+                        </div>
                         <div class="mt-3 mb-3">
 
                             <div class="div-multi-image">

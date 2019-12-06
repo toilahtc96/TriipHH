@@ -23,7 +23,8 @@
                         'class' => 'form-horizontal']) !!}
 
                         {!! Form::label('hotel_id', 'Khách sạn', ['class' => 'control-label']) !!}
-                        {!!Form::select('hotel_id', $hotels, null, ['class'=>'form-control','onchange'=>'callRoomAjax(this,event)'])!!}
+                        {!!Form::select('hotel_id', $hotels, null,
+                        ['class'=>'form-control','onchange'=>'callRoomAjax(this,event)'])!!}
                         {{-- 'testSwitch(this,event) --}}
                         {!! Form::label('room_id', 'Hạng phòng', ['class' => 'control-label']) !!}
                         {!!Form::select('room_id', $rooms, null, ['class'=>'form-control'])!!}
@@ -37,31 +38,33 @@
                         <div class="row">
                             <div class="col-sm-6 ">
 
-                        {!! Form::label('start_time', 'Giờ bắt đầu ', ['class' => 'control-label']) !!}
-                        {!! Form::time('start_time', $value = "", ['class' =>'form-control']) !!}
+                                {!! Form::label('start_time', 'Giờ bắt đầu ', ['class' => 'control-label']) !!}
+                                {!! Form::time('start_time', $value = "", ['class' =>'form-control']) !!}
                             </div>
-                        <div class="col-sm-6 ">
-                        {!! Form::label('arrival_time', 'Giờ dự kiến đến', ['class' => 'control-label']) !!}
-                        {!! Form::time('arrival_time', $value = "", ['class' =>'form-control']) !!}
+                            <div class="col-sm-6 ">
+                                {!! Form::label('arrival_time', 'Giờ dự kiến đến', ['class' => 'control-label']) !!}
+                                {!! Form::time('arrival_time', $value = "", ['class' =>'form-control']) !!}
 
-                        </div>
+                            </div>
                         </div>
                         <div class="row">
                             <div class="col-sm-6 ">
 
-                        {!! Form::label('start_date', 'Ngày bắt đầu ', ['class' => 'control-label']) !!}
-                        {!! Form::date('start_date', \Carbon\Carbon::now()->format('D/M/Y'), ['class' => 'form-control']) !!}
+                                {!! Form::label('start_date', 'Ngày bắt đầu ', ['class' => 'control-label']) !!}
+                                {!! Form::date('start_date', \Carbon\Carbon::now()->format('D/M/Y'), ['class' =>
+                                'form-control']) !!}
                             </div>
-                        <div class="col-sm-6 ">
-                        {!! Form::label('end_date', 'Ngày kết thúc ', ['class' => 'control-label']) !!}
-                        {!! Form::date('end_date', \Carbon\Carbon::now()->format('D/M/Y'), ['class' =>'form-control']) !!}
+                            <div class="col-sm-6 ">
+                                {!! Form::label('end_date', 'Ngày kết thúc ', ['class' => 'control-label']) !!}
+                                {!! Form::date('end_date', \Carbon\Carbon::now()->format('D/M/Y'), ['class'
+                                =>'form-control']) !!}
 
-                        </div>
+                            </div>
                         </div>
                         {!! Form::label('service_included', 'Dịch vụ', ['class' => 'control-label']) !!}
-                       
-						<textarea name=service_included id="text" cols="30" rows="10">
-                           
+
+                        <textarea name=service_included id="text" cols="30" rows="10">
+
                         </textarea>
                         {!! Form::label('slugs', 'Đường dẫn', ['class' => 'control-label']) !!}
                         {!! Form::text('slugs', $value = "", ['class' => 'form-control']) !!}
@@ -78,6 +81,20 @@
                                 ['class'=>'form-control'])!!}
                             </div>
                         </div>
+                        <div>
+                            {!! Form::label('main_image', 'Ảnh chính', ['class' => 'control-label']) !!}
+                            <div id="myfileupload">
+                                <div>
+
+                                    {!!
+                                    Form::file('main_image',['onchange'=>"readURL(this);",'class'=>'form-control','id'=>'uploadfile'])
+                                    !!}
+                                </div>
+                                <!--      Name  mà server request về sẽ là ImageUpload-->
+
+                            </div>
+                            @include('admin.common.image-upload')
+                        </div>
 
                         <div class="div-multi-image">
                             {!! Form::label('list_image', 'Ảnh kèm theo', ['class' => 'control-label']) !!}
@@ -91,7 +108,7 @@
 
                             </div>
                             @include('admin.common.multi-image-upload')
-                        </div> 
+                        </div>
 
                         <div class="mt-3 mb-3">
                             {!!Form::submit('Đồng ý', ['class' => 'btn btn-large btn-primary openbutton

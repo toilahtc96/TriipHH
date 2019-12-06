@@ -13,6 +13,7 @@
                 <thead class="thead-light">
                     <tr>
                         <th style="width:10%">@sortablelink('hotel_id','Tên khách sạn')</th>
+                        <th>Ảnh chính</th>
                         <th>@sortablelink('level','Hạng phòng')</th>
                         <th>@sortablelink('combo_type_name','Loại combo')</th>
                         <th>@sortablelink('car_id','Xe')</th>
@@ -30,6 +31,12 @@
 
                     <tr>
                         <td>{{$data->hotel_name}}</td>
+                        <td>
+                            <div>
+                                <img height="100" width="100" alt="Thumb image"
+                                    src='/images/combotrips/{{$data->main_image}}' />
+                            </div>
+                        </td>
                         <td>{{$data->level}}</td>
                         <td>{{$data->combo_type_name}}</td>
                         <td>{{$data->own_car}}</td>

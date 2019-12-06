@@ -35,7 +35,7 @@
                     </div>
                 </a>
             </div>
-            <div class="col-lg-4 col-md-4 col-sm-6">
+            {{-- <div class="col-lg-4 col-md-4 col-sm-6">
                 <a href="images/img_3.jpg" class="fh5co-card-item image-popup">
                     <figure>
                         <div class="overlay"><i class="ti-plus"></i></div>
@@ -48,7 +48,7 @@
                     </div>
                 </a>
             </div>
-
+            --}}
 
             <div class="col-lg-4 col-md-4 col-sm-6">
                 <a href="images/img_4.jpg" class="fh5co-card-item image-popup">

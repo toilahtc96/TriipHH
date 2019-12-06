@@ -13,6 +13,7 @@ class HotelClientController extends Controller
     public function index()
     {
         $hotels = Hotel::select('id', 'hotel_name', 'slugs', 'main_info', 'main_image')->where('status', 1)->sortable()->paginate(6);
+        
         return view('client.hotel.hotel')->with('hotels', $hotels);
     }
 
@@ -63,6 +64,7 @@ class HotelClientController extends Controller
                 }
             }
         }
+        
         return view('client.hotel.list-room')->with('hotel', $hotel)->with('rooms', $rooms)->with('gallery', $gallery)->with('galleryHotel', $galleryHotel);
     }
 

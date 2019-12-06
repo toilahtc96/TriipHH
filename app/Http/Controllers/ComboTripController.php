@@ -42,7 +42,7 @@ class ComboTripController extends Controller
             $val->service_included = str_replace(".", ". ", $val->service_included);
         }
         return view('admin/combotrip/list-combotrip')->with('combotrips', $combotrips)
-        ->with('table_name','combotrips')->with('url_link','combotrips');
+            ->with('table_name', 'combotrips')->with('url_link', 'combotrips');
     }
 
 
@@ -61,7 +61,7 @@ class ComboTripController extends Controller
         $rooms = $this->getListRoomdForCBB();
 
         return view('admin/combotrip/new-combotrip')->with("hotels", $hotels)
-            ->with("cars", $cars)->with("combotypes", $combotypes)->with('rooms', $rooms)->with('url_link','combotrips');
+            ->with("cars", $cars)->with("combotypes", $combotypes)->with('rooms', $rooms)->with('url_link', 'combotrips');
     }
 
     /**
@@ -102,6 +102,12 @@ class ComboTripController extends Controller
         $combotrip->end_date = $request->end_date;
         $combotrip->start_date = $request->start_date;
 
+        $combotrip->main_image = $request->main_image;
+        $uploadImage = $this->fileUpload($request, "combotrips");
+        if ($uploadImage->getSession()->get('imageName') !== null) {
+            $combotrip->main_image = $uploadImage->getSession()->get('imageName');
+        }
+
         $combotrip->status = $request->status == null ? 0 : $request->status;
         $combotrip->list_image = $request->list_image == null ? "" : $request->list_image;
         $uploadMultiImage = $this->fileMultiUpload($request, "combotrips");
@@ -112,7 +118,7 @@ class ComboTripController extends Controller
 
         $combotrip->save();
         // Session::flash('success', 'The hotel post was successfully saved!');
-        return redirect()->route('combotrips.view')->with('url_link','combotrips');
+        return redirect()->route('combotrips.view')->with('url_link', 'combotrips');
     }
 
     /**
@@ -142,9 +148,8 @@ class ComboTripController extends Controller
         $combotrip = ComboTrip::where('id', $id)->findOrFail($id);
         $rooms = $this->getListRoomByHotelIdForCBB($combotrip->hotel_id);
         $combotrip->image_root_folder = "combotrips";
-
         return view('admin/combotrip/edit-combotrip')->with("hotels", $hotels)->with("combotrip", $combotrip)
-            ->with("cars", $cars)->with("combotypes", $combotypes)->with('rooms', $rooms)->with('url_link','combotrips');
+            ->with("cars", $cars)->with("combotypes", $combotypes)->with('rooms', $rooms)->with('url_link', 'combotrips');
     }
 
     /**
@@ -158,7 +163,9 @@ class ComboTripController extends Controller
     {
         //
 
-        $this->validate($request, array(
+      
+
+        $validatedData = $request->validate([
             'hotel_id' => 'required|max:255',
             'room_id'  => 'required',
             'car_id' => 'required',
@@ -169,8 +176,7 @@ class ComboTripController extends Controller
             'start_date' => 'required',
             'end_date' => 'required',
             'slugs' => 'required',
-        ));
-
+        ]);
         // // process the login
         // if ($validator->fails()) {
         //     return Redirect::back()->withErrors($validator)
@@ -190,7 +196,15 @@ class ComboTripController extends Controller
         $combotrip->end_date = $request->end_date;
         $combotrip->start_date = $request->start_date;
         $combotrip->list_image = $request->list_image_old == null ? "" : $request->list_image_old;
+        $combotrip->main_image = $request->main_image_hidden == null ? "" : $request->main_image_hidden;
         $combotrip->status = $request->status == null ? 1 : $request->status;
+        if (!isset($request->main_image_hidden)) {
+            $uploadImage = $this->fileUpload($request, "combotrips");
+            if ($uploadImage->getSession()->get('imageName') !== null) {
+                $combotrip->main_image .= $uploadImage->getSession()->get('imageName');
+            }
+        }
+
         if ($request->hasFile('list_image')) {
             $uploadMultiImage = $this->fileMultiUpload($request, "combotrips");
             if ($uploadMultiImage->getSession()->get('listImageName') !== null) {
@@ -202,7 +216,7 @@ class ComboTripController extends Controller
         $request->session()->flash('status', 'Update ComboTrip Successful!');
         $request->session()->flash('modal_title', 'Successful!');
         $request->session()->flash('modal_content', 'Update ComboTrip Successful!');
-        return redirect('/admin/combotrips')->with('url_link','combotrips');
+        return redirect('/admin/combotrips')->with('url_link', 'combotrips');
     }
 
     /**
