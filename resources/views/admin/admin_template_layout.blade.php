@@ -17,7 +17,7 @@
 
       @include('admin.shared.admin-url')
       <!-- /.content-header -->
-      @include('admin.shared.four-tip')
+      {{-- @include('admin.shared.four-tip') --}}
       <!-- @yield('content-admin') -->
       <!-- Main row -->
       <div class="row">

@@ -167,6 +167,8 @@ return [
         // Illuminate\View\ViewServiceProvider::class,
         /*For HTML Form*/
         Collective\Html\HtmlServiceProvider::class,
+        Unisharp\Ckeditor\ServiceProvider::class,
+        
 
         // Illuminate\Html\HtmlServiceProvider::class,
         
@@ -182,8 +184,10 @@ return [
         // App\Providers\BroadcastServiceProvider::class,
         App\Providers\EventServiceProvider::class,
         App\Providers\RouteServiceProvider::class,
-
-
+        /*
+         * Third Party Service Providers...
+         */
+        Kyslik\ColumnSortable\ColumnSortableServiceProvider::class,
     ],
 
     /*

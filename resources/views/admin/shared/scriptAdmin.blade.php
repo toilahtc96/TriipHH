@@ -1,8 +1,9 @@
-
 <!-- jQuery -->
 <script src="{!! asset('bower_components/adminlte/plugins/jquery/jquery.min.js') !!}"></script>
 <!-- jQuery UI 1.11.4 -->
 <script src="{!! asset('bower_components/adminlte/plugins/jquery-ui/jquery-ui.min.js') !!}"></script>
+
+<script src="{!! asset('bower_components/adminlte/plugins/datatables/jquery.dataTables.js') !!}"></script>
 <!-- Resolve conflict in jQuery UI tooltip with Bootstrap tooltip -->
 <script>
   $.widget.bridge('uibutton', $.ui.button)
@@ -37,5 +38,21 @@
 <!-- AdminLTE for demo purposes -->
 <script src="{!! asset('bower_components/adminlte/dist/js/demo.js') !!}"></script>
 
-<script src="{!! asset('bower_components/ckeditor/ckeditor.js') !!}"></script>
+{{-- <script src="{!! asset('bower_components/ckeditor/ckeditor.js') !!}"></script> --}}
+<script src="{!! asset('js/common/image-upload.js') !!}"></script>
+<script src="{!! asset('js/common/multi-image-upload.js') !!}"></script>
+
+<script src="{!! asset('js/common/call-ajax.js') !!}"></script>
+<script src="{!! asset('js/hotels/edit-hotels.js') !!}"></script>
+<script src="{!! asset('js/book-js/book-status.js') !!}"></script>
+<script src="{!! asset('js/bookcombo-js/bookcombo.js') !!}"></script>
+<script src="{!! asset('js/admin.js') !!}"></script>
+<script src={{ url('ckeditor/ckeditor.js') }}></script>
+<script>
+  CKEDITOR.replace( 'text', {
+    filebrowserBrowseUrl: '{{ route('ckfinder_browser') }}',
+
+} );
+</script>
+@include('ckfinder::setup')
 @include('admin/common/modal-error')

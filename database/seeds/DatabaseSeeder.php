@@ -14,15 +14,13 @@ class DatabaseSeeder extends Seeder
         // $this->call(UsersTableSeeder::class);
         // $this->call(HotelTableSeeder::class);
         // $this->call(CarsTableSeeder::class);
-        // $this->call(LocationsTableSeeder::class);
+        $this->call(LocationsTableSeeder::class);
         // $this->call(ComboTypesTableSeeder::class);
-
         // $this->call(RoomHotelsTableSeeder::class);
-        // $this->call(ComboTripsTableSeeder::class);
-
-        $this->call(BookCarsTableSeeder::class);
-        $this->call(BookRoomsTableSeeder::class);
-        $this->call(BookCombosTableSeeder::class);
-        $this->call(BookCustomTripsTableSeeder::class);
+        // // $this->call(ComboTripsTableSeeder::class);
+        // $this->call(BookCarsTableSeeder::class);
+        // $this->call(BookRoomsTableSeeder::class);
+        // $this->call(BookCombosTableSeeder::class);
+        // $this->call(BookCustomTripsTableSeeder::class);
     }
 }
