@@ -33,7 +33,7 @@ class BookRoomController extends Controller
             ->leftJoin('combo_types', 'combo_types.id', '=', 'book_rooms.combo_type_id')
             ->leftJoin('hotels', 'hotels.id', '=', 'room_hotels.hotel_id')
             ->leftJoin('book_statuses', 'book_statuses.id', '=', 'book_rooms.book_status_id')
-            ->sortable()->paginate(5);
+            ->sortable(['created_at' => 'desc'])->paginate(5);
         return view('admin/bookroom/list-bookroom')->with('bookrooms', $bookrooms)
             ->with('bookstatuses', $bookstatuses)->with('table_name','book_rooms')
             ->with('url_link','bookrooms');

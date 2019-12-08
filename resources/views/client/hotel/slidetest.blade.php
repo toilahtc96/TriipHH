@@ -1,11 +1,11 @@
 <div class="row">
     @foreach ($galleryHotel as $key=>$image )
-    @if($key < 5) <div class="col-lg-4 col-md-4 col-sm-6 slide" style="padding:0px !important">
+    @if($key < 6) <div class="col-lg-4 col-md-4 col-sm-6 slide" style="padding:0px !important">
         <a href="/images/hotels/{{$image}}" class="fh5co-card-item image-popup">
             {{-- <div class="overlay"><i class="ti-plus"></i></div> --}}
             {{-- <figure> --}}
             {{-- <div class="overlay"><i class="ti-plus"></i></div> --}}
-            <img alt="Image" class="img-responsive" src='/images/hotels/{{$image}}' />
+            <img alt="Image" class="img-responsive img-hotel-detail" src='/images/hotels/{{$image}}' />
             {{-- </figure> --}}
         </a>
 </div>
@@ -16,7 +16,7 @@
         {{-- <div class="overlay"><i class="ti-plus"></i></div> --}}
         {{-- <figure> --}}
         {{-- <div class="overlay"><i class="ti-plus"></i></div> --}}
-        <img alt="Image" class="img-responsive" src='/images/hotels/{{$image}}' />
+        <img alt="Image" class="img-responsive img-hotel-detail" src='/images/hotels/{{$image}}' />
         {{-- </figure> --}}
     </a>
 </div>
@@ -31,7 +31,7 @@
         {{-- <div class="overlay"><i class="ti-plus"></i></div> --}}
         {{-- <figure> --}}
         {{-- <div class="overlay"><i class="ti-plus"></i></div> --}}
-        <img alt="Image" class="img-responsive" src='/images/hotels/{{$image}}' />
+        <img alt="Image" class="img-responsive img-hotel-detail" src='/images/roomhotels/{{$image}}'  />
         {{-- </figure> --}}
     </a>
 </div>

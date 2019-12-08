@@ -1,18 +1,22 @@
 <div class="site-block-half d-block d-lg-flex bg-white aos-init" data-aos="fade" data-aos-delay="100">
-        <div style="float:right"><img src="/images/combotrips/{{$combo->main_image}}" class="img-room" />
-            <div class="text" style="float:right">
-                <span class="d-block mb-4"><span class="display-4 text-primary">{{$combo->price}} K</span> <span
-                        class="text-uppercase letter-spacing-2">/ 1 đêm</span> </span>
-                <h2 class="mb-4">Phòng hạng {{$combo->level}}</h2>
-                <p>
-                    {!!$combo->service_included!!}
-                </p>
-                <p>{{$combo->info}}</p>
-                <p>
-                    <button type="button" class="btn btn-info btn-lg" data-toggle="modal"
-                        data-target="#myModal{{$combo->id}}">Book Now</button>
+    <div style="float:right"><img src="/images/combotrips/{{$combo->main_image}}" class="img-room" />
+        <div class="text" style="float:right">
 
-                </p>
-            </div>
+            <h2 class="mb-4">Combo {{$combo->combo_trip_name}}</h2>
+            <span class="d-block mb-4"><span class="display-4 text-primary">{{$combo->price}} K</span> <span
+            class="text-uppercase letter-spacing-2">/3N2D</span> </span>
+            <br/>
+            <span class="d-block mb-4"><span class="display-4 text-primary">{{$combo->price}} K</span> <span
+                    class="text-uppercase letter-spacing-2">/2N1D</span> </span>
+            <p>
+                {!!$combo->service_included!!}
+            </p>
+            <p>{!!$combo->info!!}</p>
+            <p>
+                <button type="button" class="btn btn-info btn-lg" data-toggle="modal"
+                    data-target="#myModal{{$combo->id}}">Book Now</button>
+
+            </p>
         </div>
     </div>
+</div>

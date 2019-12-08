@@ -16,6 +16,7 @@ class BookRoom extends Model
         'msisdn',
         'room_id',
         'start_date',
-        'status'
+        'status',
+        'created_at'
     ];
 }

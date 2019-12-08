@@ -38,6 +38,7 @@ class HotelClientController extends Controller
     public function show($id)
     {
         //+
+        $combotypes = $this->getListComboTypeForCBB();
         $hotel =  Hotel::where('status', 1)->where('id', $id)->firstOrFail();
         if ($hotel) {
             $rooms = RoomHotel::where('status', 1)->where('hotel_id', $hotel->id)->get();
@@ -64,8 +65,8 @@ class HotelClientController extends Controller
                 }
             }
         }
-        
-        return view('client.hotel.list-room')->with('hotel', $hotel)->with('rooms', $rooms)->with('gallery', $gallery)->with('galleryHotel', $galleryHotel);
+        return view('client.hotel.list-room')->with('hotel', $hotel)->with('rooms', $rooms)
+        ->with('gallery', $gallery)->with('galleryHotel', $galleryHotel)->with('combotypes',$combotypes);
     }
 
     /**

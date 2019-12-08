@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\BookRoom;
 use Illuminate\Http\Request;
 
 class BookRoomClientController  extends Controller
@@ -14,7 +15,6 @@ class BookRoomClientController  extends Controller
     public function index()
     {
         //
-        dd(1);
     }
 
     /**
@@ -36,7 +36,29 @@ class BookRoomClientController  extends Controller
     public function store(Request $request)
     {
         //
-        dd($request);
+       
+        $bookroom = new  BookRoom;
+
+        $bookroom->fullname = $request->fullname;
+        $bookroom->fb_link = $request->fbLink;
+        $bookroom->msisdn = $request->msisdn; 
+        $bookroom->start_date = $request->startDate;
+        $bookroom->book_status_id = 1;
+        $bookroom->status = 1;
+        $bookroom->room_id = $request->room_id;
+        $bookroom->type_service = $request->typeService;
+        $bookroom->combo_type_id = $request->combo_type_id;
+        
+        
+        $bookroom->adults =$request->adults;
+        $bookroom->minors = $request->minors; 
+        $bookroom->childrens = $request->childrens; 
+        
+        $bookroom->save();
+        // if($bookroom->save()){
+        //     return response()->json([ 'result' => 'Đăng kí thành công']);
+        // };
+        return response()->json(['result' => "Đăng kí thành công"]);
     }
 
     /**

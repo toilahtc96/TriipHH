@@ -252,6 +252,7 @@ class Controller extends BaseController
     {
         $comboTypedb = ComboType::get();
         $comboTypes  = [];
+        $comboTypes[0]="Chọn số ngày đi";
         foreach ($comboTypedb as $key => $val) {
             $comboTypes[$val->id] = $val->combo_type_name . ' - ' . $val->detail;
         }

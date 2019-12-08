@@ -13,51 +13,60 @@
 
                 <div class="tab-content">
 
-                    <div class="tab-content-inner active" data-content="signup" style="padding:0 10% 0 10%">
+                    <div class="tab-content-inner active" data-content="bookroom" style="padding:0 10% 0 10%"
+                        id="bookdiv-{{$room->id}}">
                         {!! Form::open(['method' => 'POST', 'action' => 'BookRoomClientController@index',
-                        'class' => 'form-horizontal', 'id'=>'bookRoom']) !!}
+                        'class' => 'form-horizontal', 'id'=>"bookRoom"]) !!}
                         <div class="row form-group">
                             <div class="col-md-12">
                                 {!! Form::label('fullname', 'Tên của bạn', ['class' => 'control-label']) !!}
-                                {!! Form::text('fullname', $value = "", ['class' => 'form-control','placeholder' =>'Nhập
-                                tên bạn','id'=>'fullname'])
+                                {!! Form::text('fullname', null, ['class' => 'form-control','placeholder'
+                                =>'Nhập tên bạn','id'=>'fullname'])
                                 !!}
                             </div>
                         </div>
                         <div class="row form-group">
                             <div class="col-md-12">
                                 {!! Form::label('msisdn', 'Số điện thoại', ['class' => 'control-label']) !!}
-                                {!! Form::text('msisdn', $value = "", ['class' => 'form-control','placeholder'
-                                =>'msisdn']) !!}
+                                {!! Form::text('msisdn', null, ['class' => 'form-control','placeholder'
+                                =>'Số điện thoại']) !!}
                             </div>
                         </div>
                         <div class="row form-group">
                             <div class="col-md-12">
                                 {!! Form::label('fb-link', 'Facebook', ['class' => 'control-label']) !!}
-                                {!! Form::text('fb-link', $value = "", ['class' => 'form-control','placeholder'
+                                {!! Form::text('fb-link', null, ['class' => 'form-control','placeholder'
                                 =>'Facebook']) !!}
                             </div>
                         </div>
 
-
                         <div class="row form-group">
-                            <div class="col-md-12">
+                            <div class="col-md-6">
                                 {!! Form::label('start_date', 'Ngày đi', ['class' => 'control-label']) !!}
-                                {!! Form::date('start_date', $value = "", ['class' =>
+                                {!! Form::date('start_date', null, ['class' =>
                                 'form-control','placeholder'=>'Ngày đi','format'=>'dd/mm/yyyy']) !!}
                             </div>
+                            <div class="col-md-6">
+                                    {!! Form::label('combo_type_id', 'Số ngày đi', ['class' => 'control-label']) !!}
+                                    {!!Form::select('combo_type_id', $combotypes, 0, ['class'=>'form-control','id'=>'combo_type_id'])!!}
+                            </div>
                         </div>
 
                         <div class="row form-group">
                             <div class="col-md-6">
-                                {!! Form::label('adult', 'Người lớn', ['class' => 'control-label']) !!}
-                                {!!Form::selectRange('adult', 1, 10, ['class' => 'form-control'])!!}
+                                {!! Form::label('adults', 'Người lớn', ['class' => 'control-label']) !!}
+                                {!!Form::selectRange('adults', 1, 10,null, ['class' => 'form-control'])!!}
                             </div>
                         </div>
                         <div class="row form-group">
                             <div class="col-md-6">
-                                {!! Form::label('children', 'Trẻ em dưới 6 tuổi', ['class' => 'control-label']) !!}
-                                {!! Form::selectRange('children', 1, 10 ,['class' => 'form-control']) !!}
+                                {!! Form::label('childrens', 'Trẻ em dưới 6 tuổi', ['class' => 'control-label']) !!}
+                                {!! Form::selectRange('childrens', 1, 10 ,null,['class' => 'form-control']) !!}
+                            </div>
+                            <div class="col-md-6">
+                                {!! Form::label('minors', 'Trẻ em từ 6 đến 10 tuổi', ['class' => 'control-label'])
+                                !!}
+                                {!! Form::selectRange('minors', 1, 10 ,null,['class' => 'form-control']) !!}
                             </div>
                         </div>
                         <div class="row form-group">
@@ -66,7 +75,7 @@
                                 'control-label']) !!}
                                 <div class="row">
                                     <div class="col-md-4">
-                                        {!! Form::radio('type_service','0') !!}
+                                        {!! Form::radio('type_service','0',['checked'=>'true']) !!}
                                         {!! Form::label('type_service', 'Điện thoại')!!}
 
                                     </div>
@@ -91,7 +100,7 @@
 
                         <div class="mt-3 mb-3">
                             {!!Form::button('Đồng ý', ['class' => 'btn btn-primary
-                            btn-block','onClick'=>'submitBookRoom()'])!!}
+                            btn-block','onClick'=>'submitBookRoom(event,'.$room->id.')'])!!}
                             {!! Form::close() !!}
                         </div>
 
@@ -105,11 +114,126 @@
 
     </div>
 </div>
-
+<script src="{!! asset('client/js/jquery-3.3.1.min.js') !!}"></script>
 <script>
-    submitBookRoom = function(){
-        $('#fullname').focus();
-        alert(1);
-    
+    submitBookRoom = function(e,id) {
+    //validate and submit
+    var i = 0;
+    if(i==0){
+    $form = $('#bookdiv-' + id);
+    if(validateFormBookRoom($form)){
+        createBookRoom(e,$form,id);
     }
+    i++;
+}
+            
+}
+resetForm=function(form){
+    form.find('#fullname').val("");
+    form.find('#start_date').val("");
+    form.find('#end_date').val("");
+    form.find('#fb-link').val("");
+    form.find('#msisdn').val("");
+    form.find('#combo_type_id').val("0");
+    form.find('#adults').val("1");
+    form.find('#minors').val("1");
+    form.find('#childrens').val("1");
+}
+validateFormBookRoom=function(form){
+    $fullname = form.find('#fullname').val().trim();
+    $startDate = form.find('#start_date').val().trim();
+    $fbLink = form.find('#fb-link').val().trim();
+    $msisdn = form.find('#msisdn').val().trim();
+    $combo_type_id = form.find('#combo_type_id').val();
+
+    $typeService = form.find('input[name="type_service"]:checked').val();
+    if($fullname ==""){
+        alert("Vui lòng nhập tên bạn")
+        return false;
+    }
+    if($startDate ==""){
+        alert("Bạn cần điền ngày đi")
+        return false;
+    }
+    
+    if($typeService ==0 ||$typeService ==2){
+        if($msisdn ==""){
+        alert("Bạn cần điền số điện thoại để nhận tư vấn")
+        return false;
+    }
+    }
+    if($combo_type_id ==null || $combo_type_id == "0"){
+        alert("Bạn cần chọn số ngày đi")
+        return false;
+    }
+    if($typeService ==1){
+        if($fbLink ==""){
+        alert("Bạn cần điền Facebook để nhận tư vấn")
+        return false;
+    }
+    }
+
+   
+    
+    return true;
+}
+createBookRoom = function(e,form,id) {
+    e.preventDefault();
+    $.ajaxSetup({
+headers: {
+
+    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+
+}
+
+});
+
+    $room_id= id;
+    $fullname = form.find('#fullname').val().trim();
+    $fbLink = form.find('#fb-link').val().trim();
+    $msisdn = form.find('#msisdn').val().trim();
+    $startDate = form.find('#start_date').val().trim();
+    $adults = form.find('#adults').val().trim();
+    $minors = form.find('#minors').val().trim();
+    $childrens = form.find('#childrens').val().trim();
+    $combo_type_id = form.find('#combo_type_id').val().trim();
+    $typeService = form.find('input[name="type_service"]:checked').val();
+
+    $.ajax({
+
+        type: 'POST',
+
+        url: '/bookroomClients/store',
+
+        data: { 
+            room_id:$room_id,
+            fullname:$fullname,
+            fbLink:$fbLink,
+            msisdn:$msisdn,
+            startDate:$startDate,
+            adults:$adults,
+            minors:$minors,
+            childrens:$childrens,
+            typeService:$typeService,
+            combo_type_id:$combo_type_id
+        },
+
+        success: function(data) {
+
+            alert(data.result);
+            event.preventDefault();
+            $close = $("#myModal"+id).find('.close');
+            $close.click();
+            resetForm(form);
+        },
+        error: function(data) {
+            var errors = data.responseJSON;
+            alert("có lỗi khi lưu thông tin. Vui lòng liên hệ đội kĩ thuật!")
+            console.log(errors);
+        }
+
+    });
+}
+
+   
 </script>

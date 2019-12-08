@@ -32,7 +32,7 @@
                         {!! Form::label('car_id', 'Xe', ['class' => 'control-label']) !!}
                         {!!Form::select('car_id', $cars, null, ['class'=>'form-control'])!!}
 
-                        {!! Form::label('combo_type_id', 'Số này đi', ['class' => 'control-label']) !!}
+                        {!! Form::label('combo_type_id', 'Số ngày đi', ['class' => 'control-label']) !!}
                         {!!Form::select('combo_type_id', $combotypes, null, ['class'=>'form-control'])!!}
 
                         <div class="row">

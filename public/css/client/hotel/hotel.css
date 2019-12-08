@@ -152,3 +152,8 @@
     .img-room-right {
         float: right;
     }
+    
+    .img-hotel-detail {
+        max-height: 300px;
+        width: 100%;
+    }
