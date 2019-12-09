@@ -35,27 +35,27 @@ class BookComboClientController extends Controller
      */
     public function store(Request $request)
     {
-        
+
         $bookcombo = new  BookCombo;
 
         $bookcombo->fullname = $request->fullname;
         $bookcombo->fb_link = $request->fbLink;
-        $bookcombo->msisdn = $request->msisdn; 
+        $bookcombo->msisdn = $request->msisdn;
         $bookcombo->start_date = $request->startDate;
         $bookcombo->book_status_id = 1;
         $bookcombo->status = 1;
         $bookcombo->combo_id = $request->combo_id;
         $bookcombo->type_service = $request->typeService;
         $bookcombo->combo_type_id = $request->combo_type_id;
-        
-        
-        $bookcombo->adults =$request->adults;
-        $bookcombo->minors = $request->minors; 
-        $bookcombo->childrens = $request->childrens; 
-//set cung, can sua lai tai combotrip 
-        $bookcombo->pickup_place_id = $request->pickup_place_id == null? 1:$request->pickup_place_id;
-        // $bookcombo->number_room_book = $request->number_room_book; 
-        
+
+
+        $bookcombo->adults = $request->adults;
+        $bookcombo->minors = $request->minors;
+        $bookcombo->childrens = $request->childrens;
+        $bookcombo->car_id = $request->car_id;
+        //set cung, can sua lai tai combotrip 
+        $request->pickup_place_id == null ? $bookcombo->pickup_place_id = 1 : $bookcombo->pickup_place_id = $request->pickup_place_id;
+
         $bookcombo->save();
         // if($bookcombo->save()){
         //     return response()->json([ 'result' => 'Đăng kí thành công']);

@@ -93,7 +93,6 @@ class ComboTripController extends Controller
         $combotrip =  new ComboTrip;
         $combotrip->hotel_id = $request->hotel_id;
         $combotrip->room_id = $request->room_id;
-        $combotrip->car_id = $request->car_id;
         $combotrip->combo_type_id = $request->combo_type_id;
         $combotrip->service_included = $request->service_included;
         $combotrip->price = $request->price;
@@ -103,6 +102,15 @@ class ComboTripController extends Controller
         $combotrip->end_date = $request->end_date;
         $combotrip->start_date = $request->start_date;
         $combotrip->main_info = $request->main_info;
+
+        if ($request->car_id) {
+            foreach ($request->car_id as $car) {
+                $combotrip->car_id .= $car . ",";
+            }
+            $combotrip->car_id = substr($combotrip->car_id, 0, strlen($combotrip->car_id) - 1);
+        } else {
+            $combotrip->car_id = "";
+        }
 
         $combotrip->main_image = $request->main_image;
         $uploadImage = $this->fileUpload($request, "combotrips");
@@ -150,6 +158,7 @@ class ComboTripController extends Controller
         $combotrip = ComboTrip::where('id', $id)->findOrFail($id);
         $rooms = $this->getListRoomByHotelIdForCBB($combotrip->hotel_id);
         $combotrip->image_root_folder = "combotrips";
+        $combotrip->car_id =  explode(",", $combotrip->car_id);
         return view('admin/combotrip/edit-combotrip')->with("hotels", $hotels)->with("combotrip", $combotrip)
             ->with("cars", $cars)->with("combotypes", $combotypes)->with('rooms', $rooms)->with('url_link', 'combotrips');
     }
@@ -190,7 +199,18 @@ class ComboTripController extends Controller
         $combotrip->service_included = $request->service_included;
         $combotrip->hotel_id = $request->hotel_id;
         $combotrip->room_id = $request->room_id;
-        $combotrip->car_id = $request->car_id;
+        $combotrip->car_id = $request->car_id == null ? [] : $request->car_id;
+        if ($combotrip->car_id) {
+            $place = "";
+            foreach ($combotrip->car_id  as  $val) {
+                $place  .=  ',' .   $val;
+            }
+            $combotrip->car_id = (substr($place, 1, strlen($place)));
+        } else {
+            $combotrip->car_id = "";
+        }
+
+
         $combotrip->combo_type_id = $request->combo_type_id;
         $combotrip->price = $request->price;
         $combotrip->slugs = $request->slugs;

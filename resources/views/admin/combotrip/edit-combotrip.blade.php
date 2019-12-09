@@ -35,8 +35,9 @@
                         {!!Form::select('room_id', $rooms, $combotrip->room_id, ['class'=>'form-control'])!!}
 
                         {!! Form::label('car_id', 'Xe', ['class' => 'control-label']) !!}
-                        {!!Form::select('car_id', $cars, $value=$combotrip->car_id, ['class'=>'form-control'])!!}
-
+                        {!!Form::select('car_id[]', $cars, $value=$combotrip->car_id, 
+                        ['class'=>'form-control','multiple'=>true])!!}
+                        
                         {!! Form::label('combo_type_id', 'Số ngày', ['class' => 'control-label']) !!}
                         {!!Form::select('combo_type_id', $combotypes, $value=$combotrip->combo_type_id,
                         ['class'=>'form-control'])!!}

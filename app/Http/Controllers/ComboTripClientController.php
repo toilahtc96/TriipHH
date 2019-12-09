@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\ComboTrip;
 use App\Models\Hotel;
 use App\Models\RoomHotel;
+use App\Models\Car;
 use Illuminate\Http\Request;
 
 class ComboTripClientController extends Controller
@@ -23,7 +24,7 @@ class ComboTripClientController extends Controller
         foreach ($hotels_id as $key => $value) {
             array_push($arr_hotel_id, $value->hotel_id);
         }
-        $hotels = Hotel::whereIn('hotels.id', $arr_hotel_id)->where('hotels.status',1)
+        $hotels = Hotel::whereIn('hotels.id', $arr_hotel_id)->where('hotels.status', 1)
             ->leftJoin('combo_trips', 'combo_trips.hotel_id', '=', 'hotels.id')
             ->sortable()->paginate(12);
         foreach ($hotels as $key => $value) {
@@ -32,7 +33,6 @@ class ComboTripClientController extends Controller
                 $value->min_price = $combotrip_min_price->price;
             }
         }
-
 
 
         return view('client.combotrip.combotrip')->with('hotels', $hotels)->with('locations', $locations);
@@ -69,12 +69,16 @@ class ComboTripClientController extends Controller
     {
         //
         $locations = $this->getListLocationForCBB();
-        $combotrips = ComboTrip::where('hotel_id', $id)->where('combo_trips.status', 1)
-            ->leftJoin('combo_types', 'combo_types.id', '=', 'combo_trips.combo_type_id')
+        $combotrips = ComboTrip::select('combo_trips.*','combo_types.*')->where('hotel_id', $id)->where('combo_trips.status', 1)
+            ->leftJoin('combo_types',  'combo_trips.combo_type_id','=','combo_types.id')
             ->sortable()->paginate(12);
-
+        foreach ($combotrips as $key => $combo) {
+            # code...
+            // dd($combo);
+            $cars = Car::whereIn('id', explode(",", $combo->car_id))->get();
+            $combo->cars =  $this->buildListCars( $cars);
+        }
         $hotel = Hotel::where('status', 1)->where('id', $id)->first();
-
         $galleryHotel = [];
 
         $gallery = [];
@@ -101,8 +105,8 @@ class ComboTripClientController extends Controller
             }
         }
 
-
         $combotypes = $this->getListComboTypeForCBB();
+
         return view('client.combotrip.list-combo')->with('hotel', $hotel)->with('rooms', $rooms)
             ->with('gallery', $gallery)->with('galleryHotel', $galleryHotel)->with('combotypes', $combotypes)
             ->with('combotrips', $combotrips)->with('locations', $locations);

@@ -237,6 +237,15 @@ class Controller extends BaseController
         }
         return $cars;
     }
+    public function buildListCars($listCar)
+    {
+        $cars  = [];
+        $cars[0] = "Chọn xe";
+        foreach ($listCar as $key => $val) {
+            $cars[$val->id] = $val->own_car . ' - ' . $val->car_type;
+        }
+        return $cars;
+    }
 
     public function getListBookStatusForCBB()
     {
@@ -252,7 +261,7 @@ class Controller extends BaseController
     {
         $comboTypedb = ComboType::get();
         $comboTypes  = [];
-        $comboTypes[0]="Chọn số ngày đi";
+        $comboTypes[0] = "Chọn số ngày đi";
         foreach ($comboTypedb as $key => $val) {
             $comboTypes[$val->id] = $val->combo_type_name . ' - ' . $val->detail;
         }
@@ -277,7 +286,7 @@ class Controller extends BaseController
     {
         $roomHoteldb = RoomHotel::where('hotel_id', $id)->get();
         $roomHotels  = [];
-        $roomHotels[0] = "Không có loại phòng thuộc khách sạn này";
+        $roomHotels[0] = "Chọn loại phòng";
         foreach ($roomHoteldb as $key => $val) {
             $roomHotels[$val->id] = $val->level . ' Sao';
         }
@@ -288,7 +297,7 @@ class Controller extends BaseController
     {
         $roomHoteldb = RoomHotel::get();
         $roomHotels  = [];
-        $roomHotels[0] = "Không có loại phòng thuộc khách sạn này";
+        $roomHotels[0] = "Chọn loại phòng";
         foreach ($roomHoteldb as $key => $val) {
             $roomHotels[$val->id] = $val->level . ' Sao';
         }
@@ -301,7 +310,7 @@ class Controller extends BaseController
         if (isset($_POST["id"])) {
             $roomHoteldb = RoomHotel::where('hotel_id', $_POST["id"])->get();
             $roomHotels  = [];
-            $roomHotels[0] = "Không có loại phòng thuộc khách sạn này";
+            $roomHotels[0] = "Chọn loại phòng";
             foreach ($roomHoteldb as $key => $val) {
                 $roomHotels[$val->id] = $val->level;
             }
@@ -309,7 +318,26 @@ class Controller extends BaseController
         }
     }
 
-
+    public function getListLocationByCarIdAjaxForCBB()
+    {
+        if (isset($_POST["id"]) && $_POST["id"] != 0) {
+            // id car
+            $listLocationId = Car::select('id', 'start_pickup_location')->where('id', $_POST["id"])->first();
+            $listLocationId = explode(",", $listLocationId->start_pickup_location);
+            $listLocation = Location::whereIn('id', $listLocationId)->get();
+            $listLocationCbb  = [];
+            $listLocationCbb[0] = "Chọn điểm đón";
+            foreach ($listLocation as $key => $val) {
+                $listLocationCbb[$val->id] = $val->location_name;
+            }
+            if(sizeof($listLocationCbb)==1){
+                $listLocationCbb  = [];
+            }
+            return response()->json(['data' => $listLocationCbb, 'result' => 'Get OK']);
+        }
+        $listLocationCbb  = [];
+        return response()->json(['data' => $listLocationCbb, 'result' => 'Get OK']);
+    }
 
 
 
@@ -748,6 +776,4 @@ class Controller extends BaseController
                 break;
         }
     }
-
-    
 }

@@ -40,6 +40,7 @@ Route::resource('/combotrips', 'ComboTripClientController')->names([
     'edit' => 'combotripclients.edit',
     'update' => 'combotripclients.update'
 ]);
+Route::post('/getLocationByCarId', 'Controller@getListLocationByCarIdAjaxForCBB')->name('getLocationByCarid');
 Route::get('/combotrip/{combo}-{slug}', 'ComboTripClientController@show')->name('combotrips.show');
 
 Route::prefix('admin')->middleware('auth')->group(function () {

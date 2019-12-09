@@ -47,19 +47,26 @@
                                 'form-control','placeholder'=>'Ngày đi','format'=>'dd/mm/yyyy']) !!}
                             </div>
                             <div class="col-md-6">
-                                    {!! Form::label('combo_type_id', 'Số ngày đi', ['class' => 'control-label']) !!}
-                                    {!!Form::select('combo_type_id', $combotypes, $value = $combo->combo_type_id, ['class'=>'form-control','id'=>'combo_type_id'])!!}
+                                {!! Form::label('combo_type_id', 'Số ngày đi', ['class' => 'control-label']) !!}
+                                {!!Form::select('combo_type_id', $combotypes, $value = $combo->combo_type_id,
+                                ['class'=>'form-control','id'=>'combo_type_id'])!!}
                             </div>
                         </div>
                         <div class="row">
-                            <div class="col-sm-12 ">
+                            <div class="col-sm-6 ">
+                                {!! Form::label('car_id', 'Chọn xe', ['class' => 'control-label'])
+                                !!}
+                                {!!Form::select('car_id', $combo->cars,0,
+                                ['class'=>'form-control','onchange'=>'callLocationAjax(this,event)'])!!}
+                            </div>
+                            <div class="col-sm-6 ">
                                 {!! Form::label('pickup_place_id', 'Điểm đón', ['class' => 'control-label'])
                                 !!}
-                                {!!Form::select('pickup_place_id', $locations,0,
+                                {!!Form::select('pickup_place_id', [''=>'Chọn xe để xem điểm đón'],0,
                                 ['class'=>'form-control'])!!}
                             </div>
                         </div>
-                        
+
                         <div class="row form-group">
                             <div class="col-md-6">
                                 {!! Form::label('adults', 'Người lớn', ['class' => 'control-label']) !!}
@@ -205,6 +212,8 @@ headers: {
     $minors = form.find('#minors').val().trim();
     $childrens = form.find('#childrens').val().trim();
     $combo_type_id = form.find('#combo_type_id').val().trim();
+    $car_id = form.find('#car_id').val().trim();
+    $pickup_place_id = form.find('#pickup_place_id').val().trim();
     $typeService = form.find('input[name="type_service"]:checked').val();
 
     $.ajax({
@@ -224,6 +233,8 @@ headers: {
             childrens:$childrens,
             typeService:$typeService,
             combo_type_id:$combo_type_id,
+            pickup_place_id:$pickup_place_id,
+            car_id:$car_id 
         },
 
         success: function(data) {
@@ -243,5 +254,42 @@ headers: {
     });
 }
 
+
+
+callLocationAjax = function(car, e) {
+    e.preventDefault();
+    $.ajaxSetup({
+        headers: {
+
+        'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+
+        }
+
+    });
+        $.ajax({
+
+        type: 'POST',
+
+        url: '/getLocationByCarId',
+
+        data: { id: car.value },
+
+        success: function(data) {
+            var arr = [];
+            arr.push(data.data);
+            $('#pickup_place_id').empty();
+            if (data.data.length !== 0) {
+                $.each(data.data, function(key, value) {
+                    // if (key) {
+                        $('#pickup_place_id').append('<option value="' + key + '">' + value +'</option>');
+                    // }
+                });
+            } else {
+                $('#pickup_place_id').append('<option value="">' + "Không có điểm đón có sẵn" + '</option>');
+            }
+        }
+
+    });
+}
    
 </script>

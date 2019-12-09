@@ -30,7 +30,7 @@
                         {!!Form::select('room_id', $rooms, null, ['class'=>'form-control'])!!}
 
                         {!! Form::label('car_id', 'Xe', ['class' => 'control-label']) !!}
-                        {!!Form::select('car_id', $cars, null, ['class'=>'form-control'])!!}
+                        {!!Form::select('car_id[]', $cars, null, ['class'=>'form-control','multiple'=>'true'])!!}
 
                         {!! Form::label('combo_type_id', 'Số ngày đi', ['class' => 'control-label']) !!}
                         {!!Form::select('combo_type_id', $combotypes, null, ['class'=>'form-control'])!!}

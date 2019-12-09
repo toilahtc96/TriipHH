@@ -40,7 +40,7 @@
                         <div class="row">
                             <div class="col-sm-6">
                                 {!! Form::label('hotel_old_id', 'Khách sạn combo', ['class' => 'control-label']) !!}
-                                {!!Form::select('hotel_old_id', $hotels, $combotrip->hotel_id,
+                                {!!Form::select('hotel_old_id', $hotels, $combotrip->id,
                                 ['class'=>'form-control','onchange'=>'callRoomAjax(this,event)','disabled'=>'true'])!!}
                             </div>
                             <div class="col-sm-6">
