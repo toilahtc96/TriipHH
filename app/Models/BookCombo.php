@@ -16,5 +16,6 @@ class BookCombo extends Model
         'start_date',
         'combo_id',
         'status',
+        'created_at'
     ];
 }

@@ -2,10 +2,10 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\BookRoom;
 use Illuminate\Http\Request;
+use App\Models\BookCombo;
 
-class BookRoomClientController  extends Controller
+class BookComboClientController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -35,28 +35,29 @@ class BookRoomClientController  extends Controller
      */
     public function store(Request $request)
     {
-        //
-       
-        $bookroom = new  BookRoom;
+        
+        $bookcombo = new  BookCombo;
 
-        $bookroom->fullname = $request->fullname;
-        $bookroom->fb_link = $request->fbLink;
-        $bookroom->msisdn = $request->msisdn; 
-        $bookroom->start_date = $request->startDate;
-        $bookroom->book_status_id = 1;
-        $bookroom->status = 1;
-        $bookroom->room_id = $request->room_id;
-        $bookroom->type_service = $request->typeService;
-        $bookroom->combo_type_id = $request->combo_type_id;
+        $bookcombo->fullname = $request->fullname;
+        $bookcombo->fb_link = $request->fbLink;
+        $bookcombo->msisdn = $request->msisdn; 
+        $bookcombo->start_date = $request->startDate;
+        $bookcombo->book_status_id = 1;
+        $bookcombo->status = 1;
+        $bookcombo->combo_id = $request->combo_id;
+        $bookcombo->type_service = $request->typeService;
+        $bookcombo->combo_type_id = $request->combo_type_id;
         
         
-        $bookroom->adults =$request->adults;
-        $bookroom->minors = $request->minors; 
-        $bookroom->childrens = $request->childrens; 
-        $bookroom->number_room_book = $request->number_room_book; 
+        $bookcombo->adults =$request->adults;
+        $bookcombo->minors = $request->minors; 
+        $bookcombo->childrens = $request->childrens; 
+//set cung, can sua lai tai combotrip 
+        $bookcombo->pickup_place_id = $request->pickup_place_id == null? 1:$request->pickup_place_id;
+        // $bookcombo->number_room_book = $request->number_room_book; 
         
-        $bookroom->save();
-        // if($bookroom->save()){
+        $bookcombo->save();
+        // if($bookcombo->save()){
         //     return response()->json([ 'result' => 'Đăng kí thành công']);
         // };
         return response()->json(['result' => "Đăng kí thành công"]);

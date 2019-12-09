@@ -42,10 +42,12 @@
                         <td>{{$data->location_name}}</td>
                         <td>{{$data->combo_type_name}}</td>
                         <td>
-                            @if($data->type_service == 1)
+                            @if($data->type_service == 0)
                             {{__('Tư vấn qua số điện thoại')}}
-                            @else
+                            @elseif( $data->type_service == 1)
                             {{__('Tư vấn qua FaceBook')}}
+                            @else 
+                            {{__('Tư vấn qua Zalo')}}
                             @endif
                         </td>
                         <td>

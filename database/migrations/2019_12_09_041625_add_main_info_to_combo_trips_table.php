@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class EditCheckoutCheckinTimeToBookCombosTable extends Migration
+class AddMainInfoToComboTripsTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,10 +13,9 @@ class EditCheckoutCheckinTimeToBookCombosTable extends Migration
      */
     public function up()
     {
-        Schema::table('book_combos', function (Blueprint $table) {
+        Schema::table('combo_trips', function (Blueprint $table) {
             //
-            $table->time('checkin_time')->nullable();
-            $table->time('checkout_time')->nullable();
+            $table->string('main_info', 300)->nullable();
         });
     }
 
@@ -27,10 +26,10 @@ class EditCheckoutCheckinTimeToBookCombosTable extends Migration
      */
     public function down()
     {
-        Schema::table('book_combos', function (Blueprint $table) {
+        Schema::table('combo_trips', function (Blueprint $table) {
             //
-            $table->dropColumn('checkin_time');
-            $table->dropColumn('checkout_time');
+            $table->dropColumn('main_info');
+
         });
     }
 }

@@ -51,22 +51,27 @@
                                     {!!Form::select('combo_type_id', $combotypes, 0, ['class'=>'form-control','id'=>'combo_type_id'])!!}
                             </div>
                         </div>
-
+                        <div class="row form-group">
+                            <div class="col-md-6">
+                                {!! Form::label('number_room_book', 'Số phòng', ['class' => 'control-label']) !!}
+                                {!!Form::selectRange('number_room_book', 1, 10,1, ['class' => 'form-control','id'=>'number_room_book'])!!}
+                            </div>
+                        </div>
                         <div class="row form-group">
                             <div class="col-md-6">
                                 {!! Form::label('adults', 'Người lớn', ['class' => 'control-label']) !!}
-                                {!!Form::selectRange('adults', 1, 10,null, ['class' => 'form-control'])!!}
+                                {!!Form::selectRange('adults', 1, 10,1, ['class' => 'form-control'])!!}
                             </div>
                         </div>
                         <div class="row form-group">
                             <div class="col-md-6">
                                 {!! Form::label('childrens', 'Trẻ em dưới 6 tuổi', ['class' => 'control-label']) !!}
-                                {!! Form::selectRange('childrens', 1, 10 ,null,['class' => 'form-control']) !!}
+                                {!! Form::selectRange('childrens', 1, 10 ,1,['class' => 'form-control']) !!}
                             </div>
                             <div class="col-md-6">
                                 {!! Form::label('minors', 'Trẻ em từ 6 đến 10 tuổi', ['class' => 'control-label'])
                                 !!}
-                                {!! Form::selectRange('minors', 1, 10 ,null,['class' => 'form-control']) !!}
+                                {!! Form::selectRange('minors', 1, 10 ,1,['class' => 'form-control']) !!}
                             </div>
                         </div>
                         <div class="row form-group">
@@ -138,6 +143,7 @@ resetForm=function(form){
     form.find('#adults').val("1");
     form.find('#minors').val("1");
     form.find('#childrens').val("1");
+    form.find('#number_room_book').val("1");
 }
 validateFormBookRoom=function(form){
     $fullname = form.find('#fullname').val().trim();
@@ -197,6 +203,7 @@ headers: {
     $minors = form.find('#minors').val().trim();
     $childrens = form.find('#childrens').val().trim();
     $combo_type_id = form.find('#combo_type_id').val().trim();
+    $number_room_book = form.find('#number_room_book').val().trim();
     $typeService = form.find('input[name="type_service"]:checked').val();
 
     $.ajax({
@@ -215,7 +222,8 @@ headers: {
             minors:$minors,
             childrens:$childrens,
             typeService:$typeService,
-            combo_type_id:$combo_type_id
+            combo_type_id:$combo_type_id,
+            number_room_book:$number_room_book,
         },
 
         success: function(data) {

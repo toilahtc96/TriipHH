@@ -33,13 +33,14 @@ Route::resource('/hotels', 'HotelClientController')->names([
 ]);
 Route::get('/hotel/{hotel}-{slug}', 'HotelClientController@show')->name('hotels.show');
 
+Route::post('/bookcomboClients/store', 'BookComboClientController@store')->name('createBookCombo');
 Route::resource('/combotrips', 'ComboTripClientController')->names([
     'index' => 'combotripclients.view',
     'create' => 'combotripclients.build',
     'edit' => 'combotripclients.edit',
     'update' => 'combotripclients.update'
 ]);
-Route::get('/combotrips/{combo}-{slug}', 'ComboTripClientController@show')->name('combotrips.show');
+Route::get('/combotrip/{combo}-{slug}', 'ComboTripClientController@show')->name('combotrips.show');
 
 Route::prefix('admin')->middleware('auth')->group(function () {
     Route::get('/', 'AdminController@index')->name('admin');

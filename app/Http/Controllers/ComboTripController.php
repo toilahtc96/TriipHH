@@ -86,6 +86,7 @@ class ComboTripController extends Controller
             'start_date' => 'required',
             'end_date' => 'required',
             'slugs' => 'required',
+            'main_info'=>'required'
         ]);
 
         // store in the database
@@ -101,6 +102,7 @@ class ComboTripController extends Controller
         $combotrip->arrival_time = $request->arrival_time;
         $combotrip->end_date = $request->end_date;
         $combotrip->start_date = $request->start_date;
+        $combotrip->main_info = $request->main_info;
 
         $combotrip->main_image = $request->main_image;
         $uploadImage = $this->fileUpload($request, "combotrips");
@@ -176,6 +178,7 @@ class ComboTripController extends Controller
             'start_date' => 'required',
             'end_date' => 'required',
             'slugs' => 'required',
+            'main_info' => 'required'
         ]);
         // // process the login
         // if ($validator->fails()) {
@@ -197,6 +200,7 @@ class ComboTripController extends Controller
         $combotrip->start_date = $request->start_date;
         $combotrip->list_image = $request->list_image_old == null ? "" : $request->list_image_old;
         $combotrip->main_image = $request->main_image_hidden == null ? "" : $request->main_image_hidden;
+        $combotrip->main_info = $request->main_info;
         $combotrip->status = $request->status == null ? 1 : $request->status;
         if (!isset($request->main_image_hidden)) {
             $uploadImage = $this->fileUpload($request, "combotrips");

@@ -74,6 +74,9 @@
                         <textarea name=service_included id="text" cols="30" rows="10">
                             {!!$combotrip->service_included!!}
                          </textarea>
+
+                         {!! Form::label('main_info', 'Thông tin chính (<300 ký tự)', ['class' => 'control-label']) !!}
+                         {!! Form::textarea('main_info', $value = $combotrip->main_info, ['class' => 'form-control']) !!}
                         {!! Form::label('slugs', 'Đường dẫn', ['class' => 'control-label']) !!}
                         {!! Form::text('slugs', $value = $combotrip->slugs, ['class' => 'form-control']) !!}
                         <div class="row">
