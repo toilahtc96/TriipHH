@@ -25,17 +25,30 @@ class ComboTripClientController extends Controller
             array_push($arr_hotel_id, $value->hotel_id);
         }
         $hotels = Hotel::whereIn('hotels.id', $arr_hotel_id)->where('hotels.status', 1)
-            ->leftJoin('combo_trips', 'combo_trips.hotel_id', '=', 'hotels.id')
-            ->sortable()->paginate(12);
+            ->leftJoin('combo_trips',  'hotels.id', '=','combo_trips.hotel_id')
+            ->sortable(["hotel_name"])->paginate(12);
         foreach ($hotels as $key => $value) {
-            $combotrip_min_price = ComboTrip::select('combo_trips.price')->MIN('combo_trips.price')->where('combo_trips.status', 1)->Where('hotel_id', $value->id)->first();
+            $combotrip_min_price = ComboTrip::select('combo_trips.price')->MIN('combo_trips.price')
+            ->where('combo_trips.status', 1)->Where('hotel_id', $value->id)->first();
             if ($combotrip_min_price != null) {
                 $value->min_price = $combotrip_min_price->price;
+            }else{
+                $value->min_price = $value->price;
             }
         }
-
-
-        return view('client.combotrip.combotrip')->with('hotels', $hotels)->with('locations', $locations);
+        $combotypes = $this->getListComboTypeForCBB();
+        $combotripsNew = ComboTrip::select('hotels.*', 'combo_types.*','combo_trips.*')->where('combo_trips.status', 1)
+            ->leftJoin('combo_types',  'combo_trips.combo_type_id', '=', 'combo_types.id')
+            ->leftJoin('hotels',  'combo_trips.hotel_id', '=', 'hotels.id')
+            ->sortable(['created_at' => 'desc'])->get();
+        foreach ($combotripsNew as $key => $combo) {
+            # code...
+            // dd($combo);
+            $cars = Car::whereIn('id', explode(",", $combo->car_id))->get();
+            $combo->cars =  $this->buildListCars($cars);
+        }
+        return view('client.combotrip.combotrip')->with('hotels', $hotels)
+            ->with('locations', $locations)->with('combotripsNew', $combotripsNew)->with('combotypes', $combotypes);
     }
 
     /**
@@ -69,14 +82,14 @@ class ComboTripClientController extends Controller
     {
         //
         $locations = $this->getListLocationForCBB();
-        $combotrips = ComboTrip::select('combo_trips.*','combo_types.*')->where('hotel_id', $id)->where('combo_trips.status', 1)
-            ->leftJoin('combo_types',  'combo_trips.combo_type_id','=','combo_types.id')
+        $combotrips = ComboTrip::select('combo_trips.*', 'combo_types.*')->where('hotel_id', $id)->where('combo_trips.status', 1)
+            ->leftJoin('combo_types',  'combo_trips.combo_type_id', '=', 'combo_types.id')
             ->sortable()->paginate(12);
         foreach ($combotrips as $key => $combo) {
             # code...
             // dd($combo);
             $cars = Car::whereIn('id', explode(",", $combo->car_id))->get();
-            $combo->cars =  $this->buildListCars( $cars);
+            $combo->cars =  $this->buildListCars($cars);
         }
         $hotel = Hotel::where('status', 1)->where('id', $id)->first();
         $galleryHotel = [];

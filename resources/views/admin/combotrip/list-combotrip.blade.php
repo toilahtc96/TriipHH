@@ -12,6 +12,7 @@
             <table class="table TFtable">
                 <thead class="thead-light">
                     <tr>
+                        <th>Tên combo</th>
                         <th style="width:10%">@sortablelink('hotel_id','Tên khách sạn')</th>
                         <th>Ảnh chính</th>
                         <th>@sortablelink('level','Hạng phòng')</th>
@@ -30,6 +31,7 @@
                     @foreach($combotrips as $key => $data)
 
                     <tr>
+                        <td>{{$data->combo_trip_name}}</td>
                         <td>{{$data->hotel_name}}</td>
                         <td>
                             <div>

@@ -17,14 +17,16 @@
                 <a href="/images/combotrips/{{$data->main_image}}" class="fh5co-card-item image-popup">
                     <figure>
                         <div class="overlay"><i class="ti-plus"></i></div>
-                        <img alt="Image" class="img-responsive" src='/images/combotrips/{{$data->main_image}}' height="max-content"/>
+                        <img alt="Image" class="img-responsive" src='/images/combotrips/{{$data->main_image}}'
+                            height="max-content" />
                     </figure>
                 </a>
                 <span class="info-hotel">
                     <div class="fh5co-text">
-                        <h2 class="title-name">[{{$data->combo_trip_name}}]  <br/>Khách sạn {{$data->hotel_name}}</h2>
+                        <h2 class="title-name">[{{$data->combo_trip_name}}] <br />Khách sạn {{$data->hotel_name}}</h2>
                         <p class="title-name">Giá chỉ từ: {{$data->min_price}}</p>
                         <p class="p-main-info">{{$data->main_info}}</p>
+                        {{-- <p >{!!$data->service_included!!}</p> --}}
                         <p class="read-more"><a href="{{ url('/combotrip/'.$data->hotel_id.'-'.$data->slugs) }}"><span
                                     class="btn btn-primary">{{__('Xem Thêm')}}</span></a></p>
                     </div>
@@ -35,6 +37,7 @@
                 $hotels->appends(\Request::except('page'))->render() !!}</div>
         </div>
     </div>
+    @include('client.combotrip.list-combo-new')
 </div>
 
 

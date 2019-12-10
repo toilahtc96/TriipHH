@@ -19,6 +19,7 @@ class ComboTrip extends Model
         'end_date',
         'price',
         'status',
-        'combo_trip_name'
+        'combo_trip_name',
+        'created_at'
     ];
 }

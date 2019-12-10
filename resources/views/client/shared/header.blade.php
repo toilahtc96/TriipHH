@@ -43,6 +43,7 @@
     <!-- Theme style  -->
     <link rel="stylesheet" href="{!! asset('bower_components/client-view/css/style.css') !!}">
     <link rel="stylesheet" href="{!! asset('css/client/my-style.css') !!}">
+    <link rel="stylesheet" href="{!! asset('css/style-combotrips.css') !!}">
     <link rel="stylesheet" href="{!! asset('css/client/hotel/hotel.css') !!}">
     <link rel="stylesheet" href="{!! asset('css/client/hotel/list-item.css') !!}">
 

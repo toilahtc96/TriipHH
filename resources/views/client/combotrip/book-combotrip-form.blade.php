@@ -5,8 +5,11 @@
         <div class="modal-content">
             <div class="modal-header">
                 <button type="button" class="close" data-dismiss="modal">&times;</button>
-                <h4 class="modal-title">Đặt Combo <span id="level">{{$combo->combo_trip_name}} </span> của khách sạn
+                <h4 class="modal-title">Đặt Combo <span id="level">{{$combo->combo_trip_name}} </span>
+                    @isset($hotel)
+                    của khách sạn
                     {{$hotel->hotel_name}}
+                    @endisset
                 </h4>
             </div>
             <div class="modal-body">

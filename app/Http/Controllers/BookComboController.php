@@ -86,7 +86,6 @@ class BookComboController extends Controller
     public function edit($id)
     {
         //
-
         $locations = $this->getListLocationForCBB();
         $cars = $this->getListCarForCBB();
         $bookstatues = $this->getListBookStatusForCBB();
@@ -95,19 +94,25 @@ class BookComboController extends Controller
 
         $hotels = $this->getListHotelForCBB();
         $bookcombo = BookCombo::where('id', $id)->firstOrFail();
+
         $hotel_id_new = null;
         $rooms_new = null;
+
         if ($bookcombo->room_id) {
             $hotel_id_new = RoomHotel::select('hotel_id')->where('id', $bookcombo->room_id)->firstOrFail();
             if ($hotel_id_new->hotel_id) {
                 $rooms_new =  $this->getListRoomByHotelIdForCBB($hotel_id_new->hotel_id);
             }
         }
-        $combotrip = ComboTrip::where('id', $bookcombo->id)->firstOrFail();
+
+        $combotrip = ComboTrip::where('id', $bookcombo->combo_id)->firstOrFail();
         $locationPassing = $this->getListLocationByCarForCBB($combotrip->car_id);
+
         $car = Car::find($combotrip->car_id);
+
         $rooms = $this->getListRoomByHotelIdForCBB($combotrip->hotel_id);
         $roomnews = $this->getListRoomByHotelIdForCBB($bookcombo->hotel_id);
+
         return view('admin/bookcombo/edit-bookcombo')->with('bookcombo', $bookcombo)->with('locations', $locations)->with('cars', $cars)
             ->with('hotels', $hotels)->with('rooms', $rooms)->with('combotypes', $combotypes)->with('bookstatues', $bookstatues)->with('combotrips', $combotrips)
             ->with('combotrip', $combotrip)->with('roomnews', $roomnews)->with('locationPassing', $locationPassing)->with('car', $car)

@@ -31,4 +31,5 @@
         <!-- Modal -->
 
 </section>
+
 @endsection
