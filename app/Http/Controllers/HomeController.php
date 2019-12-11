@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\ComboTrip;
+use App\Models\Hotel;
 use Illuminate\Http\Request;
 
 class HomeController extends Controller
@@ -23,6 +25,19 @@ class HomeController extends Controller
      */
     public function index()
     {
-        return view('client.home');
+
+        $hotels = Hotel::sortable(['updated_at'=>'desc'])->paginate(6);
+        $combotrips = ComboTrip::select('combo_trips.*','hotels.hotel_name')->leftJoin('hotels','combo_trips.hotel_id','=','hotels.id')->sortable(['created'=>'desc'])->paginate(6);
+        return view('client.home')->with('hotels',$hotels)->with('combotrips',$combotrips);
+    }
+
+    public function contact()
+    {
+        return view('client.contact.contact');
+    }
+
+    public function introduce()
+    {
+        return view('client.contact.introduce');
     }
 }

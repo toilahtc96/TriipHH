@@ -1,13 +1,13 @@
-@extends('client.layout')
-@section('content')
+
 
 <div class="gtco-section">
     <div class="gtco-container">
         <div class="row">
             <div class="col-md-8 col-md-offset-2 text-center gtco-heading">
-                <h2 class="text-center introduce-hotel">Combo Hot và Mới nhất
+                <h2 class="text-center introduce-hotel">Khách sạn chúng tôi có
                 </h2>
-                <p>Những Combo Nóng hổi nhất đang cung cấp hiện tại.</p>
+                <p>Tìm khách sạn giá rẻ cho hành trình tiếp theo khi quý khách có thể lựa chọn từ hơn 1.200.000 khách
+                    sạn trên khắp thế giới.</p>
             </div>
         </div>
         <div class="row">
@@ -23,23 +23,27 @@
                 </a>
                 <span class="info-hotel">
                     <div class="fh5co-text">
-                        <h2 class="title-name">[{{$data->combo_trip_name}}] <br />Khách sạn {{$data->hotel_name}}</h2>
-                        <p class="title-name">Giá chỉ từ: {{$data->min_price}}</p>
+                        <h2 class="title-name">{{$data->hotel_name}}</h2>
+                        @isset($data->price)
+                        <h4 class="title-name">Giá từ: {{$data->price}}</h4>
+                        @else 
+                        <h4 class="title-name">Chưa cập nhật giá</h4>
+                        @endisset
                         <p class="p-main-info">{{$data->main_info}}</p>
-                        {{-- <p >{!!$data->service_included!!}</p> --}}
-                        <p class="read-more"><a href="{{ url('/combotrip/'.$data->hotel_id.'-'.$data->slugs) }}"><span
+                        <p class="read-more"><a href="{{ url('/hotel/'.$data->id.'-'.$data->slugs) }}"><span
                                     class="btn btn-primary">{{__('Xem Thêm')}}</span></a></p>
                     </div>
                 </span>
             </div>
             @endforeach
-            <div style="width:100%;text-align:right;float:left"> {!!
-                $hotels->appends(\Request::except('page'))->render() !!}</div>
+
         </div>
+
+        <div class="row" style="float:left; width:100%;text-align:right">
+            <a href="/hotels">Xem Tất cả</a>
+        </div>
+
     </div>
-    @include('client.combotrip.list-combo-new')
 </div>
 
 
-
-@endsection

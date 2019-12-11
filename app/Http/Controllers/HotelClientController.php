@@ -13,7 +13,13 @@ class HotelClientController extends Controller
     public function index()
     {
         $hotels = Hotel::select('id', 'hotel_name', 'slugs', 'main_info', 'main_image')->where('status', 1)->sortable()->paginate(6);
-        
+        foreach ($hotels as $key => $value) {
+            # code...
+            $room = RoomHotel::MIN('price')->where('room_hotels.status', 1)->where('room_hotels.hotel_id', $value->id)->first();
+            if($room){
+                $value->price = $room->price;
+            }
+        }
         return view('client.hotel.hotel')->with('hotels', $hotels);
     }
 

@@ -12,6 +12,10 @@
 */
 
 Route::get('/', 'HomeController@index')->name('home');
+Route::get('/contact', 'HomeController@contact')->name('contact');
+Route::get('/introduce', 'HomeController@introduce')->name('introduce');
+
+
 
 Auth::routes();
 

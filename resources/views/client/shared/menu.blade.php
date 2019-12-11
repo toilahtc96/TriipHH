@@ -16,7 +16,8 @@
                                         <li><a href="#">Tùy chọn</a></li>
                                     </ul>
                                 </li>
-                                <li><a href="contact.html">Liên hệ</a></li>
+                                <li><a href="/contact">Liên hệ</a></li>
+                                <li><a href="/introduce">Giới thiệu</a></li>
                             </ul>
                         </div>
                     </div>

@@ -24,6 +24,12 @@
                 <span class="info-hotel">
                     <div class="fh5co-text">
                         <h2 class="title-name">{{$data->hotel_name}}</h2>
+                        @isset($data->price)
+                        <h4 class="title-name">Giá từ: {{$data->price}}</h4>
+                        @else 
+                        <h4 class="title-name">Chưa cập nhật giá</h4>
+                        @endisset
+                       
                         <p class="p-main-info">{{$data->main_info}}</p>
                         <p class="read-more"><a href="{{ url('/hotel/'.$data->id.'-'.$data->slugs) }}"><span
                                     class="btn btn-primary">{{__('Xem Thêm')}}</span></a></p>
