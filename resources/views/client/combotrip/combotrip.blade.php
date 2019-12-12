@@ -14,10 +14,10 @@
             @foreach($hotels as $key => $data)
             <div class="col-lg-4 col-md-4 col-sm-6">
 
-                <a href="/images/hotels/{{$data->main_image}}" class="fh5co-card-item image-popup">
+                <a href="/images/combotrips/{{$data->main_image}}" class="fh5co-card-item image-popup">
                     <figure>
                         <div class="overlay"><i class="ti-plus"></i></div>
-                        <img alt="Image" class="img-responsive" src='/images/hotels/{{$data->main_image}}'
+                        <img alt="Image" class="img-responsive" src='/images/combotrips/{{$data->main_image}}'
                             height="max-content" />
                     </figure>
                 </a>
