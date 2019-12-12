@@ -19,6 +19,7 @@ class Hotel extends Model
     public $sortable = [
         'hotel_name',
         'status',
-        'updated_at'
+        'updated_at',
+        'price'
     ];
 }
