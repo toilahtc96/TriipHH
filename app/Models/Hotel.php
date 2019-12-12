@@ -20,6 +20,5 @@ class Hotel extends Model
         'hotel_name',
         'status',
         'updated_at',
-        'price'
     ];
 }
