@@ -16,6 +16,7 @@ class BookCustomTrip extends Model
         'car_id',
         'room_id',
         'start_date',
-        'pickup_place_id'
+        'pickup_place_id',
+        'created_at'
     ];
 }

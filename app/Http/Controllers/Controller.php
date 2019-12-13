@@ -286,9 +286,9 @@ class Controller extends BaseController
     {
         $roomHoteldb = RoomHotel::where('hotel_id', $id)->get();
         $roomHotels  = [];
-        $roomHotels[0] = "Chọn loại phòng";
+        array_push($roomHotels,'Chọn loại phòng');
         foreach ($roomHoteldb as $key => $val) {
-            $roomHotels[$val->id] = $val->level . ' Sao';
+            array_push($roomHotels,$val->level . ' Sao');
         }
         return $roomHotels;
     }
@@ -297,7 +297,7 @@ class Controller extends BaseController
     {
         $roomHoteldb = RoomHotel::get();
         $roomHotels  = [];
-        $roomHotels[0] = "Chọn loại phòng";
+        $roomHotels[-1] = "Chọn loại phòng";
         foreach ($roomHoteldb as $key => $val) {
             $roomHotels[$val->id] = $val->level . ' Sao';
         }
@@ -310,9 +310,9 @@ class Controller extends BaseController
         if (isset($_POST["id"])) {
             $roomHoteldb = RoomHotel::where('hotel_id', $_POST["id"])->get();
             $roomHotels  = [];
-            $roomHotels[0] = "Chọn loại phòng";
+            array_push($roomHotels,'Chọn loại phòng');
             foreach ($roomHoteldb as $key => $val) {
-                $roomHotels[$val->id] = $val->level;
+                array_push($roomHotels, $val->level);
             }
             return response()->json(['data' => $roomHotels, 'result' => 'Get OK']);
         }

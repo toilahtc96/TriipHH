@@ -18,9 +18,9 @@ class CreateBookCustomTripsTable extends Migration
             $table->string('fullName',1000);
             $table->string('msisdn',50);
             $table->date('start_date');
-            $table->time('arrival_time');
-            $table->bigInteger('pickup_place_id');
-            $table->date('checkin_date');
+            $table->time('arrival_time')->nullable();
+            $table->bigInteger('pickup_place_id')->nullable();
+            $table->date('checkin_date')->nullable();
             $table->bigInteger('status');
             $table->bigInteger('room_id')->unsigned();
             $table->bigInteger('car_id')->unsigned();

@@ -13,9 +13,17 @@
                                     <a href="#">Combo</a>
                                     <ul class="dropdown">
                                         <li><a href="/combotrips">Hiện có</a></li>
-                                        <li><a href="#">Tùy chọn</a></li>
+                                        <li><a href="/bookcustom">Tùy chọn</a></li>
                                     </ul>
                                 </li>
+                                <li class="has-dropdown">
+                                        <a href="#">Di chuyển</a>
+                                        <ul class="dropdown">
+                                            <li><a href="#">Đặt xe</a></li>
+                                            <li><a href="http://verehh.com/" target="_blank">Đặt vé máy bay</a></li>
+                                        </ul>
+                                    </li>
+                                
                                 <li><a href="/contact">Liên hệ</a></li>
                                 <li><a href="/introduce">Giới thiệu</a></li>
                             </ul>

@@ -14,7 +14,12 @@
 Route::get('/', 'HomeController@index')->name('home');
 Route::get('/contact', 'HomeController@contact')->name('contact');
 Route::get('/introduce', 'HomeController@introduce')->name('introduce');
+Route::get('/bookcustom', 'HomeController@bookcustom')->name('bookcustom');
 
+Route::post('/bookCustom/store', 'BookCustomClientController@store')->name('createBookCustom');
+Route::resource('/bookCustom', 'BookCustomClientController')->names([
+    'index' => 'bookCustom.view',
+]);
 
 
 Auth::routes();

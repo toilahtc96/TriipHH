@@ -62,7 +62,6 @@ callAjax = function(e, table, id, status) {
 
 callRoomAjax = function(hotel, e) {
     e.preventDefault();
-    console.log(hotel.value)
     $.ajax({
 
         type: 'POST',
@@ -72,16 +71,15 @@ callRoomAjax = function(hotel, e) {
         data: { id: hotel.value },
 
         success: function(data) {
-            console.log(data);
             var arr = [];
             arr.push(data.data);
-            console.log(arr)
             $('#room_id').empty();
-            console.log(data.data.length);
-            if (data.data.length !== 0) {
+            if (data.data.length > 1) {
                 $.each(data.data, function(key, value) {
-                    if (key) {
+                    if (value !== "Chọn loại phòng") {
                         $('#room_id').append('<option value="' + value + '">' + value + ' Sao' + '</option>');
+                    } else {
+                        $('#room_id').append('<option value="">' + 'Chọn loại phòng' + '</option>');
                     }
                 });
             } else {

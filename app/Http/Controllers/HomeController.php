@@ -28,7 +28,9 @@ class HomeController extends Controller
 
         $hotels = Hotel::sortable(['updated_at'=>'desc'])->paginate(6);
         $combotrips = ComboTrip::select('combo_trips.*','hotels.hotel_name')->leftJoin('hotels','combo_trips.hotel_id','=','hotels.id')->sortable(['created'=>'desc'])->paginate(6);
+        // dd($combotrips);
         return view('client.home')->with('hotels',$hotels)->with('combotrips',$combotrips);
+        
     }
 
     public function contact()
@@ -39,5 +41,14 @@ class HomeController extends Controller
     public function introduce()
     {
         return view('client.contact.introduce')->with('banner','15740915990.jpg');
+    }
+
+    public function bookcustom()
+    {
+        $hotels = $this->getListHotelForCBB();
+        $rooms = $this->getListRoomdForCBB();
+        $combotypes = $this->getListComboTypeForCBB();
+        $cars = $this->getListCarForCBB();
+        return view('client.home.bookcustom')->with('cars',$cars)->with('combotypes',$combotypes)->with('hotels',$hotels)->with('rooms',$rooms)->with('banner','15740915990.jpg');
     }
 }

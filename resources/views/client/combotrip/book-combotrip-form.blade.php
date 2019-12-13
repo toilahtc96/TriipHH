@@ -155,8 +155,8 @@ resetForm=function(form){
     form.find('#msisdn').val("");
     form.find('#combo_type_id').val("0");
     form.find('#adults').val("1");
-    form.find('#minors').val("1");
-    form.find('#childrens').val("1");
+    form.find('#minors').val("0");
+    form.find('#childrens').val("0");
 }
 validateFormBookRoom=function(form){
     $fullname = form.find('#fullname').val().trim();

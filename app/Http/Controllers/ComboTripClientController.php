@@ -28,7 +28,6 @@ class ComboTripClientController extends Controller
         $hotels = Hotel::whereIn('hotels.id', $arr_hotel_id)->where('hotels.status', 1)
             ->leftJoin('combo_trips',  'hotels.id', '=','combo_trips.hotel_id')->distinct('combo_trip_name','hotel_id')
             ->sortable()->paginate(6);
-
         foreach ($hotels as $key => $value) {
             $combotrip_min_price = ComboTrip::select('combo_trips.price')->MIN('combo_trips.price')
             ->where('combo_trips.status', 1)->Where('hotel_id', $value->id)->first();

@@ -83,5 +83,5 @@
  <script src="{!! asset('bower_components/client-view-2/js/jquery.fancybox.min.js') !!}"></script>
  <script src="{!! asset('bower_components/client-view-2/js/jquery.sticky.js') !!}"></script>
  <script src="{!! asset('bower_components/client-view-2/js/main.js') !!}"></script>
-
+ <script src="{!! asset('js/common/call-ajax.js') !!}"></script>
 {{-- end --}}

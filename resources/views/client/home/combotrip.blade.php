@@ -25,8 +25,8 @@
                             Khách sạn {{$data->hotel_name}}
                             @endisset
                         </h2>
-                        @isset($data->min_price)
-                        <h4 class="title-name">Giá từ: {{$data->price}}</h4>
+                        @isset($data->price)
+                        <h4 class="title-name">Giá : {{$data->price}}</h4>
                         @else
                         <h4 class="title-name">Chưa cập nhật giá</h4>
                         @endisset

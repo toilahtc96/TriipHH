@@ -36,7 +36,7 @@ class BookCustomTripController extends Controller
             ->leftJoin('room_hotels', 'room_hotels.id', '=', 'book_custom_trips.room_id')
             ->leftJoin('combo_types', 'combo_types.id', '=', 'book_custom_trips.combo_type_id')
             ->leftJoin('book_statuses', 'book_statuses.id', '=', 'book_custom_trips.book_status_id')
-            ->sortable()->paginate(5);
+            ->sortable(['created_at' => 'desc'])->paginate(5);
         return view('admin/bookcustomtrip/list-bookcustomtrip')->with('bookcustomtrips', $bookcustomtrips)
             ->with('bookstatuses', $bookstatuses)->with('table_name', 'book_custom_trips')->with('url_link','bookcustomtrips');
     }
