@@ -2,12 +2,13 @@
     <div class="modal-dialog">
 
         <!-- Modal content-->
-        <div class="modal-content">
+        <div class="modal-content" style="min-width:540px;">
             <div class="modal-header">
-                <button type="button" class="close" data-dismiss="modal">&times;</button>
                 <h4 class="modal-title">Đặt phòng hạng <span id="level">{{$room->level}} </span> của khách sạn
                     {{$hotel->hotel_name}}
                 </h4>
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+
             </div>
             <div class="modal-body">
 
@@ -47,14 +48,16 @@
                                 'form-control','placeholder'=>'Ngày đi','format'=>'dd/mm/yyyy']) !!}
                             </div>
                             <div class="col-md-6">
-                                    {!! Form::label('combo_type_id', 'Số ngày đi', ['class' => 'control-label']) !!}
-                                    {!!Form::select('combo_type_id', $combotypes, 0, ['class'=>'form-control','id'=>'combo_type_id'])!!}
+                                {!! Form::label('combo_type_id', 'Số ngày đi', ['class' => 'control-label']) !!}
+                                {!!Form::select('combo_type_id', $combotypes, 0,
+                                ['class'=>'form-control','id'=>'combo_type_id'])!!}
                             </div>
                         </div>
                         <div class="row form-group">
                             <div class="col-md-6">
                                 {!! Form::label('number_room_book', 'Số phòng', ['class' => 'control-label']) !!}
-                                {!!Form::selectRange('number_room_book', 1, 10,1, ['class' => 'form-control','id'=>'number_room_book'])!!}
+                                {!!Form::selectRange('number_room_book', 1, 10,1, ['class' =>
+                                'form-control','id'=>'number_room_book'])!!}
                             </div>
                         </div>
                         <div class="row form-group">
@@ -66,12 +69,12 @@
                         <div class="row form-group">
                             <div class="col-md-6">
                                 {!! Form::label('childrens', 'Trẻ em dưới 6 tuổi', ['class' => 'control-label']) !!}
-                                {!! Form::selectRange('childrens', 1, 10 ,1,['class' => 'form-control']) !!}
+                                {!! Form::selectRange('childrens', 0, 10 ,0,['class' => 'form-control']) !!}
                             </div>
                             <div class="col-md-6">
                                 {!! Form::label('minors', 'Trẻ em từ 6 đến 10 tuổi', ['class' => 'control-label'])
                                 !!}
-                                {!! Form::selectRange('minors', 1, 10 ,1,['class' => 'form-control']) !!}
+                                {!! Form::selectRange('minors', 0, 10 ,0,['class' => 'form-control']) !!}
                             </div>
                         </div>
                         <div class="row form-group">
@@ -154,30 +157,37 @@ validateFormBookRoom=function(form){
 
     $typeService = form.find('input[name="type_service"]:checked').val();
     if($fullname ==""){
-        alert("Vui lòng nhập tên bạn")
+        alert("Vui lòng nhập tên bạn");
+        form.find('#fullname').focus();
         return false;
     }
-    if($startDate ==""){
-        alert("Bạn cần điền ngày đi")
-        return false;
-    }
-    
     if($typeService ==0 ||$typeService ==2){
         if($msisdn ==""){
         alert("Bạn cần điền số điện thoại để nhận tư vấn")
+        form.find('#msisdn').focus();
         return false;
     }
-    }
-    if($combo_type_id ==null || $combo_type_id == "0"){
-        alert("Bạn cần chọn số ngày đi")
-        return false;
     }
     if($typeService ==1){
         if($fbLink ==""){
         alert("Bạn cần điền Facebook để nhận tư vấn")
+        form.find('#fb-link').focus();
         return false;
     }
     }
+    if($startDate ==""){
+        alert("Bạn cần điền ngày đi")
+        form.find('#start_date').focus();
+        return false;
+    }
+    
+   
+    if($combo_type_id ==null || $combo_type_id == "0"){
+        alert("Bạn cần chọn số ngày đi")
+        form.find('#combo_type_id').focus();
+        return false;
+    }
+    
 
    
     

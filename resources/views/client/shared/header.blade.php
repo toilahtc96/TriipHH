@@ -21,6 +21,18 @@
 
     <link href="https://fonts.googleapis.com/css?family=Lato:300,400,700" rel="stylesheet">
 
+      {{-- client-view-2 --}}
+
+      <link rel="stylesheet" href="{!! asset('bower_components/client-view-2/fonts/icomoon/style.css') !!}">
+      <link rel="stylesheet" href="{!! asset('bower_components/client-view-2/css/bootstrap.min.css') !!}">
+      <link rel="stylesheet" href="{!! asset('bower_components/client-view-2/css/jquery-ui.css') !!}">
+      <link rel="stylesheet" href="{!! asset('bower_components/client-view-2/css/jquery.fancybox.min.css') !!}">
+      <link rel="stylesheet" href="{!! asset('bower_components/client-view-2/css/bootstrap-datepicker.css') !!}">
+      <link rel="stylesheet" href="{!! asset('bower_components/client-view-2/fonts/flaticon/font/flaticon.css') !!}">
+      <link rel="stylesheet" href="{!! asset('bower_components/client-view-2/css/aos.css') !!}">
+      <link rel="stylesheet" href="{!! asset('bower_components/client-view-2/css/style.css') !!}">
+      
+      {{-- end --}}
     <!-- Animate.css -->
     <link rel="stylesheet" href="{!! asset('bower_components/client-view/css/animate.css') !!}">
     <!-- Icomoon Icon Fonts-->
@@ -40,6 +52,7 @@
     <link rel="stylesheet" href="{!! asset('bower_components/client-view/css/owl.carousel.min.css') !!}">
     <link rel="stylesheet" href="{!! asset('bower_components/client-view/css/owl.theme.default.min.css') !!}">
 
+    
     <!-- Theme style  -->
     <link rel="stylesheet" href="{!! asset('bower_components/client-view/css/style.css') !!}">
     <link rel="stylesheet" href="{!! asset('css/client/my-style.css') !!}">
@@ -47,12 +60,13 @@
     <link rel="stylesheet" href="{!! asset('css/client/hotel/hotel.css') !!}">
     <link rel="stylesheet" href="{!! asset('css/client/hotel/list-item.css') !!}">
 
-    <link rel="stylesheet" href="{!! asset('client/css/aos.css') !!}">
+    {{-- <link rel="stylesheet" href="{!! asset('client/css/aos.css') !!}"> --}}
     <link rel="stylesheet" href="{!! asset('client/css/fancybox.min.css') !!}">
     <link rel="stylesheet" href="{!! asset('client/fonts/ionicons/css/ionicons.min.css') !!}">
     <link rel="stylesheet" href="{!! asset('client/css/style.css') !!}">
     <link rel="stylesheet" href="{!! asset('client/fonts/fontawesome/css/font-awesome.min.css') !!}">
 
+  
 
 
     <!-- Modernizr JS -->

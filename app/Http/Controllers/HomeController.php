@@ -33,11 +33,11 @@ class HomeController extends Controller
 
     public function contact()
     {
-        return view('client.contact.contact');
+        return view('client.contact.contact')->with('banner','15740870875.jpg');
     }
 
     public function introduce()
     {
-        return view('client.contact.introduce');
+        return view('client.contact.introduce')->with('banner','15740915990.jpg');
     }
 }

@@ -1,61 +1,33 @@
 @extends('client.layout')
 @section('content')
-<div class="gtco-section border-bottom">
+
+{{-- <section class="site-section" id="about-section"> --}}
+
+<div class="gtco-section">
     <div class="gtco-container">
-        <div class="row">
-            <div class="col-md-12">
-                <div class="col-md-8 animate-box bg-info">
-                    <h3>Về Chúng Tôi</h3>
-                    <div class="row form-group " >
-                        <div class="col-md-12">
-                            <p class="p-5 bg-info">
-                                Lời đầu tiên, chúng tôi xin gửi đến quý đối tác, quý khách hàng và đồng nghiệp lời chào
-                                trân trọng, lời chúc sức khoẻ và kính chúc quý đơn vị kinh doanh ngày càng hưng thịnh.
-                            </p>
-                        </div>
 
-                    </div>
+        <div class="row large-gutters">
+           @include('client.shared.slide-children')
+            <div class="col-lg-6 ml-auto">
 
-                    <div class="row form-group">
-                        <div class="col-md-12">
-                            <p class="p-5 bg-info">
-                                Trên tinh thần lấy chữ ‘TÍN’ làm trọng, HH TRAVEL luôn nỗ lực hoàn thiện từng ngày dựa
-                                trên đội ngũ chuyên viên năng động, ham học hỏi, có nghiệp vụ chuyên sâu. Qua đó, phục
-                                vụ tốt nhất cho lợi ích của khách hàng cũng như nâng cao về chất lượng, dịch vụ. Sự hài
-                                lòng của quý khách hàng là mục tiêu và tài sản lớn nhất của chúng tôi.
-                            </p>
-                        </div>
-                    </div>
+                <h2 class="section-title mb-3">HHTravel Luôn Hướng tới trải nghiệm khách hàng</h2>
+                <p class="lead">HH TRAVEL cũng là đối tác cao cấp của nhiều hãng hàng không lớn trên thế giới</p>
+                <p>Chúng tôi mong nhận được ý kiến phản hồi của bạn. </p>
 
-                    <div class="row form-group">
-                        <div class="col-md-12">
-                            <p class="p-5 bg-info">
-                                HH TRAVEL cam kết tư vấn về các thủ tục cần thiết, giao vé theo yêu cầu, phương thức
-                                thanh toán đơn giản, nhanh chóng, tiện lợi mang đến sự hài lòng cho khách hàng.
-                            </p>
-                        </div>
-                    </div>
+                <ul class="list-unstyled ul-check success">
+                    <li>Hơn 30,000 khách hàng</li>
+                    <li>Phục vụ bởi đội ngũ tư vấn viên chu đáo,nhiệt tình, chuyên nghiệp</li>
+                    <li>Mang đến mức giá tốt nhất dành cho khách hàng</li>
+                    <li>Hỗ trợ 24/7</li>
+                    <li>Tư vấn tận tâm</li>
+                </ul>
 
-                    <div class="row form-group">
-                        <div class="col-md-12">
-                            <p class="p-5 bg-info">
-                                Rất mong nhận được sự ủng hộ, góp ý và hợp tác của quý khách!
-                            </p>
-                        </div>
-                    </div>
-                    <div class="form-group">
-                        <p class="p-5 bg-info">
-                            Trân trọng cảm ơn!
-                        </p>
-                    </div>
-                </div>
-                <div class="col-md-4 animate-box">
-                    <h3>Liên hệ</h3>
-                </div>
+                <p><a href="#" class="btn btn-primary mr-2 mb-2">Learn More</a></p>
+
             </div>
         </div>
     </div>
 </div>
-
+{{-- </section> --}}
 
 @endsection

@@ -62,14 +62,19 @@ class HotelClientController extends Controller
         $gallery = [];
         foreach ($rooms as $key => $value) {
             # code...
+            $show_image = [];
             $imgRoom = explode(',', $value->list_image);
             array_push($gallery, $value->main_image);
+            array_push($show_image, $value->main_image);
             foreach ($imgRoom as $key2 => $value2) {
                 # code...
                 if ($value2 != "") {
                     array_push($gallery,  $value2);
+                    array_push($show_image, $value2);
                 }
             }
+
+            $value->show_image = $show_image;
         }
         return view('client.hotel.list-room')->with('hotel', $hotel)->with('rooms', $rooms)
         ->with('gallery', $gallery)->with('galleryHotel', $galleryHotel)->with('combotypes',$combotypes);

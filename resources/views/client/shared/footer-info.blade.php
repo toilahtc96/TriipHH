@@ -63,7 +63,7 @@
                 </p>
                 <p class="pull-right">
                     <ul class="gtco-social-icons pull-right">
-                        <li><a href="#"><i class="icon-facebook"></i></a></li>
+                        <li><a target="_blank" href="https://www.facebook.com/HH-travel-399371757317804/"><i class="icon-facebook"></i></a></li>
                         <li><a href="#"><i class="icon-instagram"></i></a></li>
                     </ul>
                 </p>

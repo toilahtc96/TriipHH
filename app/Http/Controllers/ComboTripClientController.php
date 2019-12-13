@@ -48,6 +48,15 @@ class ComboTripClientController extends Controller
             // dd($combo);
             $cars = Car::whereIn('id', explode(",", $combo->car_id))->get();
             $combo->cars =  $this->buildListCars($cars);
+            $show_image = [];
+            array_push($show_image,  $combo->main_image);
+            $imgHotel = explode(',', $combo->list_image);
+            foreach ($imgHotel as $key => $value) {
+                if ($value != "") {
+                    array_push($show_image,  $value);
+                }
+            }
+            $combo->show_image = $show_image;
         }
         return view('client.combotrip.combotrip')->with('hotels', $hotels)
             ->with('locations', $locations)->with('combotripsNew', $combotripsNew)->with('combotypes', $combotypes);
@@ -91,6 +100,15 @@ class ComboTripClientController extends Controller
             # code...
             // dd($combo);
             $cars = Car::whereIn('id', explode(",", $combo->car_id))->get();
+            $show_image = [];
+            array_push($show_image,  $combo->main_image);
+            $imgHotel = explode(',', $combo->list_image);
+            foreach ($imgHotel as $key => $value) {
+                if ($value != "") {
+                    array_push($show_image,  $value);
+                }
+            }
+            $combo->show_image = $show_image;
             $combo->cars =  $this->buildListCars($cars);
         }
         $hotel = Hotel::where('status', 1)->where('id', $id)->first();

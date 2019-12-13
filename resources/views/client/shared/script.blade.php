@@ -1,6 +1,7 @@
 <!-- jQuery -->
 {{-- <script src="{!! asset('bower_components/client-view/js/jquery.min.js') !!}"></script> --}}
 
+
 <script src="{!! asset('client/js/jquery-3.3.1.min.js') !!}"></script>
 <!-- jQuery Easing -->
 <script src="{!! asset('bower_components/client-view/js/jquery.easing.1.3.js') !!}"></script>
@@ -47,6 +48,7 @@
 <script src="{!! asset('client/js/main.js') !!}"></script>
 
 
+
 {{-- <script type='text/javascript' src='http://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js'></script> --}}
 <script src="{!! asset('unitegallery/dist/js/unitegallery.min.js') !!}"></script>
 <script src="{!! asset('unitegallery/dist/themes/default/ug-theme-default.js') !!}"></script>
@@ -66,4 +68,20 @@
 	
     gallery_control_thumbs_mousewheel:true
 	});
+ 
 </script>
+ {{-- client-view-2 --}}
+ {{-- <script src="{!! asset('bower_components/client-view-2/js/jquery-3.3.1.min.js') !!}"></script> --}}
+ <script src="{!! asset('bower_components/client-view-2/js/jquery-ui.js') !!}"></script>
+ <script src="{!! asset('bower_components/client-view-2/js/popper.min.js') !!}"></script>
+ {{-- <script src="{!! asset('bower_components/client-view-2/js/bootstrap.min.js') !!}"></script> --}}
+ <script src="{!! asset('bower_components/client-view-2/js/owl.carousel.min.js') !!}"></script>
+ <script src="{!! asset('bower_components/client-view-2/js/jquery.countdown.min.js') !!}"></script>
+ <script src="{!! asset('bower_components/client-view-2/js/bootstrap-datepicker.min.js') !!}"></script>
+ <script src="{!! asset('bower_components/client-view-2/js/jquery.easing.1.3.js') !!}"></script>
+ <script src="{!! asset('bower_components/client-view-2/js/aos.js') !!}"></script>
+ <script src="{!! asset('bower_components/client-view-2/js/jquery.fancybox.min.js') !!}"></script>
+ <script src="{!! asset('bower_components/client-view-2/js/jquery.sticky.js') !!}"></script>
+ <script src="{!! asset('bower_components/client-view-2/js/main.js') !!}"></script>
+
+{{-- end --}}

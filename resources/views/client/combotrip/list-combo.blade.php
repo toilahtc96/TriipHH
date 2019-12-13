@@ -16,7 +16,7 @@
 
         @foreach ($combotrips as $key=>$combo)
 
-        @if($key%2!=0)
+        @if($key%2==0)
         @include('client.combotrip.detail-combotrip-left')
         @else
         @include('client.combotrip.detail-combotrip-right')

@@ -2,15 +2,16 @@
     <div class="modal-dialog">
 
         <!-- Modal content-->
-        <div class="modal-content">
+        <div class="modal-content" style="min-width:540px;">
             <div class="modal-header">
-                <button type="button" class="close" data-dismiss="modal">&times;</button>
                 <h4 class="modal-title">Đặt Combo <span id="level">{{$combo->combo_trip_name}} </span>
                     @isset($hotel)
                     của khách sạn
                     {{$hotel->hotel_name}}
                     @endisset
                 </h4>
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+
             </div>
             <div class="modal-body">
 
@@ -166,30 +167,35 @@ validateFormBookRoom=function(form){
 
     $typeService = form.find('input[name="type_service"]:checked').val();
     if($fullname ==""){
-        alert("Vui lòng nhập tên bạn")
+        alert("Vui lòng nhập tên bạn");
+        form.find('#fullname').focus();
         return false;
     }
-    if($startDate ==""){
-        alert("Bạn cần điền ngày đi")
-        return false;
-    }
-    
     if($typeService ==0 ||$typeService ==2){
         if($msisdn ==""){
-        alert("Bạn cần điền số điện thoại để nhận tư vấn")
+        alert("Bạn cần điền số điện thoại để nhận tư vấn");
+        form.find('#msisdn').focus();
         return false;
     }
-    }
-    if($combo_type_id ==null || $combo_type_id == "0"){
-        alert("Bạn cần chọn số ngày đi")
-        return false;
     }
     if($typeService ==1){
         if($fbLink ==""){
-        alert("Bạn cần điền Facebook để nhận tư vấn")
+        alert("Bạn cần điền Facebook để nhận tư vấn");
+        form.find('#fb-link').focus();
         return false;
     }
     }
+    if($startDate ==""){
+        alert("Bạn cần điền ngày đi");
+        form.find('#start_date').focus();
+        return false;
+    }
+    if($combo_type_id ==null || $combo_type_id == "0"){
+        alert("Bạn cần chọn số ngày đi");
+        form.find('#combo_type_id').focus();
+        return false;
+    }
+    
 
    
     
