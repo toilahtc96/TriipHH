@@ -15,10 +15,16 @@ Route::get('/', 'HomeController@index')->name('home');
 Route::get('/contact', 'HomeController@contact')->name('contact');
 Route::get('/introduce', 'HomeController@introduce')->name('introduce');
 Route::get('/bookcustom', 'HomeController@bookcustom')->name('bookcustom');
+Route::get('/bookcar', 'HomeController@bookcar')->name('bookcar');
 
 Route::post('/bookCustom/store', 'BookCustomClientController@store')->name('createBookCustom');
 Route::resource('/bookCustom', 'BookCustomClientController')->names([
     'index' => 'bookCustom.view',
+]);
+
+Route::post('/bookCar/store', 'BookCarClientController@store')->name('createBookCar');
+Route::resource('/bookCar', 'BookCarClientController')->names([
+    'index' => 'bookCar.view',
 ]);
 
 

@@ -215,8 +215,6 @@ class Controller extends BaseController
 
         return $place_passingArr;
     }
-
-
     public function getListHotelForCBB()
     {
         $hoteldb = Hotel::get();
@@ -226,6 +224,27 @@ class Controller extends BaseController
             $hotels[$val->id] = $val->hotel_name;
         }
         return $hotels;
+    }
+
+    public function getListHotelActiveForCBB()
+    {
+        $hoteldb = Hotel::where('status', 1)->get();
+        $hotels  = [];
+        $hotels[0] = "Chọn khách sạn";
+        foreach ($hoteldb as $key => $val) {
+            $hotels[$val->id] = $val->hotel_name;
+        }
+        return $hotels;
+    }
+    public function getListCarActiveForCBB()
+    {
+        $cardb = Car::where('status', 1)->get();
+        $cars  = [];
+        $cars[0] = "Chọn xe";
+        foreach ($cardb as $key => $val) {
+            $cars[$val->id] = $val->own_car . ' - ' . $val->car_type;
+        }
+        return $cars;
     }
     public function getListCarForCBB()
     {
@@ -255,6 +274,16 @@ class Controller extends BaseController
             $bookstatuses[$val->id] = $val->status;
         }
         return $bookstatuses;
+    }
+    public function getListComboTypeActiveForCBB()
+    {
+        $comboTypedb = ComboType::where('status', 1)->get();
+        $comboTypes  = [];
+        $comboTypes[0] = "Chọn số ngày đi";
+        foreach ($comboTypedb as $key => $val) {
+            $comboTypes[$val->id] = $val->combo_type_name . ' - ' . $val->detail;
+        }
+        return $comboTypes;
     }
 
     public function getListComboTypeForCBB()
@@ -286,9 +315,9 @@ class Controller extends BaseController
     {
         $roomHoteldb = RoomHotel::where('hotel_id', $id)->get();
         $roomHotels  = [];
-        array_push($roomHotels,'Chọn loại phòng');
+        array_push($roomHotels, 'Chọn loại phòng');
         foreach ($roomHoteldb as $key => $val) {
-            array_push($roomHotels,$val->level . ' Sao');
+            array_push($roomHotels, $val->level . ' Sao');
         }
         return $roomHotels;
     }
@@ -310,7 +339,7 @@ class Controller extends BaseController
         if (isset($_POST["id"])) {
             $roomHoteldb = RoomHotel::where('hotel_id', $_POST["id"])->get();
             $roomHotels  = [];
-            array_push($roomHotels,'Chọn loại phòng');
+            array_push($roomHotels, 'Chọn loại phòng');
             foreach ($roomHoteldb as $key => $val) {
                 array_push($roomHotels, $val->level);
             }
@@ -330,7 +359,7 @@ class Controller extends BaseController
             foreach ($listLocation as $key => $val) {
                 $listLocationCbb[$val->id] = $val->location_name;
             }
-            if(sizeof($listLocationCbb)==1){
+            if (sizeof($listLocationCbb) == 1) {
                 $listLocationCbb  = [];
             }
             return response()->json(['data' => $listLocationCbb, 'result' => 'Get OK']);

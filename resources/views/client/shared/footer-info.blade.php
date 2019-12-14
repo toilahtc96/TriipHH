@@ -16,13 +16,13 @@
 
             <div class="col-md-2 col-md-push-1">
                 <div class="gtco-widget">
-                    <h3>Điểm đến</h3>
+                    <h3>Dịch vụ cung cấp</h3>
                     <ul class="gtco-footer-links">
-                        <li><a href="#">Europe</a></li>
-                        <li><a href="#">Australia</a></li>
-                        <li><a href="#">Asia</a></li>
-                        <li><a href="#">Canada</a></li>
-                        <li><a href="#">Dubai</a></li>
+                        <li><a href="/combotrips">Combo Du lịch Sapa</a></li>
+                        <li><a href="/bookcar">Đặt Vé Xe</a></li>
+                        <li><a href="/hotels">Đặt Phòng Khách Sạn</a></li>
+                        <li><a href="http://verehh.com/" target="_blank">Đặt Vé Máy Bay</a></li>
+                        <li><a href="#">Tư Vấn 24/7</a></li>
                     </ul>
                 </div>
             </div>
@@ -44,8 +44,8 @@
                 <div class="gtco-widget">
                     <h3>Liên hệ</h3>
                     <ul class="gtco-quick-contact">
-                        <li><a href="#"><i class="icon-phone"></i> 0967719396</a></li>
-                        <li><a href="#"><i class="icon-mail2"></i> hhtravel@gmail.com</a></li>
+                        <li><a href="tel://0967719396"><i class="icon-phone"></i> 096 771 9396 - 0981 942 186</a></li>
+                        <li><a href="#"><i class="icon-mail2"></i> <a href="mailto: sale01.hhtravel@gmail.com"> sale01.hhtravel@gmail.com</a></a></li>
                         <li><a href="#"><i class="icon-instagram"></i> Instagram</a></li>
                     </ul>
                 </div>
