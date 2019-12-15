@@ -33,18 +33,32 @@
                     'form-control','placeholder'=>'Ngày đi','format'=>'dd/mm/yyyy','id'=>'start_date']) !!}
                 </div>
                 <div class="col-md-6">
-                    {!! Form::label('arrival_time', 'Giờ dự kiến đi', ['class' => 'control-label'])
+                    {!! Form::label('start_time', 'Giờ dự kiến đi', ['class' => 'control-label'])
                     !!}
-                    {!! Form::time('arrival_time', '', ['class' =>
-                    'form-control','placeholder'=>'Giờ dự kiến']) !!}
+                    {!! Form::time('start_time', '', ['class' =>
+                    'form-control','placeholder'=>'Giờ dự kiến','id'=>'start_time']) !!}
                 </div>
             </div>
             <div class="row form-group">
+                <div class="col-sm-6 ">
+                    {!! Form::label('direction', 'Chuyến', ['class' => 'control-label'])
+                    !!}
+                    {!!Form::select('direction', ['0'=>'Hà nội -> Sapa','1'=>'Sapa -> Hà Nội'],0,
+                    ['class'=>'form-control','onchange'=>'callDirection(this,event)','id'=>'direction'])!!}
+                </div>
                 <div class="col-sm-6 ">
                     {!! Form::label('car_id', 'Chọn xe', ['class' => 'control-label'])
                     !!}
                     {!!Form::select('car_id', $cars,0,
                     ['class'=>'form-control','onchange'=>'callLocationAjax(this,event)','id'=>'car_id'])!!}
+                </div>
+            </div>
+            <div class="row form-group">
+                <div class="col-sm-6 ">
+                    {!! Form::label('pickup_place_id', 'Điểm đón (Có thể chọn nhiều)', ['class' => 'control-label'])
+                    !!}
+                    {!!Form::select('pickup_place_id[]', ['Chọn xe để có thể thấy điểm đón'],null,
+                    ['class'=>'form-control','id'=>'pickup_place_id','multiple'=>true])!!}
                 </div>
                 <div class="col-md-6">
                     {!! Form::label('number_ticket', 'Số vé', ['class' => 'control-label']) !!}
@@ -55,14 +69,6 @@
 
 
             <div class="row form-group">
-                <div class="col-sm-6 ">
-                    {!! Form::label('pickup_place_id', 'Điểm đón', ['class' => 'control-label'])
-                    !!}
-                    {!!Form::select('pickup_place_id[]', [],0,
-                    ['class'=>'form-control','id'=>'pickup_place_id','multiple'=>true])!!}
-                </div>
-            </div>
-            <div class="row form-group">
                 <div class="col-md-12">
                     {!! Form::label('type_service', 'Bạn muốn nhận tư vấn tại đâu?', ['class' =>
                     'control-label']) !!}
@@ -72,10 +78,7 @@
                             {!! Form::label('type_service', 'Điện thoại')!!}
 
                         </div>
-                        <div class="col-md-4">
-                            {!! Form::radio('type_service','1') !!}
-                            {!! Form::label('type_service', 'Facebook')!!}
-                        </div>
+
                         <div class="col-md-4">
                             {!! Form::radio('type_service','2') !!}
                             {!! Form::label('type_service', 'Zalo')!!}
@@ -111,47 +114,37 @@ headers: {
 });
 
     $fullname = form.find('#fullname').val().trim();
-    $fbLink = form.find('#fb-link').val().trim();
     $msisdn = form.find('#msisdn').val().trim();
+    $startTime = form.find('#start_time').val().trim();
     $startDate = form.find('#start_date').val().trim();
-    $adults = form.find('#adults').val().trim();
-    $minors = form.find('#minors').val().trim();
-    $childrens = form.find('#childrens').val().trim();
-    $combo_type_id = form.find('#combo_type_id').val().trim();
-    $childrens = form.find('#childrens').val().trim();
-    $hotel_id = form.find('#hotel_id').val().trim();
-    $room_id = form.find('#room_id').val().trim();
-    $pickup_place_id = form.find('#pickup_place_id').val().trim();
+    $pickup_place_id = form.find('#pickup_place_id').val();
     $car_id = form.find('#car_id').val().trim();
+    $number_ticket = form.find('#number_ticket').val();
     $typeService = form.find('input[name="type_service"]:checked').val();
 
     $.ajax({
 
         type: 'POST',
 
-        url: '/bookCustom/store',
+        url: '/bookCar/store',
 
         data: { 
             fullname:$fullname,
-            fbLink:$fbLink,
             msisdn:$msisdn,
             startDate:$startDate,
-            adults:$adults,
-            minors:$minors,
-            childrens:$childrens,
             typeService:$typeService,
-            combo_type_id:$combo_type_id,
-            combo_type_id:$combo_type_id,
-            room_id:$room_id,
-            hotel_id:$hotel_id,
-            car_id:$car_id 
+            startTime:$startTime,
+            car_id:$car_id,
+            number_ticket:$number_ticket,
+            pickup_place_id:$pickup_place_id
         },
 
         success: function(data) {
 
+            console.log(data.data);
             alert(data.result);
             event.preventDefault();
-            resetForm(form);
+            resetForm(form,e);
         },
         error: function(data) {
             var errors = data.responseJSON;
@@ -163,25 +156,23 @@ headers: {
 }
 
 
-resetForm=function(form){
+resetForm=function(form,e){
     form.find('#fullname').val("");
+    form.find('#start_time').val("");
     form.find('#start_date').val("");
     form.find('#end_date').val("");
-    form.find('#fb-link').val("");
     form.find('#msisdn').val("");
-    form.find('#combo_type_id').val("0");
-    form.find('#adults').val("1");
-    form.find('#minors').val("0");
-    form.find('#childrens').val("0");
-    form.find('#hotel_id').val("0");
-    form.find('#room_id').val("0");
+
+    // form.find('#pickup_place_id').val(['Chọn xe để có thể thấy điểm đón']);
+    callLocationAjax(0,e)
+    form.find('#number_ticket').val(1);
+    form.find('#car_id').val("0");
 }
 validateFormBookCustom =function(form){
     $fullname = form.find('#fullname').val().trim();
     $startDate = form.find('#start_date').val().trim();
-    $fbLink = form.find('#fb-link').val().trim();
+    $startTime = form.find('#start_time').val().trim();
     $msisdn = form.find('#msisdn').val().trim();
-    $combo_type_id = form.find('#combo_type_id').val();
     $typeService = form.find('input[name="type_service"]:checked').val();
     if($fullname ==""){
         alert("Vui lòng nhập tên bạn");
@@ -195,23 +186,17 @@ validateFormBookCustom =function(form){
         return false;
     }
     }
-    if($typeService ==1){
-        if($fbLink ==""){
-        alert("Bạn cần điền Facebook để nhận tư vấn");
-        form.find('#fb-link').focus();
-        return false;
-    }
-    }
     if($startDate ==""){
         alert("Bạn cần điền ngày đi");
         form.find('#start_date').focus();
         return false;
     }
-    if($combo_type_id ==null || $combo_type_id == "0"){
-        alert("Bạn cần chọn số ngày đi");
-        form.find('#combo_type_id').focus();
+    if($startTime ==""){
+        alert("Bạn cần điền giờ đi");
+        form.find('#start_time').focus();
         return false;
     }
+    
     
 
    
@@ -234,7 +219,7 @@ validateFormBookCustom =function(form){
 
         url: '/getLocationByCarId',
 
-        data: { id: car.value },
+        data: { id: car.value,'book_car':true },
 
         success: function(data) {
             var arr = [];
@@ -253,6 +238,43 @@ validateFormBookCustom =function(form){
 
     });
 }
-   
+
+callDirection = function(direction,e)
+{
+    e.preventDefault();
+    $.ajaxSetup({
+        headers: {
+
+        'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+
+        }
+
+    });
+
+    $.ajax({
+
+type: 'POST',
+
+url: '/getCarByDirection',
+
+data: { direction: direction.value},
+
+success: function(data) {
+    var arr = [];
+    arr.push(data.data);
+    $('#car_id').empty();
+    if (data.data.length !== 0) {
+        $.each(data.data, function(key, value) {
+            // if (key) {
+                $('#car_id').append('<option value="' + key + '">' + value +'</option>');
+            // }
+        });
+    } else {
+        $('#car_id').append('<option value="">' + "Không có xe phù hợp" + '</option>');
+    }
+}
+
+});
+}   
 </script>
 @endsection

@@ -56,6 +56,9 @@ Route::resource('/combotrips', 'ComboTripClientController')->names([
     'update' => 'combotripclients.update'
 ]);
 Route::post('/getLocationByCarId', 'Controller@getListLocationByCarIdAjaxForCBB')->name('getLocationByCarid');
+Route::post('/getCarByDirection', 'Controller@getListCarOfDirectionAjaxActiveForCBB')->name('getCarByDirection');
+Route::post('/getCombohot', 'Controller@getCombohotForFooter')->name('getCombohot');
+
 Route::get('/combotrip/{combo}-{slug}', 'ComboTripClientController@show')->name('combotrips.show');
 
 Route::prefix('admin')->middleware('auth')->group(function () {

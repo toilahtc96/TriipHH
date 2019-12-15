@@ -52,6 +52,9 @@ class BookCustomClientController extends Controller
         $bookCustom->minors = $request->minors; 
         $bookCustom->childrens = $request->childrens; 
         $bookCustom->number_room_book = $request->number_room_book; 
+        $bookCustom->car_id =$request->car_id;
+        $bookCustom->pickup_place_id = $request->pickup_place_id; 
+        // $bookCustom->childrens = $request->childrens; 
         
         $bookCustom->save();
         return response()->json(['result' => "Đăng kí thành công"]);

@@ -80,7 +80,7 @@
                                 </div>
                             </div>
                             {!! Form::label('price', 'Tổng tiền ', ['class' => 'control-label']) !!}
-                            {!! Form::text('price', $value = $bookcar->price, ['class' =>
+                            {!! Form::number('price', $value = $bookcar->price, ['class' =>
                             'form-control','placeholder'=>'Tổng tiền ']) !!}
                             @if( $bookcar->book_status_id == 8 )
                             <div class="row">

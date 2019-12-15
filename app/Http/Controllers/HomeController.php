@@ -57,14 +57,14 @@ class HomeController extends Controller
         $hotels = $this->getListHotelActiveForCBB();
         $rooms = ["Loại phòng"];
         $combotypes = $this->getListComboTypeActiveForCBB();
-        $cars = $this->getListCarActiveForCBB();
+        $cars = $this->getListCarOfDirectionActiveForCBB();
         return view('client.home.bookcustom')->with('cars',$cars)->with('combotypes',$combotypes)
         ->with('hotels',$hotels)->with('rooms',$rooms)->with('banner','15740915990.jpg');
     }
 
     public function bookcar()
     {
-        $cars = $this->getListCarActiveForCBB();
+        $cars = $this->getListCarOfDirectionActiveForCBB();
         return view('client.home.bookcar')->with('cars',$cars)->with('banner','15740915990.jpg');
     }
 

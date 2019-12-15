@@ -173,7 +173,7 @@ headers: {
             childrens:$childrens,
             typeService:$typeService,
             combo_type_id:$combo_type_id,
-            combo_type_id:$combo_type_id,
+            pickup_place_id:$pickup_place_id,
             room_id:$room_id,
             hotel_id:$hotel_id,
             car_id:$car_id 

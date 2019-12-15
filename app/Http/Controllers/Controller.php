@@ -236,6 +236,16 @@ class Controller extends BaseController
         }
         return $hotels;
     }
+    public function getListCarOfDirectionActiveForCBB()
+    {
+        $cardb = Car::where('direction', 0)->where('status', 1)->get();
+        $cars  = [];
+        $cars[0] = "Chọn xe";
+        foreach ($cardb as $key => $val) {
+            $cars[$val->id] = $val->own_car . ' - ' . $val->car_type;
+        }
+        return $cars;
+    }
     public function getListCarActiveForCBB()
     {
         $cardb = Car::where('status', 1)->get();
@@ -332,18 +342,41 @@ class Controller extends BaseController
         }
         return $roomHotels;
     }
+    public function getListCarOfDirectionAjaxActiveForCBB()
+    {
+        if (isset($_POST["direction"])) {
+            $cardb = Car::where('direction', $_POST["direction"])->where('status', 1)->get();
+            $cars  = [];
+            $cars[0] = "Chọn xe";
+            foreach ($cardb as $key => $val) {
+                $cars[$val->id] = $val->own_car . ' - ' . $val->car_type;
+            }
+            return response()->json(['data' => $cars, 'result' => 'thành công']);
+        } else {
+            return response()->json(['result' => 'thất bại']);
+        }
+    }
+    public function  getCombohotForFooter()
+    {
+        $comboDB = ComboTrip::where('combo_trips.status', 1)
+        ->join('hotels', 'hotels.id', '=', 'combo_trips.hotel_id')
+        ->where('hotels.status',1)
+        ->sortable(['created_at','desc'])->get();
 
+        return response()->json(['data'=>$comboDB,'result' => 'call']);
+    }
 
     public function getListRoomByHotelIdAjaxForCBB()
     {
         if (isset($_POST["id"])) {
             $roomHoteldb = RoomHotel::where('hotel_id', $_POST["id"])->get();
             $roomHotels  = [];
-            array_push($roomHotels, 'Chọn loại phòng');
+            $roomHotels[0] = 'Chọn loại phòng';
             foreach ($roomHoteldb as $key => $val) {
-                array_push($roomHotels, $val->level);
+                // array_push($roomHotels[ $val->id], $val->level);
+                $roomHotels[$val->id] = $val->level;
             }
-            return response()->json(['data' => $roomHotels, 'result' => 'Get OK']);
+            return response()->json(['data' => $roomHotels, 'result' => 'thành công']);
         }
     }
 
@@ -355,7 +388,9 @@ class Controller extends BaseController
             $listLocationId = explode(",", $listLocationId->start_pickup_location);
             $listLocation = Location::whereIn('id', $listLocationId)->get();
             $listLocationCbb  = [];
-            $listLocationCbb[0] = "Chọn điểm đón";
+            if (!isset($_POST["book_car"])) {
+                $listLocationCbb[0] = "Chọn điểm đón";
+            }
             foreach ($listLocation as $key => $val) {
                 $listLocationCbb[$val->id] = $val->location_name;
             }

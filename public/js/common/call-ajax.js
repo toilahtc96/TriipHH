@@ -72,15 +72,15 @@ callRoomAjax = function(hotel, e) {
 
         success: function(data) {
             var arr = [];
+            console.log((data.data[3]));
+            console.log(typeof(data.data));
             arr.push(data.data);
             $('#room_id').empty();
-            if (data.data.length > 1) {
+            if (Object.values(data.data).length > 1) {
                 $.each(data.data, function(key, value) {
-                    if (value !== "Chọn loại phòng") {
-                        $('#room_id').append('<option value="' + value + '">' + value + ' Sao' + '</option>');
-                    } else {
-                        $('#room_id').append('<option value="">' + 'Chọn loại phòng' + '</option>');
-                    }
+                    if (key == 0) {
+                        $('#room_id').append('<option value="' + key + '">' + value + '</option>');
+                    } else { $('#room_id').append('<option value="' + key + '">' + value + ' Sao' + '</option>'); }
                 });
             } else {
                 $('#room_id').append('<option value="">' + "Không có loại phòng thuộc khách sạn này" + '</option>');
