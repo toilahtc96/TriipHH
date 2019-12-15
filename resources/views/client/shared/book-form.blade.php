@@ -1,58 +1,136 @@
 <div class="col-md-4 col-md-push-1 animate-box" data-animate-effect="fadeInRight">
-        <div class="form-wrap">
-            <div class="tab">
+    <div class="form-wrap">
+        <div class="tab">
 
-                <div class="tab-content">
-                    <div class="tab-content-inner active" data-content="signup">
-                        <h3>Book Your Trip</h3>
-                        <form action="#">
-                            <div class="row form-group">
-                                <div class="col-md-12">
-                                    <label for="fullname">Your Name</label>
-                                    <input type="text" id="fullname" class="form-control">
-                                </div>
-                            </div>
-                            <div class="row form-group">
-                                <div class="col-md-12">
-                                    <label for="activities">Activities</label>
-                                    <select name="#" id="activities" class="form-control">
-                                        <option value="">Activities</option>
-                                        <option value="">Hiking</option>
-                                        <option value="">Caving</option>
-                                        <option value="">Swimming</option>
-                                    </select>
-                                </div>
-                            </div>
-                            <div class="row form-group">
-                                <div class="col-md-12">
-                                    <label for="destination">Destination</label>
-                                    <select name="#" id="destination" class="form-control">
-                                        <option value="">Philippines</option>
-                                        <option value="">USA</option>
-                                        <option value="">Australia</option>
-                                        <option value="">Singapore</option>
-                                    </select>
-                                </div>
-                            </div>
+            <div class="tab-content">
+                <div class="tab-content-inner active" data-content="signup">
+                    <h3>Đặt chuyến đi</h3>
+                    {!! Form::open(['method' => 'POST', 'action' => 'BookCustomClientController@index',
+                    'class' => 'form-horizontal', 'id'=>"bookcustom-banner"]) !!}
+                    <div class="row form-group">
+                        <div class="col-md-12">
+                            {!! Form::label('fullname', 'Tên của bạn', ['class' => 'control-label']) !!}
+                            {!! Form::text('fullname', null, ['class' => 'form-control','placeholder'
+                            =>'Nhập tên bạn','id'=>'fullname'])
+                            !!}
 
-                            <div class="row form-group">
-                                <div class="col-md-12">
-                                    <label for="date-start">Date Travel</label>
-                                    <input type="text" id="date-start" class="form-control">
-                                </div>
-                            </div>
+                        </div>
+                    </div>
+                    <div class="row form-group">
+                        <div class="col-md-12">
+                            {!! Form::label('msisdn', 'Số điện thoại', ['class' => 'control-label']) !!}
+                            {!! Form::text('msisdn', null, ['class' => 'form-control','placeholder'
+                            =>'Số điện thoại','id'=>'msisdn']) !!}
+                        </div>
+                    </div>
+                    <div class="row form-group">
+                        <div class="col-md-12">
+                            {!! Form::label('start_date', 'Ngày đi', ['class' => 'control-label']) !!}
+                            {!! Form::date('start_date', null, ['class' =>
+                            'form-control','placeholder'=>'Ngày đi','format'=>'dd/mm/yyyy','id'=>'start_date']) !!}
 
-                            <div class="row form-group">
-                                <div class="col-md-12">
-                                    <input type="submit" class="btn btn-primary btn-block"
-                                        value="Submit">
-                                </div>
-                            </div>
-                        </form>
+                        </div>
+                    </div>
+                    <div class="row form-group">
+                        <div class="col-md-12">
+                            {!! Form::label('combo_type_id', 'Số ngày đi', ['class' => 'control-label']) !!}
+                            {!!Form::select('combo_type_id', $combotypes, null,
+                            ['class'=>'form-control','id'=>'combo_type_id'])!!}
+                        </div>
                     </div>
 
-
+                    <div class="mt-3 mb-3">
+                        {!!Form::button('Đồng ý', ['class' => 'btn btn-primary
+                        btn-block','onClick'=>'submitBookCustomBanner(event)'])!!}
+                        {!! Form::close() !!}
+                    </div>
                 </div>
+
+
             </div>
         </div>
     </div>
+</div>
+<script>
+    submitBookCustomBanner = function(e){
+        $form = $('#bookcustom-banner');
+        if(validateFormBookCustomBanner($form)){
+            createBookCustomBanner(e,$form);
+        }
+}
+createBookCustomBanner = function(e,form){
+    e.preventDefault();
+    $.ajaxSetup({
+headers: {
+
+    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+
+}
+
+});
+
+    $fullname = form.find('#fullname').val().trim();
+    $msisdn = form.find('#msisdn').val().trim();
+    $startDate = form.find('#start_date').val().trim();
+    $combo_type_id = form.find('#combo_type_id').val().trim();
+    $.ajax({
+        type: 'POST',
+        url: '/bookCustom/store',
+        data: { 
+            fullname:$fullname,
+            msisdn:$msisdn,
+            startDate:$startDate,
+            combo_type_id:$combo_type_id,
+        },
+
+        success: function(data) {
+
+            alert(data.result);
+            event.preventDefault();
+            resetFormBanner(form);
+        },
+        error: function(data) {
+            var errors = data.responseJSON;
+            alert("có lỗi khi lưu thông tin. Vui lòng liên hệ đội kĩ thuật!")
+            console.log(errors);
+        }
+
+    });
+}
+
+
+resetFormBanner=function(form){
+    form.find('#fullname').val("");
+    form.find('#start_date').val("");
+    form.find('#msisdn').val("");
+    form.find('#combo_type_id').val("0");
+}
+validateFormBookCustomBanner =function(form){
+    $fullname = form.find('#fullname').val().trim();
+    $startDate = form.find('#start_date').val().trim();
+    $msisdn = form.find('#msisdn').val().trim();
+    $combo_type_id = form.find('#combo_type_id').val();
+    if($fullname ==""){
+        alert("Vui lòng nhập tên bạn");
+        form.find('#fullname').focus();
+        return false;
+    }
+        if($msisdn ==""){
+        alert("Bạn cần điền số điện thoại để nhận tư vấn");
+        form.find('#msisdn').focus();
+        return false;
+    }
+    if($startDate ==""){
+        alert("Bạn cần điền ngày đi");
+        form.find('#start_date').focus();
+        return false;
+    }
+    if($combo_type_id ==null || $combo_type_id == "0"){
+        alert("Bạn cần chọn số ngày đi");
+        form.find('#combo_type_id').focus();
+        return false;
+    }
+    return true;
+}
+   
+</script>

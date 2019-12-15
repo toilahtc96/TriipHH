@@ -38,7 +38,7 @@ class BookCustomTripController extends Controller
             ->leftJoin('book_statuses', 'book_statuses.id', '=', 'book_custom_trips.book_status_id')
             ->sortable(['created_at' => 'desc'])->paginate(5);
         return view('admin/bookcustomtrip/list-bookcustomtrip')->with('bookcustomtrips', $bookcustomtrips)
-            ->with('bookstatuses', $bookstatuses)->with('table_name', 'book_custom_trips')->with('url_link','bookcustomtrips');
+            ->with('bookstatuses', $bookstatuses)->with('table_name', 'book_custom_trips')->with('url_link', 'bookcustomtrips');
     }
 
     /**
@@ -85,17 +85,25 @@ class BookCustomTripController extends Controller
         $locations = $this->getListLocationForCBB();
         $cars = $this->getListCarForCBB();
         $bookcustomtrip = BookCustomTrip::where('id', $id)->firstOrFail();
-        $combotypes = $this->getListComboTypeForCBB();
-        $hotel_id = RoomHotel::select('hotel_id')->where('id', $bookcustomtrip->room_id)->firstOrFail();
-        $hotel_name = "";
-        $room = "";
 
-        if (isset($hotel_id)) {
-            $hotel_name = Hotel::select('hotel_name')->where('id', $hotel_id)->get();
-            $rooms = $this->getListRoomByHotelIdForCBB($hotel_id->hotel_id);
+        $combotypes = $this->getListComboTypeForCBB();
+        if ($bookcustomtrip->room_id) {
+            $hotel_id = RoomHotel::select('hotel_id')->where('id', $bookcustomtrip->room_id)->firstOrFail();
+
+            $hotel_name = "";
+            $room = "";
+            if (isset($hotel_id)) {
+                $hotel_name = Hotel::select('hotel_name')->where('id', $hotel_id)->get();
+                $rooms = $this->getListRoomByHotelIdForCBB($hotel_id->hotel_id);
+            }
+            
+        }
+        else{
+        $rooms = [];
+        $hotel_name = "";
         }
         return view('admin/bookcustomtrip/edit-bookcustomtrip')->with('bookcustomtrip', $bookcustomtrip)->with('locations', $locations)->with('cars', $cars)
-            ->with('hotel_name', $hotel_name)->with('rooms', $rooms)->with('combotypes', $combotypes)->with('url_link','bookcustomtrips');
+        ->with('hotel_name', $hotel_name)->with('rooms', $rooms)->with('combotypes', $combotypes)->with('url_link', 'bookcustomtrips');
     }
 
     /**
@@ -107,7 +115,7 @@ class BookCustomTripController extends Controller
      */
     public function update(Request $request, $id)
     {
-       
+
         $validatedData = $request->validate([
             'fullname' => 'required|max:255',
             'msisdn'  => 'required|max:20',
@@ -117,7 +125,7 @@ class BookCustomTripController extends Controller
         $input = $request->all();
 
         $bookCustomTrip->fill($input)->save();
-        return redirect('/admin/bookcustomtrips')->with('url_link','bookcustomtrips');
+        return redirect('/admin/bookcustomtrips')->with('url_link', 'bookcustomtrips');
     }
 
     /**

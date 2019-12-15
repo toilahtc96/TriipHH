@@ -103,6 +103,7 @@
                                 {!!Form::select('room_id', $rooms, $bookcustomtrip->room_id, ['class'=>
                                 'form-control'])!!}
                             </div>
+
                             <div class="col-sm-6">
                                 {!! Form::label('room_code', 'Mã phòng', ['class' => 'control-label']) !!}
                                 {!! Form::text('room_code', $value = $bookcustomtrip->room_code, ['class' =>

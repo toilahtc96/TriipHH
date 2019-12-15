@@ -35,10 +35,12 @@ class HomeController extends Controller
                 $value->price = $room->price;
             }
         }
-        $combotrips = ComboTrip::select('combo_trips.*','hotels.hotel_name')
+        $combotrips = ComboTrip::select('combo_trips.*','hotels.hotel_name')->where('combo_trips.status',1)
         ->leftJoin('hotels','combo_trips.hotel_id','=','hotels.id')->sortable(['created'=>'desc'])->paginate(6);
+
+        $combotypes = $this->getListComboTypeActiveForCBB();
         // dd($combotrips);
-        return view('client.home')->with('hotels',$hotels)->with('combotrips',$combotrips);
+        return view('client.home')->with('hotels',$hotels)->with('combotrips',$combotrips)->with('combotypes',$combotypes);
         
     }
 

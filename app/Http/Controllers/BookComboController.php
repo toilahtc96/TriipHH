@@ -106,6 +106,7 @@ class BookComboController extends Controller
         }
 
         $combotrip = ComboTrip::where('id', $bookcombo->combo_id)->firstOrFail();
+
         $locationPassing = $this->getListLocationByCarForCBB($combotrip->car_id);
 
         $car = Car::find($combotrip->car_id);
