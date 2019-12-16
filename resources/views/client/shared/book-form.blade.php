@@ -34,8 +34,9 @@
                     <div class="row form-group">
                         <div class="col-md-12">
                             {!! Form::label('combo_type_id', 'Số ngày đi', ['class' => 'control-label']) !!}
-                            {!!Form::select('combo_type_id', $combotypes, null,
-                            ['class'=>'form-control','id'=>'combo_type_id'])!!}
+                            <select class="form-control" id="combo_type_id" name="combo_type_id">
+                                <option value="0">Chọn số ngày đi</option>
+                            </select>
                         </div>
                     </div>
 
@@ -51,7 +52,11 @@
         </div>
     </div>
 </div>
+<script src="{!! asset('client/js/jquery-3.3.1.min.js') !!}"></script>
 <script>
+    $(document).ready(function(){
+        getComboType();
+    })
     submitBookCustomBanner = function(e){
         $form = $('#bookcustom-banner');
         if(validateFormBookCustomBanner($form)){
@@ -132,5 +137,40 @@ validateFormBookCustomBanner =function(form){
     }
     return true;
 }
-   
+   getComboType=function(){
+    // combo_type_id
+
+    $.ajaxSetup({
+headers: {
+
+    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+
+}
+
+});
+
+$.ajax({
+        type: 'POST',
+        url: '/getcombotypes',
+
+        success: function(data) {
+            if(data.data){
+                if(data.data.length>1){
+                    data.data.forEach(element => {
+                        // $('#combo_type_id')
+                        var opt = document.createElement('option');
+                        opt.value = element.id;
+                        opt.innerHTML = element.combo_type_name;
+                        $('#combo_type_id').append(opt);
+                });
+                }
+            }
+            event.preventDefault();
+        },
+        error: function(data) {
+            console.log(errors);
+        }
+
+    });
+   }
 </script>

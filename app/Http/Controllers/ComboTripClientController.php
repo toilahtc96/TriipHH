@@ -19,28 +19,44 @@ class ComboTripClientController extends Controller
     {
         //
         $locations = $this->getListLocationForCBB();
-        $hotels_id = ComboTrip::select('hotel_id')->where('status', 1)->distinct('hotel_id')->sortable()->get();
+        $hotels_id = ComboTrip::select('hotel_id')->where('status', 1)
+            ->distinct('hotel_id')->sortable()->get();
         $arr_hotel_id  = [];
-        
+
         foreach ($hotels_id as $key => $value) {
             array_push($arr_hotel_id, $value->hotel_id);
         }
-        $hotels = Hotel::whereIn('hotels.id', $arr_hotel_id)->where('hotels.status', 1)
-            ->leftJoin('combo_trips',  'hotels.id', '=','combo_trips.hotel_id')->distinct('combo_trip_name','hotel_id')
+        $hotels = Hotel::whereIn('hotels.id', $arr_hotel_id)
+            ->where('hotels.status', 1)
+            ->leftJoin('combo_trips',  'hotels.id', '=', 'combo_trips.hotel_id')
+            ->where('combo_trips.status', 1)
+            ->distinct('hotel_name')
+            // ->distinct('combo_trip_name')
             ->sortable()->paginate(6);
         foreach ($hotels as $key => $value) {
-            $combotrip_min_price = ComboTrip::select('combo_trips.price')->MIN('combo_trips.price')
-            ->where('combo_trips.status', 1)->Where('hotel_id', $value->id)->first();
+            $combotrip_min_price = ComboTrip::select('combo_trips.price')
+                ->MIN('combo_trips.price')
+                ->where('combo_trips.status', 1)
+                ->Where('hotel_id', $value->id)->first();
             if ($combotrip_min_price != null) {
-                $value->min_price = $combotrip_min_price->price;
-            }else{
+                if ($value->min_price > $combotrip_min_price->price) {
+                    $value->min_price = $combotrip_min_price->price;
+                } else {
+                    $value->min_price = $value->price;
+                }
+            } else {
+
+
                 $value->min_price = $value->price;
             }
         }
-        $combotypes = $this->getListComboTypeForCBB();
-        $combotripsNew = ComboTrip::select('hotels.*', 'combo_types.*','combo_trips.*')->where('combo_trips.status', 1)
+        $combotypes = $this->getListComboTypeActiveForCBB();
+        $combotripsNew = ComboTrip::select('hotels.*', 'combo_types.*', 'combo_trips.*')
+            ->where('combo_trips.status', 1)
             ->leftJoin('combo_types',  'combo_trips.combo_type_id', '=', 'combo_types.id')
+            ->where('combo_types.status', 1)
             ->leftJoin('hotels',  'combo_trips.hotel_id', '=', 'hotels.id')
+            ->where('hotels.status', 1)
             ->sortable(['created_at' => 'desc'])->get();
         foreach ($combotripsNew as $key => $combo) {
             # code...
@@ -92,8 +108,10 @@ class ComboTripClientController extends Controller
     {
         //
         $locations = $this->getListLocationForCBB();
-        $combotrips = ComboTrip::select('combo_trips.*', 'combo_types.*')->where('hotel_id', $id)->where('combo_trips.status', 1)
+        $combotrips = ComboTrip::select('combo_trips.*', 'combo_types.*')
+            ->where('hotel_id', $id)->where('combo_trips.status', 1)
             ->leftJoin('combo_types',  'combo_trips.combo_type_id', '=', 'combo_types.id')
+            ->where('combo_types.status', 1)
             ->sortable()->paginate(12);
         foreach ($combotrips as $key => $combo) {
             # code...

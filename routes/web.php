@@ -18,6 +18,7 @@ Route::get('/bookcustom', 'HomeController@bookcustom')->name('bookcustom');
 Route::get('/bookcar', 'HomeController@bookcar')->name('bookcar');
 
 Route::post('/bookCustom/store', 'BookCustomClientController@store')->name('createBookCustom');
+Route::post('/getcombotypes', 'Controller@getComboTypesForBookBanner')->name('getComboTypeBanner');
 Route::resource('/bookCustom', 'BookCustomClientController')->names([
     'index' => 'bookCustom.view',
 ]);

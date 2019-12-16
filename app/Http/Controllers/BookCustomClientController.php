@@ -54,6 +54,16 @@ class BookCustomClientController extends Controller
         $bookCustom->number_room_book = $request->number_room_book; 
         $bookCustom->car_id =$request->car_id;
         $bookCustom->pickup_place_id = $request->pickup_place_id; 
+         $request->pickup_place_id == null ? $bookCustom->pickup_place_id = [] : $bookCustom->pickup_place_id = $request->pickup_place_id;
+        if ($bookCustom->pickup_place_id) {
+            $place = "";
+            foreach ($bookCustom->pickup_place_id  as  $val) {
+                $place  .=  ',' .   $val;
+            }
+            $bookCustom->pickup_place_id = (substr($place, 1, strlen($place)));
+        } else {
+            $bookCustom->pickup_place_id = "";
+        }
         // $bookCustom->childrens = $request->childrens; 
         
         $bookCustom->save();

@@ -102,24 +102,14 @@ getComboHot = function() {
 
 
         success: function(data) {
-            console.log(data)
             $('#combo-hot-footer').empty();
             if (data.data) {
                 i = 0;
                 data.data.forEach((value, key) => {
                     if (i < 5) {
                         i++;
-                        console.log(value.combo_trip_name);
-                        // <li><a href="#">Luxe Hotel</a></li>
-                        //         $("li")
-                        //         $("a",{
-                        //     text: value.combo_trip_name,
-                        //     title: 'some title',
-                        //     href: 'somelink.html'
-                        // }).appendTo("li")
                         $("#combo-hot-footer").append('<li><a href=/combotrip/'+value.id+'-'+value.slugs+'>' 
                 + value.combo_trip_name+'</a></li>'); 
-
                     }
                 });
             }

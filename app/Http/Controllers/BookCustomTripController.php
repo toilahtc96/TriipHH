@@ -96,14 +96,16 @@ class BookCustomTripController extends Controller
                 $hotel_name = Hotel::select('hotel_name')->where('id', $hotel_id)->get();
                 $rooms = $this->getListRoomByHotelIdForCBB($hotel_id->hotel_id);
             }
-            
+        } else {
+            $rooms = [];
+            $hotel_name = "";
         }
-        else{
-        $rooms = [];
-        $hotel_name = "";
-        }
+
+        $locationCarOld =  $this->getListPickupByCarForCBB($bookcustomtrip->car_id == null ? -1 : $bookcustomtrip->car_id);
+        $bookcustomtrip->pickup_place_id = explode(",", $bookcustomtrip->pickup_place_id);
         return view('admin/bookcustomtrip/edit-bookcustomtrip')->with('bookcustomtrip', $bookcustomtrip)->with('locations', $locations)->with('cars', $cars)
-        ->with('hotel_name', $hotel_name)->with('rooms', $rooms)->with('combotypes', $combotypes)->with('url_link', 'bookcustomtrips');
+            ->with('hotel_name', $hotel_name)->with('rooms', $rooms)->with('combotypes', $combotypes)->with('url_link', 'bookcustomtrips')
+            ->with('locationCarOld', $locationCarOld);
     }
 
     /**
@@ -121,10 +123,21 @@ class BookCustomTripController extends Controller
             'msisdn'  => 'required|max:20',
         ]);
         $bookCustomTrip  = BookCustomTrip::findOrFail($id);
-
-        $input = $request->all();
-
+        // $request->pickup_place_id = ;
+        $request->pickup_place_id == null ?
+            $request->pickup_place_id = explode(',', $bookCustomTrip->pickup_place_id) : $bookCustomTrip->pickup_place_id = $request->pickup_place_id;
+        if ($bookCustomTrip->pickup_place_id) {
+            $place = "";
+            foreach ($request->pickup_place_id  as  $val) {
+                $place  .=  ',' .   $val;
+            }
+            $bookCustomTrip->pickup_place_id = (substr($place, 1, strlen($place)));
+        } else {
+            $bookCustomTrip->pickup_place_id = "";
+        }
+        $input = $request->except(['pickup_place_id']);
         $bookCustomTrip->fill($input)->save();
+
         return redirect('/admin/bookcustomtrips')->with('url_link', 'bookcustomtrips');
     }
 

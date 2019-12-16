@@ -35,9 +35,9 @@
                         </div>
                         <div class="row">
                             <div class="col-sm-6">
-                                {!! Form::label('car_id', 'Xe', ['class' => 'control-label']) !!}
-                                {!!Form::select('car_id', $cars, $bookcustomtrip->car_id, ['class'=>
-                                'form-control'])!!}
+                                {!! Form::label('fb_link', 'FaceBook', ['class' => 'control-label']) !!}
+                                {!! Form::text('fb_link', $value = $bookcustomtrip->fb_link, ['class' =>
+                                'form-control','placeholder'=>'FaceBook']) !!}
                             </div>
                             <div class="col-sm-6">
                                 {!! Form::label('type_service', 'Tư vấn', ['class' => 'control-label']) !!}
@@ -47,9 +47,7 @@
                             </div>
 
                         </div>
-                        {!! Form::label('fb_link', 'FaceBook', ['class' => 'control-label']) !!}
-                        {!! Form::text('fb_link', $value = $bookcustomtrip->fb_link, ['class' =>
-                        'form-control','placeholder'=>'FaceBook']) !!}
+
                         {!! Form::label('combo_type_id', 'Số ngày đi', ['class' => 'control-label']) !!}
                         {!!Form::select('combo_type_id', $combotypes, $value=$bookcustomtrip->combo_type_id,
                         ['class'=>'form-control'])!!}
@@ -65,9 +63,32 @@
                                 'form-control','placeholder'=>'Giờ dự kiến tới']) !!}
                             </div>
                         </div>
-                        {!! Form::label('pickup_place_id', 'Nơi đón', ['class' => 'control-label']) !!}
-                        {!!Form::select('pickup_place_id', $locations, $bookcustomtrip->pickup_place_id, ['class'=>
-                        'form-control'])!!}
+                        <div class="row">
+                            <div class="col-sm-6">
+                                {!! Form::label('car_old_id', 'Xe Combo', ['class' => 'control-label']) !!}
+                                {!!Form::select('car_old_id', $cars, $bookcustomtrip->car_id,
+                                ['class'=>'form-control','disabled'=>'true'])!!}
+                            </div>
+                            <div class="col-sm-6">
+                                {!! Form::label('pickup_place_old', 'Điểm đón đã đặt', ['class' => 'control-label']) !!}
+                                {!!Form::select('pickup_place_old[]', $locationCarOld, $bookcustomtrip->pickup_place_id,
+                                ['class'=>'form-control','disabled'=>'true','multiple'=>true])!!}
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-sm-6 ">
+                                {!! Form::label('car_id', 'Chọn xe', ['class' => 'control-label'])
+                                !!}
+                                {!!Form::select('car_id', $cars,0,
+                                ['class'=>'form-control','onchange'=>'callLocationAjax(this,event)'])!!}
+                            </div>
+                            <div class="col-sm-6 ">
+                                {!! Form::label('pickup_place_id', 'Điểm đón', ['class' => 'control-label'])
+                                !!}
+                                {!!Form::select('pickup_place_id[]', [''=>'Chọn xe để xem điểm đón'],0,
+                                ['class'=>'form-control','multiple'=>true,'id'=>'pickup_place_id'])!!}
+                            </div>
+                        </div>
 
                         <div class="row">
                             <div class="col-sm-6">
@@ -147,4 +168,48 @@
 </div>
 
 
+<script src="{!! asset('client/js/jquery-3.3.1.min.js') !!}"></script>
+<script>
+    
+callLocationAjax = function(car, e) {
+    e.preventDefault();
+    $.ajaxSetup({
+        headers: {
+
+        'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+
+        }
+
+    });
+        $.ajax({
+
+        type: 'POST',
+
+        url: '/getLocationByCarId',
+
+        data: { id: car.value },
+
+        success: function(data) {
+            if(data.data){
+            var arr =Object.entries(data.data);
+            console.log(arr)
+            $('#pickup_place_id').empty();
+            if (arr.length !== 0) {
+                $.each(arr, function(key, value) {
+                    // if (key) {
+                        $('#pickup_place_id').append('<option value="' + value[0] + '">' + value[1] +'</option>');
+                    // }
+                });
+            }else {
+                $('#pickup_place_id').append('<option value="">' + "Không có điểm đón có sẵn" + '</option>');
+            } 
+        }
+        else {
+                $('#pickup_place_id').append('<option value="">' + "Không có điểm đón có sẵn" + '</option>');
+            }
+        }
+    });
+}
+   
+</script>
 @endsection

@@ -39,8 +39,11 @@ class BookComboController extends Controller
             ->leftJoin('combo_types', 'combo_types.id', '=', 'book_combos.combo_type_id')
             ->leftJoin('combo_trips', 'combo_trips.id', '=', 'book_combos.combo_id')
             ->leftJoin('book_statuses', 'book_statuses.id', '=', 'book_combos.book_status_id')
-            ->leftJoin('cars', 'cars.id', '=', 'book_combos.car_id')->sortable(['created_at' => 'desc'])->paginate(5);
+            ->leftJoin('cars', 'cars.id', '=', 'book_combos.car_id')
+            ->sortable(['created_at' => 'desc'])->paginate(5);
             // dd($bookcombos);
+
+           
         return view('admin/bookcombo/list-bookcombo')->with('bookcombos', $bookcombos)
         ->with('bookstatuses', $bookstatuses)->with('table_name', 'book_combos')->with('url_link','bookcombos');
     }
@@ -114,11 +117,15 @@ class BookComboController extends Controller
         $rooms = $this->getListRoomByHotelIdForCBB($combotrip->hotel_id);
         $roomnews = $this->getListRoomByHotelIdForCBB($bookcombo->hotel_id);
 
+        $locationCarOld =  $this->getListPickupByCarForCBB($bookcombo->car_id == null? -1:$bookcombo->car_id);
+        $bookcombo->pickup_place_id = explode(",",$bookcombo->pickup_place_id );
+
         return view('admin/bookcombo/edit-bookcombo')->with('bookcombo', $bookcombo)->with('locations', $locations)->with('cars', $cars)
             ->with('hotels', $hotels)->with('rooms', $rooms)->with('combotypes', $combotypes)->with('bookstatues', $bookstatues)->with('combotrips', $combotrips)
             ->with('combotrip', $combotrip)->with('roomnews', $roomnews)->with('locationPassing', $locationPassing)->with('car', $car)
             ->with('hotel_id_new', $hotel_id_new == null ? 0 : $hotel_id_new->hotel_id)
             ->with('rooms_new', $rooms_new == null ? ['0' => 'Chọn hạng phòng'] : $rooms_new)
+            ->with('locationCarOld',$locationCarOld)
             ->with('url_link','bookcombos');
     }
 
@@ -164,9 +171,21 @@ class BookComboController extends Controller
         }
         $bookCombo->car_id = $request->car_id;
         $bookCombo->pickup_place_id = $request->pickup_place_id;
+
+        $request->pickup_place_id == null ? $request->pickup_place_id = $bookCombo->pickup_place_id : $bookCombo->pickup_place_id = $request->pickup_place_id;
+        if ($bookCombo->pickup_place_id) {
+            $place = "";
+            foreach ($bookCombo->pickup_place_id  as  $val) {
+                $place  .=  ',' .   $val;
+            }
+            $bookCombo->pickup_place_id = (substr($place, 1, strlen($place)));
+        } else {
+            $bookCombo->pickup_place_id = "";
+        }
         // $bookCombo-> = $request->;
         // $bookCombo-> = $request->;
         // $bookCombo-> = $request->;
+        dd($bookCombo);
         $bookCombo->save();
         return redirect('/admin/bookcombos')->with('url_link','bookcombos');;
     }

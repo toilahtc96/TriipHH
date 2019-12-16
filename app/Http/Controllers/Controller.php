@@ -215,6 +215,22 @@ class Controller extends BaseController
 
         return $place_passingArr;
     }
+
+    public function getListPickupByCarForCBB($id)
+    {
+        $pickupPlace = Car::select('start_pickup_location')->where('id', $id)->firstOrFail();
+        $locationArr = explode(",", $pickupPlace->start_pickup_location);
+        $place_passingArr = [];
+        // $place_passingArr[0] = "Điểm đón";
+        foreach ($locationArr as $key => $val) {
+            if ($val != "") {
+                $location  = Location::select('location_name')->where('id', $val)->first();
+                $place_passingArr[$val] = $location->location_name;
+            }
+        }
+
+        return $place_passingArr;
+    }
     public function getListHotelForCBB()
     {
         $hoteldb = Hotel::get();
@@ -307,6 +323,8 @@ class Controller extends BaseController
         return $comboTypes;
     }
 
+    
+
     public function getListComboTripForCBB()
     {
         $comboTripdb = ComboTrip::select('combo_trips.*', 'combo_types.combo_type_name')
@@ -359,11 +377,11 @@ class Controller extends BaseController
     public function  getCombohotForFooter()
     {
         $comboDB = ComboTrip::where('combo_trips.status', 1)
-        ->join('hotels', 'hotels.id', '=', 'combo_trips.hotel_id')
-        ->where('hotels.status',1)
-        ->sortable(['created_at','desc'])->get();
+            ->join('hotels', 'hotels.id', '=', 'combo_trips.hotel_id')
+            ->where('hotels.status', 1)
+            ->sortable(['created_at', 'desc'])->get();
 
-        return response()->json(['data'=>$comboDB,'result' => 'call']);
+        return response()->json(['data' => $comboDB, 'result' => 'call']);
     }
 
     public function getListRoomByHotelIdAjaxForCBB()
@@ -389,7 +407,7 @@ class Controller extends BaseController
             $listLocation = Location::whereIn('id', $listLocationId)->get();
             $listLocationCbb  = [];
             if (!isset($_POST["book_car"])) {
-                $listLocationCbb[0] = "Chọn điểm đón";
+                // $listLocationCbb[0] = "Chọn điểm đón";
             }
             foreach ($listLocation as $key => $val) {
                 $listLocationCbb[$val->id] = $val->location_name;
@@ -839,5 +857,13 @@ class Controller extends BaseController
             default:
                 break;
         }
+    }
+
+    public function getComboTypesForBookBanner()
+    {
+        $combotypes = Combotype::where('status',1)->get();
+        return response()->json(['data'=>$combotypes,
+            'result' => "Không có id book"
+        ]);
     }
 }

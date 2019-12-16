@@ -54,8 +54,16 @@ class BookComboClientController extends Controller
         $bookcombo->childrens = $request->childrens;
         $bookcombo->car_id = $request->car_id;
         //set cung, can sua lai tai combotrip 
-        $request->pickup_place_id == null ? $bookcombo->pickup_place_id = 1 : $bookcombo->pickup_place_id = $request->pickup_place_id;
-
+        $request->pickup_place_id == null ? $bookcombo->pickup_place_id = [] : $bookcombo->pickup_place_id = $request->pickup_place_id;
+        if ($bookcombo->pickup_place_id) {
+            $place = "";
+            foreach ($bookcombo->pickup_place_id  as  $val) {
+                $place  .=  ',' .   $val;
+            }
+            $bookcombo->pickup_place_id = (substr($place, 1, strlen($place)));
+        } else {
+            $bookcombo->pickup_place_id = "";
+        }
         $bookcombo->save();
         // if($bookcombo->save()){
         //     return response()->json([ 'result' => 'Đăng kí thành công']);

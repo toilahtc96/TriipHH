@@ -128,20 +128,25 @@
                                 {!!Form::select('car_old_id', $cars, $combotrip->car_id,
                                 ['class'=>'form-control','disabled'=>'true'])!!}
                             </div>
+                            <div class="col-sm-6">
+                                {!! Form::label('pickup_place_old', 'Điểm đón đã đặt', ['class' => 'control-label']) !!}
+                                {!!Form::select('pickup_place_old[]', $locationCarOld, $bookcombo->pickup_place_id,
+                                ['class'=>'form-control','disabled'=>'true','multiple'=>true])!!}
+                            </div>
                         </div>
 
                         <div class="row">
-                            <div class="col-sm-6">
-                                {!! Form::label('car_id', 'Xe mới', ['class' => 'control-label']) !!}
-                                {!!Form::select('car_id', $cars, $bookcombo->car_id == null? 0:$bookcombo->car_id,
-                                ['class'=>'form-control'])!!}
-                            </div>
-                            <div class="col-sm-6">
-                                {!! Form::label('pickup_place_id', 'Nơi đón', ['class' => 'control-label'])
+                            <div class="col-sm-6 ">
+                                {!! Form::label('car_id', 'Chọn xe', ['class' => 'control-label'])
                                 !!}
-                                {!!Form::select('pickup_place_id', $locations, $bookcombo->pickup_place_id,
-                                ['class'=>
-                                'form-control'])!!}
+                                {!!Form::select('car_id', $cars,$bookcombo->car_id,
+                                ['class'=>'form-control','onchange'=>'callLocationAjax(this,event)'])!!}
+                            </div>
+                            <div class="col-sm-6 ">
+                                {!! Form::label('pickup_place_id', 'Điểm đón', ['class' => 'control-label'])
+                                !!}
+                                {!!Form::select('pickup_place_id[]', [''=>'Chọn xe để xem điểm đón'],0,
+                                ['class'=>'form-control','multiple'=>true,'id'=>'pickup_place_id'])!!}
                             </div>
                         </div>
 
@@ -184,6 +189,48 @@
 
     </div>
 </div>
+<script src="{!! asset('client/js/jquery-3.3.1.min.js') !!}"></script>
+<script>
+    
+callLocationAjax = function(car, e) {
+    e.preventDefault();
+    $.ajaxSetup({
+        headers: {
 
+        'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
 
+        }
+
+    });
+        $.ajax({
+
+        type: 'POST',
+
+        url: '/getLocationByCarId',
+
+        data: { id: car.value },
+
+        success: function(data) {
+            if(data.data){
+            var arr =Object.entries(data.data);
+            console.log(arr)
+            $('#pickup_place_id').empty();
+            if (arr.length !== 0) {
+                $.each(arr, function(key, value) {
+                    // if (key) {
+                        $('#pickup_place_id').append('<option value="' + value[0] + '">' + value[1] +'</option>');
+                    // }
+                });
+            }else {
+                $('#pickup_place_id').append('<option value="">' + "Không có điểm đón có sẵn" + '</option>');
+            } 
+        }
+        else {
+                $('#pickup_place_id').append('<option value="">' + "Không có điểm đón có sẵn" + '</option>');
+            }
+        }
+    });
+}
+   
+</script>
 @endsection

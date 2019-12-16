@@ -66,8 +66,8 @@
                 <div class="col-sm-6 ">
                     {!! Form::label('pickup_place_id', 'Điểm đón', ['class' => 'control-label'])
                     !!}
-                    {!!Form::select('pickup_place_id', [''=>'Chọn xe để xem điểm đón'],0,
-                    ['class'=>'form-control','id'=>'pickup_place_id'])!!}
+                    {!!Form::select('pickup_place_id[]', [''=>'Chọn xe để xem điểm đón'],0,
+                    ['class'=>'form-control','id'=>'pickup_place_id','multiple'=>true])!!}
                 </div>
             </div>
 
@@ -153,7 +153,7 @@ headers: {
     $childrens = form.find('#childrens').val().trim();
     $hotel_id = form.find('#hotel_id').val().trim();
     $room_id = form.find('#room_id').val().trim();
-    $pickup_place_id = form.find('#pickup_place_id').val().trim();
+    $pickup_place_id = form.find('#pickup_place_id').val();
     $car_id = form.find('#car_id').val().trim();
     $typeService = form.find('input[name="type_service"]:checked').val();
 
@@ -269,16 +269,21 @@ validateFormBookCustom =function(form){
         data: { id: car.value },
 
         success: function(data) {
-            var arr = [];
-            arr.push(data.data);
+            if(data.data){
+            var arr =Object.entries(data.data);
+            console.log(arr)
             $('#pickup_place_id').empty();
-            if (data.data.length !== 0) {
-                $.each(data.data, function(key, value) {
+            if (arr.length !== 0) {
+                $.each(arr, function(key, value) {
                     // if (key) {
-                        $('#pickup_place_id').append('<option value="' + key + '">' + value +'</option>');
+                        $('#pickup_place_id').append('<option value="' + value[0] + '">' + value[1] +'</option>');
                     // }
                 });
-            } else {
+            }else {
+                $('#pickup_place_id').append('<option value="">' + "Không có điểm đón có sẵn" + '</option>');
+            } 
+        }
+        else {
                 $('#pickup_place_id').append('<option value="">' + "Không có điểm đón có sẵn" + '</option>');
             }
         }
