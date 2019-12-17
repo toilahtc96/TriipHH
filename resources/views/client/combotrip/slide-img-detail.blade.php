@@ -1,5 +1,5 @@
 <div class="gtco-container">
-    <div class="col-lg-12 mb-5">
+    <div class="col-lg-12">
         <div class="row large-gutters">
             <div class="owl-carousel slide-one-item with-dots">
                 @foreach ($combo->show_image as $item)

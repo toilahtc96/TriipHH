@@ -26,12 +26,20 @@
                         ['class'=>'form-control'])!!}
 
                         <div class="row">
-                            <div class="col-sm-4 ">
+                            <div class="col-sm-6 ">
+                                {!! Form::label('room_name', 'Tên phòng', ['class' => 'control-label']) !!}
+                                {!! Form::text('room_name', $value = $roomhotel->room_name, ['class' => 'form-control'])
+                                !!}
+                            </div>
+                            <div class="col-sm-6 ">
                                 {!! Form::label('level', 'Hạng phòng', ['class' => 'control-label']) !!}
                                 {!! Form::selectRange('level', 1, 5, $value = $roomhotel->level, ['class'=>
                                 'form-control']) !!}
                             </div>
-                            <div class="col-sm-4 ">
+
+                        </div>
+                        <div class="row">
+                            <div class="col-sm-6 ">
                                 {!! Form::label('status', 'Trạng thái', ['class' => 'control-label']) !!}
                                 {!!Form::select('status', ['1' => 'Hoạt động', '0' => 'Không hoạt động'], $value =
                                 $roomhotel->status,
@@ -44,13 +52,14 @@
                         'form-control','placeholder'=>'price']) !!}
 
                         {!! Form::label('info', 'Thông tin phòng', ['class' => 'control-label']) !!}
-                        {!! Form::textarea('info', $value = $roomhotel->info, ['class' => 'form-control', 'rows' => 6]) !!}
+                        {!! Form::textarea('info', $value = $roomhotel->info, ['class' => 'form-control', 'rows' => 6])
+                        !!}
 
                         {!! Form::label('service_included', 'Dịch vụ', ['class' => 'control-label']) !!}
                         <textarea name=service_included id="text" cols="30" rows="10">
                            {!!$roomhotel->service_included!!}
                         </textarea>
-                        
+
                         {!! Form::label('slugs', 'Đường dẫn', ['class' => 'control-label']) !!}
                         {!! Form::text('slugs', $value = $value=$roomhotel->slugs, ['class' => 'form-control']) !!}
                         <div>

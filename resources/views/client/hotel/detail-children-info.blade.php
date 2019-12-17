@@ -1,7 +1,7 @@
 <div class="text order-1" style="float:left;width:50%; padding-top:0">
     <span class="d-block mb-4"><span class="display-4 text-primary">{{$room->price}} K</span> <span
             class="text-uppercase letter-spacing-2">/ 1 đêm</span> </span>
-    <h2 class="mb-4">Phòng hạng {{$room->level}}</h2>
+    <h2 class="mb-4">Phòng  {{$room->room_name}}</h2>
     <p>
         {!!$room->service_included!!}
     </p>

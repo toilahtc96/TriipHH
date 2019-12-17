@@ -103,6 +103,7 @@ class BookCustomTripController extends Controller
 
         $locationCarOld =  $this->getListPickupByCarForCBB($bookcustomtrip->car_id == null ? -1 : $bookcustomtrip->car_id);
         $bookcustomtrip->pickup_place_id = explode(",", $bookcustomtrip->pickup_place_id);
+
         return view('admin/bookcustomtrip/edit-bookcustomtrip')->with('bookcustomtrip', $bookcustomtrip)->with('locations', $locations)->with('cars', $cars)
             ->with('hotel_name', $hotel_name)->with('rooms', $rooms)->with('combotypes', $combotypes)->with('url_link', 'bookcustomtrips')
             ->with('locationCarOld', $locationCarOld);
@@ -135,7 +136,10 @@ class BookCustomTripController extends Controller
         } else {
             $bookCustomTrip->pickup_place_id = "";
         }
-        $input = $request->except(['pickup_place_id']);
+        $input = $request->except(['pickup_place_id','car_id']);
+        if($request->car_id){
+            $bookCustomTrip->car_id = $request->car_id;
+        }
         $bookCustomTrip->fill($input)->save();
 
         return redirect('/admin/bookcustomtrips')->with('url_link', 'bookcustomtrips');

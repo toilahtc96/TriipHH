@@ -26,11 +26,18 @@
                         {!!Form::select('hotel_id', $hotels, null, ['class'=>'form-control'])!!}
 
                         <div class="row">
-                            <div class="col-sm-4 ">
+                            <div class="col-sm-6">
+                                {!! Form::label('room_name', 'Tên phòng', ['class' => 'control-label']) !!}
+                                {!! Form::text('room_name', $value = "", ['class' => 'form-control']) !!}
+                            </div>
+                            <div class="col-sm-6">
                                 {!! Form::label('level', 'Hạng', ['class' => 'control-label']) !!}
                                 {!! Form::selectRange('level', 1, 5, null, ['class'=> 'form-control']) !!}
                             </div>
-                            <div class="col-sm-4 ">
+
+                        </div>
+                        <div class="row">
+                            <div class="col-sm-6">
                                 {!! Form::label('status', 'Trạng thái', ['class' => 'control-label']) !!}
                                 {!!Form::select('status', ['1' => 'Hoạt động', '0' => 'Không hoạt động'], null,
                                 ['class'=> 'form-control'])!!}

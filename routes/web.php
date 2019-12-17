@@ -17,10 +17,20 @@ Route::get('/introduce', 'HomeController@introduce')->name('introduce');
 Route::get('/bookcustom', 'HomeController@bookcustom')->name('bookcustom');
 Route::get('/bookcar', 'HomeController@bookcar')->name('bookcar');
 
-Route::post('/bookCustom/store', 'BookCustomClientController@store')->name('createBookCustom');
 Route::post('/getcombotypes', 'Controller@getComboTypesForBookBanner')->name('getComboTypeBanner');
+
+Route::post('/bookCustom/store', 'BookCustomClientController@store')->name('createBookCustom');
 Route::resource('/bookCustom', 'BookCustomClientController')->names([
     'index' => 'bookCustom.view',
+]);
+Route::post('/contact/store', 'ContactInfoController@store')->name('createContact');
+Route::resource('/contact/index', 'ContactInfoController')->names([
+    'index' => 'contact.view',
+]);
+
+Route::post('/subcribe/store', 'SubcribeController@store')->name('createSubcribe');
+Route::resource('/subcribe/index', 'SubcribeController')->names([
+    'index' => 'subcribe.view',
 ]);
 
 Route::post('/bookCar/store', 'BookCarClientController@store')->name('createBookCar');
@@ -105,6 +115,13 @@ Route::prefix('admin')->middleware('auth')->group(function () {
         'update' => 'combotrips.update'
     ]);
 
+    Route::resource('/contacts', 'ContactController')->names([
+        'index' => 'contacts.view',
+        'create' => 'contacts.build',
+        'edit' => 'contacts.edit',
+        'update' => 'contacts.update'
+    ]);
+
     Route::resource('/bookcombos', 'BookComboController')->names([
         'index' => 'bookcombos.view',
         'edit' => 'bookcombos.edit',
@@ -129,7 +146,6 @@ Route::prefix('admin')->middleware('auth')->group(function () {
     ]);
 
     Route::any('/search', 'Controller@search');
-
     Route::post('/changeStatus', 'Controller@changeStatus')->name('changeStatus');
     Route::post('/changeBookStatus', 'Controller@changeBookStatusNew')->name('changeBookStatus');
     Route::post('/getRoomByHotelId', 'Controller@getListRoomByHotelIdAjaxForCBB')->name('getRoomByHotelId');

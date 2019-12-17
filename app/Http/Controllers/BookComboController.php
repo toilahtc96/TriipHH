@@ -119,7 +119,6 @@ class BookComboController extends Controller
 
         $locationCarOld =  $this->getListPickupByCarForCBB($bookcombo->car_id == null? -1:$bookcombo->car_id);
         $bookcombo->pickup_place_id = explode(",",$bookcombo->pickup_place_id );
-
         return view('admin/bookcombo/edit-bookcombo')->with('bookcombo', $bookcombo)->with('locations', $locations)->with('cars', $cars)
             ->with('hotels', $hotels)->with('rooms', $rooms)->with('combotypes', $combotypes)->with('bookstatues', $bookstatues)->with('combotrips', $combotrips)
             ->with('combotrip', $combotrip)->with('roomnews', $roomnews)->with('locationPassing', $locationPassing)->with('car', $car)
@@ -185,7 +184,7 @@ class BookComboController extends Controller
         // $bookCombo-> = $request->;
         // $bookCombo-> = $request->;
         // $bookCombo-> = $request->;
-        dd($bookCombo);
+        // dd($bookCombo);
         $bookCombo->save();
         return redirect('/admin/bookcombos')->with('url_link','bookcombos');;
     }

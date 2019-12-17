@@ -53,7 +53,8 @@ class RoomHotelController extends Controller
             'level'  => 'required|max:20',
             'price' => 'required',
             'info'=> 'required|max:200',
-            'slugs'=>'required'
+            'slugs'=>'required',
+            'room_name'=>'required'
         ]);
         // store in the database
         $roomhotel =  new RoomHotel();
@@ -63,6 +64,7 @@ class RoomHotelController extends Controller
         $roomhotel->level = $request->level;
         $roomhotel->service_included = $request->service_included;
         $roomhotel->info = $request->info;
+        $roomhotel->room_name = $request->room_name;
         $roomhotel->slugs = $request->slugs;
         $uploadImage = $this->fileUpload($request, "roomhotels");
         if ($uploadImage->getSession()->get('imageName') !== null) {
@@ -124,7 +126,8 @@ class RoomHotelController extends Controller
             'level'  => 'required|max:20',
             'price' => 'required',
             'info'=> 'required|max:200',
-            'slugs'=>'required'
+            'slugs'=>'required',
+            'room_name'=>'required'
         ]);
 
         // // process the login
@@ -138,6 +141,7 @@ class RoomHotelController extends Controller
         $roomhotel->level = $request->level;
         $roomhotel->service_included = $request->service_included;
         $roomhotel->info = $request->info;
+        $roomhotel->room_name = $request->room_name;
         $roomhotel->slugs = $request->slugs;
         $roomhotel->status = $request->status == null ? 1 : $request->status;
 

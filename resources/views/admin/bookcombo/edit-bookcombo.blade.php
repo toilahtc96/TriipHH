@@ -122,6 +122,22 @@
                             </div>
                         </div>
 
+                        @isset($bookcombo->car_id)
+                        <div class="row">
+                            <div class="col-sm-6 ">
+                                {!! Form::label('car_id', 'Xe mới', ['class' => 'control-label'])
+                                !!}
+                                {!!Form::select('car_id', $cars,$bookcombo->car_id,
+                                ['class'=>'form-control','onchange'=>'callLocationAjax(this,event)'])!!}
+                            </div>
+                            <div class="col-sm-6 ">
+                                {!! Form::label('pickup_place_id', 'Điểm đón', ['class' => 'control-label'])
+                                !!}
+                                {!!Form::select('pickup_place_id[]', $locationCarOld,$bookcombo->pickup_place_id,
+                                ['class'=>'form-control','multiple'=>true,'id'=>'pickup_place_id'])!!}
+                            </div>
+                        </div>
+                        @else
                         <div class="row">
                             <div class="col-sm-6">
                                 {!! Form::label('car_old_id', 'Xe Combo', ['class' => 'control-label']) !!}
@@ -134,21 +150,10 @@
                                 ['class'=>'form-control','disabled'=>'true','multiple'=>true])!!}
                             </div>
                         </div>
+                        @endisset
 
-                        <div class="row">
-                            <div class="col-sm-6 ">
-                                {!! Form::label('car_id', 'Chọn xe', ['class' => 'control-label'])
-                                !!}
-                                {!!Form::select('car_id', $cars,$bookcombo->car_id,
-                                ['class'=>'form-control','onchange'=>'callLocationAjax(this,event)'])!!}
-                            </div>
-                            <div class="col-sm-6 ">
-                                {!! Form::label('pickup_place_id', 'Điểm đón', ['class' => 'control-label'])
-                                !!}
-                                {!!Form::select('pickup_place_id[]', [''=>'Chọn xe để xem điểm đón'],0,
-                                ['class'=>'form-control','multiple'=>true,'id'=>'pickup_place_id'])!!}
-                            </div>
-                        </div>
+
+
 
                         <div class="row">
                             <div class="col-sm-6">
@@ -191,8 +196,7 @@
 </div>
 <script src="{!! asset('client/js/jquery-3.3.1.min.js') !!}"></script>
 <script>
-    
-callLocationAjax = function(car, e) {
+    callLocationAjax = function(car, e) {
     e.preventDefault();
     $.ajaxSetup({
         headers: {

@@ -4,7 +4,7 @@
         <!-- Modal content-->
         <div class="modal-content" style="min-width:540px;">
             <div class="modal-header">
-                <h4 class="modal-title">Đặt phòng hạng <span id="level">{{$room->level}} </span> của khách sạn
+                <h4 class="modal-title">Đặt phòng <span id="level">{{$room->room_name}} </span> của khách sạn
                     {{$hotel->hotel_name}}
                 </h4>
                 <button type="button" class="close" data-dismiss="modal">&times;</button>

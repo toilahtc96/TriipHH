@@ -13,6 +13,7 @@
                 <thead class="thead-light">
                     <tr>
                         <th style="width:10%">@sortablelink('hotel_id','Tên khách sạn')</th>
+                        <th>Tên phòng</th>
                         <th>@sortablelink('level','Hạng phòng')</th>
                         <th>@sortablelink('price','Giá tiền')</th>
                         <th>Dịch vụ kèm theo</th>
@@ -26,6 +27,7 @@
 
                     <tr>
                         <td>{{$data->hotel_name}}</td>
+                        <td>{{$data->room_name}}</td>
                         <td>
                             <p>{{$data->level}}</p>
                         </td>

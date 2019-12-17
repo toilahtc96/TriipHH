@@ -218,14 +218,20 @@ class Controller extends BaseController
 
     public function getListPickupByCarForCBB($id)
     {
-        $pickupPlace = Car::select('start_pickup_location')->where('id', $id)->firstOrFail();
-        $locationArr = explode(",", $pickupPlace->start_pickup_location);
+        $pickupPlace = Car::select('start_pickup_location')->where('id', $id)->get(1);
         $place_passingArr = [];
-        // $place_passingArr[0] = "Điểm đón";
-        foreach ($locationArr as $key => $val) {
-            if ($val != "") {
-                $location  = Location::select('location_name')->where('id', $val)->first();
-                $place_passingArr[$val] = $location->location_name;
+
+        if (isset($pickupPlace[0])) {
+            // dd( $pickupPlace[0]->start_pickup_location);
+
+            $locationArr = explode(",", $pickupPlace[0]->start_pickup_location);
+            // $place_passingArr[0] = "Điểm đón";
+
+            foreach ($locationArr as $key => $val) {
+                if ($val != "") {
+                    $location  = Location::select('location_name')->where('id', $val)->first();
+                    $place_passingArr[$val] = $location->location_name;
+                }
             }
         }
 
@@ -323,7 +329,7 @@ class Controller extends BaseController
         return $comboTypes;
     }
 
-    
+
 
     public function getListComboTripForCBB()
     {
@@ -861,8 +867,9 @@ class Controller extends BaseController
 
     public function getComboTypesForBookBanner()
     {
-        $combotypes = Combotype::where('status',1)->get();
-        return response()->json(['data'=>$combotypes,
+        $combotypes = Combotype::where('status', 1)->get();
+        return response()->json([
+            'data' => $combotypes,
             'result' => "Không có id book"
         ]);
     }

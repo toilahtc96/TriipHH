@@ -80,12 +80,12 @@
                         <div class="row form-group">
                             <div class="col-md-6">
                                 {!! Form::label('childrens', 'Trẻ em dưới 6 tuổi', ['class' => 'control-label']) !!}
-                                {!! Form::selectRange('childrens', 1, 10 ,1,['class' => 'form-control']) !!}
+                                {!! Form::selectRange('childrens', 0, 10 ,0,['class' => 'form-control']) !!}
                             </div>
                             <div class="col-md-6">
                                 {!! Form::label('minors', 'Trẻ em từ 6 đến 10 tuổi', ['class' => 'control-label'])
                                 !!}
-                                {!! Form::selectRange('minors', 1, 10 ,1,['class' => 'form-control']) !!}
+                                {!! Form::selectRange('minors', 0, 10 ,0,['class' => 'form-control']) !!}
                             </div>
                         </div>
                         <div class="row form-group">
