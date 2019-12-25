@@ -17,7 +17,7 @@
                                     </ul>
                                 </li>
                                 <li class="has-dropdown">
-                                        <a href="#">Di chuyển</a>
+                                        <a href="#">Phương tiện</a>
                                         <ul class="dropdown">
                                             <li><a href="/bookcar">Đặt xe</a></li>
                                             <li><a href="http://verehh.com/" target="_blank">Đặt vé máy bay</a></li>
