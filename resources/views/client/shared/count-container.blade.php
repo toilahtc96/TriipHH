@@ -4,9 +4,8 @@
     
                 <div class="row">
                     <div class="col-md-8 col-md-offset-2 text-center gtco-heading animate-box">
-                        <h2>Our Success</h2>
-                        <p>Dignissimos asperiores vitae velit veniam totam fuga molestias accusamus alias autem
-                            provident. Odit ab aliquam dolor eius.</p>
+                        <h2>Khách hàng Thân thiết</h2>
+                        <p>Số lượng khách hàng sử dụng và hài lòng về dịch vụ của chúng tôi</p>
                     </div>
                 </div>
     
@@ -14,31 +13,31 @@
     
                     <div class="col-md-3 col-sm-6 animate-box" data-animate-effect="fadeInUp">
                         <div class="feature-center">
-                            <span class="counter js-counter" data-from="0" data-to="196" data-speed="5000"
+                        <span class="counter js-counter" data-from="0" data-to={{$countLocation}} data-speed="4000"
                                 data-refresh-interval="50">1</span>
-                            <span class="counter-label">Destination</span>
+                            <span class="counter-label">Điểm đến</span>
     
                         </div>
                     </div>
                     <div class="col-md-3 col-sm-6 animate-box" data-animate-effect="fadeInUp">
                         <div class="feature-center">
-                            <span class="counter js-counter" data-from="0" data-to="97" data-speed="5000"
+                            <span class="counter js-counter" data-from="0" data-to={{$countHotel}}  data-speed="4000"
                                 data-refresh-interval="50">1</span>
-                            <span class="counter-label">Hotels</span>
+                            <span class="counter-label">Khách sạn</span>
                         </div>
                     </div>
                     <div class="col-md-3 col-sm-6 animate-box" data-animate-effect="fadeInUp">
                         <div class="feature-center">
-                            <span class="counter js-counter" data-from="0" data-to="12402" data-speed="5000"
+                            <span class="counter js-counter" data-from="0" data-to={{$countCustomer}} data-speed="4000"
                                 data-refresh-interval="50">1</span>
-                            <span class="counter-label">Travelers</span>
+                            <span class="counter-label">Khách hàng</span>
                         </div>
                     </div>
                     <div class="col-md-3 col-sm-6 animate-box" data-animate-effect="fadeInUp">
                         <div class="feature-center">
-                            <span class="counter js-counter" data-from="0" data-to="12202" data-speed="5000"
+                            <span class="counter js-counter" data-from="0" data-to={{$countCar}} data-speed="4000"
                                 data-refresh-interval="50">1</span>
-                            <span class="counter-label">Happy Customer</span>
+                            <span class="counter-label">Hãng xe</span>
     
                         </div>
                     </div>

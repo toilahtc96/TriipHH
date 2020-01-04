@@ -10,7 +10,8 @@
             <div class="row">
                 <div class="col-md-12 col-md-offset-0 text-left">
                     <div class="row row-mt-15em">
-                        <div class="col-md-7 mt-text animate-box" data-animate-effect="fadeInUp">
+                        <div class="col-md-7 mt-text animate-box" 
+                        data-animate-effect="fadeInUp">
                             @if(isset($title))
                             <h1>{{$title}}</h1>
                             @else

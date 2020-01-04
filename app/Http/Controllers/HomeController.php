@@ -5,6 +5,9 @@ namespace App\Http\Controllers;
 use App\Models\ComboTrip;
 use App\Models\Hotel;
 use App\Models\RoomHotel;
+use App\Models\Location;
+use App\Models\Car;
+use App\Models\BookCombo;
 use Illuminate\Http\Request;
 
 class HomeController extends Controller
@@ -40,34 +43,60 @@ class HomeController extends Controller
 
         $combotypes = $this->getListComboTypeActiveForCBB();
         // dd($combotrips);
-        return view('client.home')->with('hotels',$hotels)->with('combotrips',$combotrips)->with('combotypes',$combotypes);
+        // dien den
+        $countLocation = count(Location::get());
+        
+        // hotel 
+        $countHotel = count(Hotel::get());
+        //khach hang
+        $countCustomer = count(BookCombo::get());
+        //xe
+        $countCar = count(Car::get());
+        $bannerImage = Hotel::select('main_image')->orderByRaw('RAND()')->first();
+        $banner = $bannerImage->main_image;
+        return view('client.home')->with('hotels',$hotels)
+        ->with('banner',$banner)
+        ->with('combotrips',$combotrips)
+        ->with('combotypes',$combotypes)
+        ->with('countLocation',$countLocation)
+        ->with('countHotel',$countHotel)
+        ->with('countCustomer',$countCustomer)
+        ->with('countCar',$countCar);
         
     }
 
     public function contact()
     {
-        return view('client.contact.contact')->with('banner','15740870875.jpg');
+        $bannerImage = Hotel::select('main_image')->orderByRaw('RAND()')->first();
+        $banner = $bannerImage->main_image;
+        return view('client.contact.contact')->with('banner',$banner);
     }
 
     public function introduce()
     {
-        return view('client.contact.introduce')->with('banner','15740915990.jpg');
+        $bannerImage = Hotel::select('main_image')->orderByRaw('RAND()')->first();
+        $banner = $bannerImage->main_image;
+        return view('client.contact.introduce')->with('banner',$banner);
     }
 
     public function bookcustom()
     {
+        $bannerImage = Hotel::select('main_image')->orderByRaw('RAND()')->first();
+        $banner = $bannerImage->main_image;
         $hotels = $this->getListHotelActiveForCBB();
         $rooms = ["Loại phòng"];
         $combotypes = $this->getListComboTypeActiveForCBB();
         $cars = $this->getListCarOfDirectionActiveForCBB();
         return view('client.home.bookcustom')->with('cars',$cars)->with('combotypes',$combotypes)
-        ->with('hotels',$hotels)->with('rooms',$rooms)->with('banner','15740915990.jpg');
+        ->with('hotels',$hotels)->with('rooms',$rooms)->with('banner',$banner);
     }
 
     public function bookcar()
     {
+        $bannerImage = Hotel::select('main_image')->orderByRaw('RAND()')->first();
+        $banner = $bannerImage->main_image;
         $cars = $this->getListCarOfDirectionActiveForCBB();
-        return view('client.home.bookcar')->with('cars',$cars)->with('banner','15740915990.jpg');
+        return view('client.home.bookcar')->with('cars',$cars)->with('banner',$banner);
     }
 
 }
