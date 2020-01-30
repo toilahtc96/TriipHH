@@ -1,4 +1,4 @@
-@extends('layouts.app')
+@extends('client.layout')
 
 @section('content')
 <div class="container">
@@ -22,12 +22,13 @@
 
                             <div class="col-md-6">
                                 <input id="email" type="email" class="form-control @error('email') is-invalid @enderror" name="email" value="{{ old('email') }}" required autocomplete="email" autofocus>
-
+@isset($email)
                                 @error('email')
                                     <span class="invalid-feedback" role="alert">
                                         <strong>{{ $message }}</strong>
                                     </span>
                                 @enderror
+                                @endisset
                             </div>
                         </div>
 

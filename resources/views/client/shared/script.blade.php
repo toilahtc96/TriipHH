@@ -70,18 +70,18 @@
 	});
  
 </script>
- {{-- client-view-2 --}}
- {{-- <script src="{!! asset('bower_components/client-view-2/js/jquery-3.3.1.min.js') !!}"></script> --}}
- <script src="{!! asset('bower_components/client-view-2/js/jquery-ui.js') !!}"></script>
- <script src="{!! asset('bower_components/client-view-2/js/popper.min.js') !!}"></script>
- {{-- <script src="{!! asset('bower_components/client-view-2/js/bootstrap.min.js') !!}"></script> --}}
- <script src="{!! asset('bower_components/client-view-2/js/owl.carousel.min.js') !!}"></script>
- <script src="{!! asset('bower_components/client-view-2/js/jquery.countdown.min.js') !!}"></script>
- <script src="{!! asset('bower_components/client-view-2/js/bootstrap-datepicker.min.js') !!}"></script>
- <script src="{!! asset('bower_components/client-view-2/js/jquery.easing.1.3.js') !!}"></script>
- <script src="{!! asset('bower_components/client-view-2/js/aos.js') !!}"></script>
- <script src="{!! asset('bower_components/client-view-2/js/jquery.fancybox.min.js') !!}"></script>
- <script src="{!! asset('bower_components/client-view-2/js/jquery.sticky.js') !!}"></script>
- <script src="{!! asset('bower_components/client-view-2/js/main.js') !!}"></script>
- <script src="{!! asset('js/common/call-ajax.js') !!}"></script>
+{{-- client-view-2 --}}
+{{-- <script src="{!! asset('bower_components/client-view-2/js/jquery-3.3.1.min.js') !!}"></script> --}}
+<script src="{!! asset('bower_components/client-view-2/js/jquery-ui.js') !!}"></script>
+<script src="{!! asset('bower_components/client-view-2/js/popper.min.js') !!}"></script>
+{{-- <script src="{!! asset('bower_components/client-view-2/js/bootstrap.min.js') !!}"></script> --}}
+<script src="{!! asset('bower_components/client-view-2/js/owl.carousel.min.js') !!}"></script>
+<script src="{!! asset('bower_components/client-view-2/js/jquery.countdown.min.js') !!}"></script>
+<script src="{!! asset('bower_components/client-view-2/js/bootstrap-datepicker.min.js') !!}"></script>
+<script src="{!! asset('bower_components/client-view-2/js/jquery.easing.1.3.js') !!}"></script>
+<script src="{!! asset('bower_components/client-view-2/js/aos.js') !!}"></script>
+<script src="{!! asset('bower_components/client-view-2/js/jquery.fancybox.min.js') !!}"></script>
+<script src="{!! asset('bower_components/client-view-2/js/jquery.sticky.js') !!}"></script>
+<script src="{!! asset('bower_components/client-view-2/js/main.js') !!}"></script>
+<script src="{!! asset('js/common/call-ajax.js') !!}"></script>
 {{-- end --}}

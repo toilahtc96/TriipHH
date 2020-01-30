@@ -1,4 +1,4 @@
-@extends('layouts.app')
+@extends('client.layout')
 
 @section('content')
 <div class="container">
@@ -18,12 +18,13 @@
 
                             <div class="col-md-6">
                                 <input id="email" type="email" class="form-control @error('email') is-invalid @enderror" name="email" value="{{ $email ?? old('email') }}" required autocomplete="email" autofocus>
-
+@isset($email)
                                 @error('email')
                                     <span class="invalid-feedback" role="alert">
                                         <strong>{{ $message }}</strong>
                                     </span>
                                 @enderror
+                                @endisset
                             </div>
                         </div>
 
@@ -32,12 +33,13 @@
 
                             <div class="col-md-6">
                                 <input id="password" type="password" class="form-control @error('password') is-invalid @enderror" name="password" required autocomplete="new-password">
-
+@isset($password)
                                 @error('password')
                                     <span class="invalid-feedback" role="alert">
                                         <strong>{{ $message }}</strong>
                                     </span>
                                 @enderror
+                                @endisset
                             </div>
                         </div>
 

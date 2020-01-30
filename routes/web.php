@@ -39,8 +39,6 @@ Route::resource('/bookCar', 'BookCarClientController')->names([
 ]);
 
 
-Auth::routes();
-
 // Route::get('/home', 'HomeController@index')->name('home');
 
 Route::post('/bookroomClients/store', 'BookRoomClientController@store')->name('createBookRoom');
@@ -72,6 +70,8 @@ Route::post('/getCombohot', 'Controller@getCombohotForFooter')->name('getComboho
 
 Route::get('/combotrip/{combo}-{slug}', 'ComboTripClientController@show')->name('combotrips.show');
 
+
+Auth::routes();
 Route::prefix('admin')->middleware('auth')->group(function () {
     Route::get('/', 'AdminController@index')->name('admin');
     Route::resource('/hotels', 'HotelController')->names([
@@ -150,3 +150,23 @@ Route::prefix('admin')->middleware('auth')->group(function () {
     Route::post('/changeBookStatus', 'Controller@changeBookStatusNew')->name('changeBookStatus');
     Route::post('/getRoomByHotelId', 'Controller@getListRoomByHotelIdAjaxForCBB')->name('getRoomByHotelId');
 });
+
+Auth::routes();
+
+Route::get('/home', 'HomeController@index')->name('home');
+
+Auth::routes();
+
+Route::get('/home', 'HomeController@index')->name('home');
+
+Auth::routes();
+
+Route::get('/home', 'HomeController@index')->name('home');
+
+Auth::routes();
+
+Route::get('/home', 'HomeController@index')->name('home');
+
+Auth::routes();
+
+Route::get('/home', 'HomeController@index')->name('home');
