@@ -178,16 +178,19 @@ class Controller extends BaseController
     {
         //phai cat
         $placeAround = '';
-        $arrName = explode(",", $listId);
+        if ($listId !== null) {
+            // dd($listId);
+            $arrName = explode(",", $listId);
 
-        foreach ($arrName as $key => $val) {
-            $locationName = Location::select('location_name')->findOrFail($val)->location_name;
-            if ($key > 0) {
-                $placeAround .= ",\n" . $locationName;
+            foreach ($arrName as $key => $val) {
+                $locationName = Location::select('location_name')->findOrFail($val)->location_name;
+                if ($key > 0) {
+                    $placeAround .= ",\n" . $locationName;
+                }
+                $placeAround .= $locationName;
             }
-            $placeAround .= $locationName;
+            return $placeAround;
         }
-        return $placeAround;
     }
 
     public function getListLocationForCBB()

@@ -22,6 +22,7 @@ class HotelController extends Controller
         $hotels = Hotel::select('hotels.*', 'location_name')
             ->leftJoin('locations', 'locations.id', '=', 'hotels.address_id')
             ->sortable()->paginate(5);
+            // dd($hotels);
         // $hotels->setBaseUrl('custom/url');
         foreach ($hotels as $key => $val) {
             $val->service_included = str_replace(";", "\n", $val->service_included);
