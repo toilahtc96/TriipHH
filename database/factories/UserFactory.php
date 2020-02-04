@@ -13,6 +13,7 @@ use App\Models\BookCar;
 use App\Models\BookRoom;
 use App\Models\BookCombo;
 use App\Models\BookCustomTrip;
+use App\Models\BookStatus;
 use Faker\Generator as Faker;
 use Illuminate\Support\Str;
 
