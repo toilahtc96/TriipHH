@@ -12,12 +12,13 @@ class HotelClientController extends Controller
     //
     public function index()
     {
+
         $hotels = Hotel::select('id', 'hotel_name', 'slugs', 'main_info', 'main_image')
-        ->where('status', 1)->sortable()->paginate(6);
+            ->where('status', 1)->sortable()->paginate(6);
         foreach ($hotels as $key => $value) {
             # code...
             $room = RoomHotel::MIN('price')->where('room_hotels.status', 1)->where('room_hotels.hotel_id', $value->id)->first();
-            if($room){
+            if ($room) {
                 $value->price = $room->price;
             }
         }
@@ -25,7 +26,8 @@ class HotelClientController extends Controller
     }
 
     public function create()
-    { }
+    {
+    }
 
     /**
      * Store a newly created resource in storage.
@@ -34,7 +36,8 @@ class HotelClientController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function store(Request $request)
-    { }
+    {
+    }
 
     /**
      * Display the specified resource.
@@ -78,7 +81,7 @@ class HotelClientController extends Controller
             $value->show_image = $show_image;
         }
         return view('client.hotel.list-room')->with('hotel', $hotel)->with('rooms', $rooms)
-        ->with('gallery', $gallery)->with('galleryHotel', $galleryHotel)->with('combotypes',$combotypes);
+            ->with('gallery', $gallery)->with('galleryHotel', $galleryHotel)->with('combotypes', $combotypes);
     }
 
     /**
@@ -88,7 +91,8 @@ class HotelClientController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function edit($id)
-    { }
+    {
+    }
 
     /**
      * Update the specified resource in storage.
@@ -98,7 +102,8 @@ class HotelClientController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function update(Request $request, $id)
-    { }
+    {
+    }
 
     /**
      * Remove the specified resource from storage.
