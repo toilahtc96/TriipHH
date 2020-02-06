@@ -1,0 +1,14 @@
+{
+  "name": "client-view-2",
+  "homepage": "https://github.com/toilahtc96/client-view-2",
+  "_release": "ef2e63f48a",
+  "_resolution": {
+    "type": "branch",
+    "branch": "master",
+    "commit": "ef2e63f48a891b631259eb56388e017fba131d07"
+  },
+  "_source": "https://github.com/toilahtc96/client-view-2.git",
+  "_target": "*",
+  "_originalSource": "https://github.com/toilahtc96/client-view-2.git",
+  "_direct": true
+}
