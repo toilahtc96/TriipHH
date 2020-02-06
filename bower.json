@@ -15,6 +15,7 @@
         "tests"
     ],
     "dependencies": {
-        "client-view": "https://github.com/toilahtc96/client-view.git"
+        "client-view": "https://github.com/toilahtc96/client-view.git",
+        "client-view-2": "https://github.com/toilahtc96/client-view-2.git"
     }
 }
