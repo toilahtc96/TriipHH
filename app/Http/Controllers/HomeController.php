@@ -47,7 +47,7 @@ class HomeController extends Controller
         $countCustomer = count(BookCombo::get());
         //xe
         $countCar = count(Car::get());
-        $bannerImage = Hotel::select('main_image')->orderByRaw('RAND()')->first();
+        $bannerImage = Hotel::select('main_image')->orderByRaw('updated_at - created_at DESC')->first();
         $banner = $bannerImage->main_image;
         return view('client.home')->with('hotels',$hotels)
         ->with('banner',$banner)
@@ -62,21 +62,21 @@ class HomeController extends Controller
 
     public function contact()
     {
-        $bannerImage = Hotel::select('main_image')->orderByRaw('RAND()')->first();
+        $bannerImage = Hotel::select('main_image')->orderByRaw('updated_at - created_at DESC')->first();
         $banner = $bannerImage->main_image;
         return view('client.contact.contact')->with('banner',$banner);
     }
 
     public function introduce()
     {
-        $bannerImage = Hotel::select('main_image')->orderByRaw('RAND()')->first();
+        $bannerImage = Hotel::select('main_image')->orderByRaw('updated_at - created_at DESC')->first();
         $banner = $bannerImage->main_image;
         return view('client.contact.introduce')->with('banner',$banner);
     }
 
     public function bookcustom()
     {
-        $bannerImage = Hotel::select('main_image')->orderByRaw('RAND()')->first();
+        $bannerImage = Hotel::select('main_image')->orderByRaw('updated_at - created_at DESC')->first();
         $banner = $bannerImage->main_image;
         $hotels = $this->getListHotelActiveForCBB();
         $rooms = ["Loại phòng"];
@@ -88,7 +88,7 @@ class HomeController extends Controller
 
     public function bookcar()
     {
-        $bannerImage = Hotel::select('main_image')->orderByRaw('RAND()')->first();
+        $bannerImage = Hotel::select('main_image')->orderByRaw('updated_at - created_at DESC')->first();
         $banner = $bannerImage->main_image;
         $cars = $this->getListCarOfDirectionActiveForCBB();
         return view('client.home.bookcar')->with('cars',$cars)->with('banner',$banner);
