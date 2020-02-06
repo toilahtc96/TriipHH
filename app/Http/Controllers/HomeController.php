@@ -47,7 +47,7 @@ class HomeController extends Controller
         $countCustomer = count(BookCombo::get());
         //xe
         $countCar = count(Car::get());
-        $bannerImage = Hotel::select('main_image')->orderByRaw('updated_at - created_at DESC')->first();
+        $bannerImage = Hotel::select('main_image')->orderByRaw('updated_at DESC')->first();
         $banner = $bannerImage->main_image;
         return view('client.home')->with('hotels',$hotels)
         ->with('banner',$banner)
