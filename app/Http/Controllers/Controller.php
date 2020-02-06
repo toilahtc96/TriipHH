@@ -9,7 +9,7 @@ use Illuminate\Routing\Controller as BaseController;
 use Illuminate\Http\Request;
 use App\Models\Location;
 use App\Models\Hotel;
-use App\Models\Combotype;
+use App\Models\ComboType;
 use App\Models\Car;
 use App\Models\RoomHotel;
 use App\Models\ComboTrip;
