@@ -53,6 +53,7 @@
     </div>
 </div>
 <script src="{!! asset('client/js/jquery-3.3.1.min.js') !!}"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/core.js"></script>
 <script>
     $(document).ready(function(){
         getComboType();
