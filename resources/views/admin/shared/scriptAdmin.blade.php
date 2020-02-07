@@ -1,4 +1,3 @@
-<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/core.js"></script>
 <!-- jQuery -->
 <script src="{!! asset('bower_components/adminlte/plugins/jquery/jquery.min.js') !!}"></script>
 <!-- jQuery UI 1.11.4 -->

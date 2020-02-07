@@ -84,6 +84,5 @@
     <link rel='stylesheet' href="https://cdnjs.cloudflare.com/ajax/libs/fotorama/4.6.4/fotorama.css" />
 
 
-    {{-- <link href="https://cdnjs.cloudflare.com/ajax/libs/fotorama/4.6.4/fotorama.css" rel="stylesheet"> --}}
     <meta name="csrf-token" content="{{ csrf_token() }}" />
 </head>

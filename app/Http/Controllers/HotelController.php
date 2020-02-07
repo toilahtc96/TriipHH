@@ -22,16 +22,18 @@ class HotelController extends Controller
         $hotels = Hotel::select('hotels.*', 'location_name')
             ->leftJoin('locations', 'locations.id', '=', 'hotels.address_id')
             ->sortable()->paginate(5);
-            // dd($hotels);
+        // dd($hotels);
         // $hotels->setBaseUrl('custom/url');
         foreach ($hotels as $key => $val) {
             $val->service_included = str_replace(";", "\n", $val->service_included);
             $val->service_included = str_replace(".", ". ", $val->service_included);
-            $val->place_around = $this->getListLocationName($val->place_around);
+            if ($val->place_around != "") {
+                $val->place_around = $this->getListLocationName($val->place_around);
+            }
         }
         // dd($hotels);
-        return view('admin/hotel/list-hotel')->with('hotels', $hotels)->with('table_name','hotels')
-        ->with('url_link','hotels');
+        return view('admin/hotel/list-hotel')->with('hotels', $hotels)->with('table_name', 'hotels')
+            ->with('url_link', 'hotels');
     }
 
 
@@ -44,7 +46,7 @@ class HotelController extends Controller
     {
         //
         $locations = $this->getListLocationForCBB();
-        return view('admin/hotel/new-hotel')->with('locations', $locations)->with('url_link','hotels');
+        return view('admin/hotel/new-hotel')->with('locations', $locations)->with('url_link', 'hotels');
     }
 
     /**
@@ -103,7 +105,7 @@ class HotelController extends Controller
 
         $hotel->save();
         // Session::flash('success', 'The hotel post was successfully saved!');
-        return redirect()->route('hotels.view')->with('url_link','hotels');
+        return redirect()->route('hotels.view')->with('url_link', 'hotels');
     }
 
     /**
@@ -133,7 +135,7 @@ class HotelController extends Controller
         $hotel->image_root_folder = "hotels";
         $hotel->place_around =  explode(",", $hotel->place_around);
         return view('admin/hotel/edit-hotel')->with('hotel', $hotel)
-            ->with('locations', $locations)->with('error_code', 5)->with('url_link','hotels');
+            ->with('locations', $locations)->with('error_code', 5)->with('url_link', 'hotels');
     }
 
     /**
@@ -151,7 +153,7 @@ class HotelController extends Controller
         $validatedData = $request->validate([
             'hotel_name' => 'required|max:255',
             'service_included'  => 'required',
-            'slugs'=>'required'
+            'slugs' => 'required'
         ]);
         // // process the login
         // if ($validator->fails()) {
@@ -186,16 +188,20 @@ class HotelController extends Controller
             }
         }
         $place = "";
-        foreach ($hotel->place_around  as  $val) {
-            $place  .=  ',' .   $val;
+        if ($hotel->place_around != []) {
+            foreach ($hotel->place_around  as  $val) {
+                $place  .=  ',' .   $val;
+            }
+            $hotel->place_around = (substr($place, 1, strlen($place)));
+        } else {
+            $hotel->place_around = "";
         }
-        $hotel->place_around = (substr($place, 1, strlen($place)));
         $hotel->save();
 
         $request->session()->flash('status', 'Update Hotel ' . $hotel->hotel_name . ' Successful!');
         $request->session()->flash('modal_title', 'Successful!');
         $request->session()->flash('modal_content', 'Update Hotel Successful!');
-        return redirect('/admin/hotels')->with('url_link','hotels');
+        return redirect('/admin/hotels')->with('url_link', 'hotels');
     }
 
     /**

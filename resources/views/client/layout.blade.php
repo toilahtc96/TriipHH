@@ -12,6 +12,7 @@
 	<div class="gtco-loader"></div>
 
 	<div id="page">
+
 		@include('client.shared.menu')
 		@include('client.shared.header-banner')
 		@yield('content')
