@@ -2,7 +2,6 @@
 {{-- <script src="{!! asset('bower_components/client-view/js/jquery.min.js') !!}"></script> --}}
 
 
-<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/core.js"></script>
 <script src="{!! asset('client/js/jquery-3.3.1.min.js') !!}"></script>
 <!-- jQuery Easing -->
 <script src="{!! asset('bower_components/client-view/js/jquery.easing.1.3.js') !!}"></script>
