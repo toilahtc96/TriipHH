@@ -47,7 +47,8 @@
 <script src="{!! asset('client/js/jquery.fancybox.min.js') !!}"></script>
 <script src="{!! asset('client/js/main.js') !!}"></script>
 
-
+<script src="{!! asset('bower_components/bootstrap-offcanvas/dist/js/bootstrap.offcanvas.min.js') !!}"></script>
+<script src="{!! asset('bower_components/bootstrap-offcanvas/dist/js/bootstrap.offcanvas.js') !!}"></script>
 
 {{-- <script type='text/javascript' src='http://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js'></script> --}}
 <script src="{!! asset('unitegallery/dist/js/unitegallery.min.js') !!}"></script>

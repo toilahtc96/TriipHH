@@ -12,7 +12,7 @@
 	<div class="gtco-loader"></div>
 
 	<div id="page">
-
+		
 		@include('client.shared.menu')
 		@include('client.shared.header-banner')
 		@yield('content')
@@ -23,9 +23,11 @@
 		{{-- @include('client.shared.count-container') --}}
 		@include('client.shared.subscribe')
 		@include('client.shared.footer-info')
-		@include('client.shared.back-top')
-		@include('client.shared.script')
+		
+		
 	</div>
+	@include('client.shared.back-top')
+	@include('client.shared.script')
 </body>
 
 </html>
