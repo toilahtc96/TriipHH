@@ -2,7 +2,6 @@
 
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\DB;
-
 class BookStatusesTableSeeder extends Seeder
 {
     /**
@@ -22,6 +21,6 @@ class BookStatusesTableSeeder extends Seeder
             ['status' => 'Hết phòng', 'position' => 7],
             ['status' => 'Đã hủy', 'position' => 8],
             ['status' => 'Chờ tư vấn xe', 'position' => 9],
-        ]);
+            ]);
     }
 }
