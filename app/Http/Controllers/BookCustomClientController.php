@@ -39,7 +39,7 @@ class BookCustomClientController extends Controller
         //
         $bookCustom = new BookCustomTrip;
 
-        $bookCustom->fullname = $request->fullname;
+        $bookCustom->fullName = $request->fullname;
         $bookCustom->fb_link = $request->fbLink;
         $bookCustom->msisdn = $request->msisdn; 
         $bookCustom->start_date = $request->startDate;
