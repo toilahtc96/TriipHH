@@ -25,7 +25,7 @@ class BookCustomTripController extends Controller
         $bookstatuses = $this->getListBookStatusForCBB();
         $bookcustomtrips = BookCustomTrip::select(
             'book_custom_trips.*',
-            'locations.location_name',
+            // 'locations.location_name',
             'cars.own_car',
             'room_hotels.level',
             'combo_types.combo_type_name',
