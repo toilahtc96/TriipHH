@@ -221,7 +221,7 @@ class Controller extends BaseController
 
     public function getListPickupByCarForCBB($id)
     {
-        $pickupPlace = Car::select('start_pickup_location')->where('id', $id)->get(1);
+        $pickupPlace = Car::firstOrFail('id', $id);
         $place_passingArr = [];
 
         if (isset($pickupPlace[0])) {
