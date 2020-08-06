@@ -27,7 +27,7 @@ class BookComboController extends Controller
         $bookstatuses = $this->getListBookStatusForCBB();
         $bookcombos = BookCombo::select(
             'book_combos.*',
-            'locations.location_name',
+            // 'locations.location_name',
             // 'combo_trips.car_id',
             'cars.own_car',
             'cars.car_type',
@@ -35,7 +35,7 @@ class BookComboController extends Controller
             'combo_types.combo_type_name',
             'book_statuses.status'
         )
-            ->leftJoin('locations', 'locations.id', '=', 'book_combos.pickup_place_id')
+            // ->leftJoin('locations', 'locations.id', '=', 'book_combos.pickup_place_id')
             ->leftJoin('combo_types', 'combo_types.id', '=', 'book_combos.combo_type_id')
             ->leftJoin('combo_trips', 'combo_trips.id', '=', 'book_combos.combo_id')
             ->leftJoin('book_statuses', 'book_statuses.id', '=', 'book_combos.book_status_id')

@@ -25,13 +25,13 @@ class BookCustomTripController extends Controller
         $bookstatuses = $this->getListBookStatusForCBB();
         $bookcustomtrips = BookCustomTrip::select(
             'book_custom_trips.*',
-            'locations.location_name',
+            // 'locations.location_name',
             'cars.own_car',
             'room_hotels.level',
             'combo_types.combo_type_name',
             'book_statuses.status'
         )
-            ->leftJoin('locations', 'locations.id', '=', 'book_custom_trips.pickup_place_id')
+            // ->leftJoin('locations', 'locations.id', '=', 'book_custom_trips.pickup_place_id')
             ->leftJoin('cars', 'cars.id', '=', 'book_custom_trips.car_id')
             ->leftJoin('room_hotels', 'room_hotels.id', '=', 'book_custom_trips.room_id')
             ->leftJoin('combo_types', 'combo_types.id', '=', 'book_custom_trips.combo_type_id')
